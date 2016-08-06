@@ -12,3 +12,6 @@ optional-dependencies:
   - libstub
   - callbackhandler
   - herebedragons
+
+ignore:
+  - README.md
