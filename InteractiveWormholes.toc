@@ -3,12 +3,12 @@
 ## Version: @project-version@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when using engineering wormholes
-## OptionalDeps: LibStub, CallbackHandler-1.0, HereBeDragons-1.0
+## OptionalDeps: HereBeDragons-1.0
 
-libs/LibStub/LibStub.lua
-libs/CallbackHandler-1.0/CallbackHandler-1.0/CallbackHandler-1.0.lua
-libs/HereBeDragons-1.0/HereBeDragons-1.0.lua
-libs/HereBeDragons-1.0/HereBeDragons-Pins-1.0.lua
+HereBeDragons-1.0/LibStub/LibStub.lua
+HereBeDragons-1.0/CallbackHandler-1.0/CallbackHandler-1.0.lua
+HereBeDragons-1.0/HereBeDragons-1.0.lua
+HereBeDragons-1.0/HereBeDragons-Pins-1.0.lua
 
 Localization.lua
 InteractiveWormholes.lua

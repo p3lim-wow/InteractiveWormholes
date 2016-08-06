@@ -1,16 +1,9 @@
 package-as: InteractiveWormholes
 
 externals:
-  libs/LibStub:
-    url: git://github.com/wowace-mirror/LibStub
-  libs/CallbackHandler-1.0:
-    url: git://github.com/wowace-mirror/CallbackHandler-1.0
-  libs/HereBeDragons-1.0:
-    url: git://git.wowace.com/wow/herebedragons/mainline.git
+  HereBeDragons-1.0: git://git.wowace.com/wow/herebedragons/mainline.git
 
 optional-dependencies:
-  - libstub
-  - callbackhandler
   - herebedragons
 
 manual-changelog:
