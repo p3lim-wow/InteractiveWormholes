@@ -1,6 +1,6 @@
 ## Interface: 70000
 ## Author: p3lim
-## Version: Alpha
+## Version: @project-version@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when using engineering wormholes
 ## OptionalDeps: LibStub, CallbackHandler-1.0, HereBeDragons-1.0
