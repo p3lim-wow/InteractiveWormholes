@@ -9,6 +9,13 @@ When using engineering wormholes such as [Wormhole Generator: Northrend](//wowhe
 
 Instead of that, *Interactive Wormholes* displays these destinations as clickable portals on your world map.
 
+
+## Translating
+
+If you'd like to help translate this project, please follow this link:  
+<https://wow.curseforge.com/addons/interactivewormholes/localization/>
+
+
 ## Feedback
 
 If you have a question, please use the comments section on Curse/WoWInterface.  
