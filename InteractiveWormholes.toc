@@ -10,4 +10,5 @@ libs/CallbackHandler-1.0/CallbackHandler-1.0/CallbackHandler-1.0.lua
 libs/HereBeDragons-1.0/HereBeDragons-1.0.lua
 libs/HereBeDragons-1.0/HereBeDragons-Pins-1.0.lua
 
+Localization.lua
 InteractiveWormholes.lua

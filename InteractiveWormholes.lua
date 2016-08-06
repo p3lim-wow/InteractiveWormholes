@@ -1,3 +1,5 @@
+local _, L = ...
+
 local HBD = LibStub('HereBeDragons-1.0')
 local HBDP = LibStub('HereBeDragons-Pins-1.0')
 
@@ -29,12 +31,12 @@ end
 local function MarkerEnter(self)
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	WorldMapTooltip:AddLine(self.name)
-	WorldMapTooltip:AddLine('Click to teleport', 1, 1, 1)
+	WorldMapTooltip:AddLine(L['Click to teleport'], 1, 1, 1)
 
 	if(self.inaccurate) then
-		WorldMapTooltip:AddLine('\nYou will end up in one of multiple locations within this zone.', 1, 0, 0, true)
+		WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone.'], 1, 0, 0, true)
 	else
-		WorldMapTooltip:AddLine('\nThis is an accurate wormhole!', 0, 1, 0, true)
+		WorldMapTooltip:AddLine('\n' .. L['This is an accurate wormhole!'], 0, 1, 0, true)
 	end
 
 	WorldMapTooltip:Show()
