@@ -1,0 +1,9 @@
+[submodule "LibStub"]
+	path = libs/LibStub
+	url = git://github.com/wowace-mirror/LibStub
+[submodule "CallbackHandler-1.0"]
+	path = libs/CallbackHandler-1.0
+	url = git://github.com/wowace-mirror/CallbackHandler-1.0
+[submodule "HereBeDragons-1.0"]
+	path = libs/HereBeDragons-1.0
+	url = git://git.wowace.com/wow/herebedragons/mainline.git
