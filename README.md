@@ -1,11 +1,11 @@
 # Interactive Wormholes
 
 This is an addon for the popular MMORPG "World of Warcraft".
-It can be downloaded at [Curse](//mods.curse.com/addons/wow/interactivewormholes) or at WoWInterface.
+It can be downloaded at [Curse](//mods.curse.com/addons/wow/interactivewormholes) or at [WoWInterface](//wowinterface.com/downloads/info24119).
 
 ## Description
 
-When using engineering wormholes such as [Wormhole Generator: Northrend](//wowhead.com/item=48933) and [Wormhole Centrifuge](//wowhead.com/item=112059) you'd normally get a list of (sometimes) masked destinations.
+When using engineering wormholes such as [Wormhole Generator: Northrend](//wowhead.com/item=48933) and [Wormhole Centrifuge](//wowhead.com/item=112059) you'd normally get a list of (sometimes obfuscated) destinations.
 
 Instead of that, *Interactive Wormholes* displays these destinations as clickable portals on your world map.
 
