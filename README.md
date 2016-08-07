@@ -19,7 +19,7 @@ If you'd like to help translate this project, please follow this link:
 ## Feedback
 
 If you have a question, please use the comments section on Curse/WoWInterface.  
-If you would like to report a bug, please follow [this link](//github.com/p3lim-wow/InteractiveWormholes/blob/master/.github/CONTRIBUTING.md) to get started.
+If you would like to report a bug, please follow [this link](//github.com/p3lim-wow/InteractiveWormholes/issues?q=) to get started.
 
 ## Legal
 
