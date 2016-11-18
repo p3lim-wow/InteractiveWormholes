@@ -1,6 +1,6 @@
 # Interactive Wormholes
 
-This is an addon for the popular MMORPG "World of Warcraft".
+This is an addon for the popular MMORPG "World of Warcraft".  
 It can be downloaded at [Curse](//mods.curse.com/addons/wow/interactivewormholes) or at [WoWInterface](//wowinterface.com/downloads/info24119).
 
 ## Description
