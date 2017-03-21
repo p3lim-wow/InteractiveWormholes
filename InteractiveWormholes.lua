@@ -10,7 +10,9 @@ local wormholes = {
 		{zone = 493, x = 0.4921, y = 0.3962}, -- Sholozar Basin
 		{zone = 492, x = 0.6287, y = 0.2692}, -- Icecrown
 		{zone = 495, x = 0.4390, y = 0.2580}, -- Storm Peaks
+		accurate = true,
 		continent = 485,
+		atlas = 'MagePortalAlliance',
 	},
 	[81205] = { -- Wormhole Centrifuge
 		{zone = 948, x = 0.52, y = 0.33}, -- "A jagged landscape" (Spires of Arak)
@@ -21,6 +23,14 @@ local wormholes = {
 		{zone = 941, x = 0.59, y = 0.49}, -- "Lava and snow" (Frostfire Ridge)
 		inaccurate = true,
 		continent = 962,
+		atlas = 'MagePortalAlliance',
+	},
+	[108685] = { -- Vethir in Stormheim
+		{zone = 1017, x = 0.45, y = 0.77, name = L['Galebroken Path'], arrowOnly = true},
+		{zone = 1017, x = 0.43, y = 0.82, name = L['Thorignir Refuge'], arrowOnly = true},
+		{zone = 1017, x = 0.41, y = 0.80, name = L['Thorim\'s Peak'], arrowOnly = true},
+		{zone = 1017, x = 0.43, y = 0.67, name = L['Assault on Hrydshal'], atlas = 'ShipMissionIcon-Combat-Map', size = 40},
+		continent = 1017,
 	},
 }
 
@@ -29,17 +39,23 @@ local function MarkerClick(self)
 end
 
 local function MarkerEnter(self)
+	self.Texture:SetDesaturated(true)
+
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-	WorldMapTooltip:AddLine(self.name)
-	WorldMapTooltip:AddLine(L['Click to teleport'], 1, 1, 1)
+	WorldMapTooltip:AddLine(self.name or L['Click to travel'], 1, 1, 1)
 
 	if(self.inaccurate) then
 		WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone.'], 1, 0, 0, true)
-	else
+	elseif(self.accurate) then
 		WorldMapTooltip:AddLine('\n' .. L['This is an accurate wormhole!'], 0, 1, 0, true)
 	end
 
 	WorldMapTooltip:Show()
+end
+
+local function MarkerLeave(self)
+	self.Texture:SetDesaturated(false)
+	WorldMapUnit_OnLeave(self)
 end
 
 local function MarkerAnimation(self)
@@ -57,30 +73,49 @@ local function MarkerAnimation(self)
 	self:Play()
 end
 
+local function HideTexture(self)
+	self.Texture:ClearAllPoints()
+	self.Texture:SetPoint('BOTTOM', 0, self:GetHeight() / 3)
+	self.Texture:SetTexture([[Interface\Minimap\Minimap-DeadArrow]])
+	self.Texture:SetTexCoord(0, 1, 1, 0)
+	self.Arrow:Hide()
+end
+
+local function ShowTexture(self)
+	self.Texture:SetAllPoints()
+	self.Texture:SetAtlas(self.atlas)
+	self.Arrow:Show()
+end
+
 local markers = {}
-local function CreateMarker(index)
+local function CreateMarker(index, atlas, size)
 	if(markers[index]) then
 		return markers[index]
 	end
 
-	local _, width, height = GetAtlasInfo('MagePortalAlliance')
+	if(not size) then
+		size = select(2, GetAtlasInfo(atlas or 'MagePortalAlliance'))
+	end
 
 	local Marker = CreateFrame('Button', nil, WorldMapButton)
-	Marker:SetSize(width * 1.2, height * 1.2)
+	Marker:SetSize(size * 1.2, size * 1.2)
 	Marker:SetScript('OnClick', MarkerClick)
 	Marker:SetScript('OnEnter', MarkerEnter)
-	Marker:SetScript('OnLeave', WorldMapUnit_OnLeave)
+	Marker:SetScript('OnLeave', MarkerLeave)
 	Marker:SetID(index)
+	Marker.atlas = atlas or 'MagePortalAlliance'
 
 	local Texture = Marker:CreateTexture(nil, 'BACKGROUND')
 	Texture:SetAllPoints()
-	Texture:SetAtlas('MagePortalAlliance')
+	Texture:SetAtlas(atlas or 'MagePortalAlliance')
+	Marker.Texture = Texture
 
 	local Arrow = Marker:CreateTexture(nil, 'OVERLAY')
 	Arrow:SetPoint('BOTTOM', Marker, 'TOP')
-	Arrow:SetSize(width, height)
+	Arrow:SetSize(size, size)
 	Arrow:SetTexture([[Interface\Minimap\Minimap-DeadArrow]])
 	Arrow:SetTexCoord(0, 1, 1, 0)
+	Marker.Arrow = Arrow
 
 	local Animation = Arrow:CreateAnimationGroup()
 	Animation:SetScript('OnFinished', MarkerAnimation)
@@ -95,6 +130,9 @@ local function CreateMarker(index)
 	Animation.Bounce = Bounce
 	Animation:Play()
 
+	Marker.HideTexture = HideTexture
+	Marker.ShowTexture = ShowTexture
+
 	markers[index] = Marker
 	return Marker
 end
@@ -105,7 +143,12 @@ local Handler = CreateFrame('Frame')
 Handler:RegisterEvent('GOSSIP_SHOW')
 Handler:SetScript('OnEvent', function(self, event)
 	if(event == 'GOSSIP_SHOW') then
-		local npcID = tonumber(string.match(UnitGUID('npc') or '', 'Creature%-.-%-.-%-.-%-.-%-(.-)%-'))
+		if(IsShiftKeyDown()) then
+			-- For manual operation/debugging
+			return
+		end
+
+		local npcID = tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
 		local data = wormholes[npcID]
 		if(data) then
 			self:RegisterEvent('GOSSIP_CLOSED')
@@ -119,12 +162,18 @@ Handler:SetScript('OnEvent', function(self, event)
 
 			SetMapByID(data.continent)
 
-			for index = 1, #data, 1 do
+			for index = 1, GetNumGossipOptions() do
 				local location = data[index]
-				local Marker = CreateMarker(index)
+				local Marker = CreateMarker(index, location.atlas or data.atlas, location.size or data.size)
+				Marker.accurate = data.accurate
 				Marker.inaccurate = data.inaccurate
-				Marker.name = HBD:GetLocalizedMap(location.zone)
+				Marker.name = location.name or HBD:GetLocalizedMap(location.zone)
 
+				if(location.arrowOnly or data.arrowOnly) then
+					Marker:HideTexture()
+				else
+					Marker:ShowTexture()
+				end
 
 				HBDP:AddWorldMapIconMF(self, Marker, location.zone, 0, location.x, location.y)
 			end
