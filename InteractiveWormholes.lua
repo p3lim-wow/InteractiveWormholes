@@ -12,7 +12,6 @@ local wormholes = {
 		{zone = 495, x = 0.4390, y = 0.2580}, -- Storm Peaks
 		accurate = true,
 		continent = 485,
-		atlas = 'MagePortalAlliance',
 	},
 	[81205] = { -- Wormhole Centrifuge
 		{zone = 948, x = 0.52, y = 0.33}, -- "A jagged landscape" (Spires of Arak)
@@ -23,7 +22,6 @@ local wormholes = {
 		{zone = 941, x = 0.59, y = 0.49}, -- "Lava and snow" (Frostfire Ridge)
 		inaccurate = true,
 		continent = 962,
-		atlas = 'MagePortalAlliance',
 	},
 	[101462] = { -- Reaves (with Wormhole Generator module)
 		{zone = 1015, x = 0.47, y = 0.49}, -- Azsuna
@@ -33,14 +31,6 @@ local wormholes = {
 		{zone = 1033, x = 0.42, y = 0.67}, -- Suramar
 		inaccurate = true,
 		continent = 1007,
-		atlas = 'MagePortalAlliance',
-	},
-	[108685] = { -- Vethir in Stormheim
-		{zone = 1017, x = 0.45, y = 0.77, name = L['Galebroken Path'], arrowOnly = true},
-		{zone = 1017, x = 0.43, y = 0.82, name = L['Thorignir Refuge'], arrowOnly = true},
-		{zone = 1017, x = 0.41, y = 0.80, name = L['Thorim\'s Peak'], arrowOnly = true},
-		{zone = 1017, x = 0.43, y = 0.67, name = L['Cry More Thunder!'], atlas = 'ShipMissionIcon-Combat-Map', size = 40},
-		continent = 1017,
 	},
 }
 
@@ -53,7 +43,8 @@ local function MarkerClick(self)
 end
 
 local function MarkerEnter(self)
-	self.Texture:SetDesaturated(true)
+	self.Texture:Hide()
+	self.Highlight:Show()
 
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	WorldMapTooltip:AddLine(self.name or L['Click to travel'], 1, 1, 1)
@@ -68,7 +59,9 @@ local function MarkerEnter(self)
 end
 
 local function MarkerLeave(self)
-	self.Texture:SetDesaturated(false)
+	self.Texture:Show()
+	self.Highlight:Hide()
+
 	WorldMapUnit_OnLeave(self)
 end
 
@@ -87,46 +80,28 @@ local function MarkerAnimation(self)
 	self:Play()
 end
 
-local function HideTexture(self)
-	self.Texture:ClearAllPoints()
-	self.Texture:SetPoint('BOTTOM', 0, self:GetHeight() / 3)
-	self.Texture:SetTexture([[Interface\Minimap\Minimap-DeadArrow]])
-	self.Texture:SetTexCoord(0, 1, 1, 0)
-	self.Arrow:Hide()
-end
-
-local function ShowTexture(self)
-	self.Texture:SetAllPoints()
-	self.Texture:SetAtlas(self.atlas)
-	self.Arrow:Show()
-end
-
 local markers = {}
-local function CreateMarker(index, atlas, size)
+local function CreateMarker(index)
 	if(markers[index]) then
 		return markers[index]
 	end
 
-	if(not size) then
-		size = select(2, GetAtlasInfo(atlas or 'MagePortalAlliance'))
-	end
-
 	local Marker = CreateFrame('Button', nil, Overlay)
-	Marker:SetSize(size * 1.2, size * 1.2)
 	Marker:SetScript('OnClick', MarkerClick)
 	Marker:SetScript('OnEnter', MarkerEnter)
 	Marker:SetScript('OnLeave', MarkerLeave)
 	Marker:SetID(index)
-	Marker.atlas = atlas or 'MagePortalAlliance'
 
 	local Texture = Marker:CreateTexture(nil, 'BACKGROUND')
 	Texture:SetAllPoints()
-	Texture:SetAtlas(atlas or 'MagePortalAlliance')
 	Marker.Texture = Texture
+
+	local Highlight = Marker:CreateTexture(nil, 'BACKGROUND')
+	Highlight:SetAllPoints()
+	Marker.Highlight = Highlight
 
 	local Arrow = Marker:CreateTexture(nil, 'OVERLAY')
 	Arrow:SetPoint('BOTTOM', Marker, 'TOP')
-	Arrow:SetSize(size, size)
 	Arrow:SetTexture([[Interface\Minimap\Minimap-DeadArrow]])
 	Arrow:SetTexCoord(0, 1, 1, 0)
 	Marker.Arrow = Arrow
@@ -144,16 +119,30 @@ local function CreateMarker(index, atlas, size)
 	Animation.Bounce = Bounce
 	Animation:Play()
 
-	Marker.HideTexture = HideTexture
-	Marker.ShowTexture = ShowTexture
-
 	markers[index] = Marker
 	return Marker
 end
 
-local gossipHide = GossipFrame:GetScript('OnHide')
-local reavesPage = 0
+function Overlay:SetMarker(index, atlas, highlightAtlas, size)
+	if(not size) then
+		size = select(2, GetAtlasInfo(atlas))
+	end
 
+	local Marker = CreateMarker(index)
+	-- Marker:SetSize(size * 1.2, size * 1.2)
+	Marker:SetSize(size, size)
+	Marker.Arrow:SetSize(size, size)
+
+	Marker.Texture:SetAtlas(atlas)
+	Marker.Texture:Show()
+
+	Marker.Highlight:SetAtlas(highlightAtlas)
+	Marker.Highlight:Hide()
+
+	return Marker
+end
+
+local reavesPage = 0
 Overlay:RegisterEvent('GOSSIP_SHOW')
 Overlay:SetScript('OnEvent', function(self, event)
 	if(event == 'GOSSIP_SHOW') then
@@ -176,47 +165,49 @@ Overlay:SetScript('OnEvent', function(self, event)
 
 		local data = wormholes[npcID]
 		if(data) then
-			self:RegisterEvent('GOSSIP_CLOSED')
-			GossipFrame:UnregisterEvent('GOSSIP_CLOSED')
-			GossipFrame:SetScript('OnHide', nil)
-			HideUIPanel(GossipFrame)
-
-			if(not WorldMapFrame:IsShown()) then
-				ToggleWorldMap()
-			end
-
-			SetMapByID(data.continent)
+			self:Enable(data.continent)
 
 			for index = 1, GetNumGossipOptions() do
 				local location = data[index]
-				local Marker = CreateMarker(index, location.atlas or data.atlas, location.size or data.size)
+				local Marker = self:SetMarker(index, 'MagePortalAlliance', 'MagePortalHorde')
+				Marker.name = HBD:GetLocalizedMap(location.zone)
 				Marker.accurate = data.accurate
 				Marker.inaccurate = data.inaccurate
-				Marker.name = location.name or HBD:GetLocalizedMap(location.zone)
-
-				if(location.arrowOnly or data.arrowOnly) then
-					Marker:HideTexture()
-				else
-					Marker:ShowTexture()
-				end
 
 				HBDP:AddWorldMapIconMF(self, Marker, location.zone, 0, location.x, location.y)
 			end
 		end
 	else
-		self:UnregisterEvent(event)
-		GossipFrame:RegisterEvent(event)
-		GossipFrame:SetScript('OnHide', gossipHide)
-
-		if(WorldMapFrame:IsShown()) then
-			ToggleWorldMap()
-		end
-
+		self:Disable()
 		HBDP:RemoveAllWorldMapIcons(self)
 
 		reavesPage = 0
 	end
 end)
+
+function Overlay:Enable(continent)
+	self:RegisterEvent('GOSSIP_CLOSED')
+	GossipFrame:UnregisterEvent('GOSSIP_CLOSED')
+	GossipFrame:SetScript('OnHide', nil)
+	HideUIPanel(GossipFrame)
+
+	if(not WorldMapFrame:IsShown()) then
+		ToggleWorldMap()
+	end
+
+	SetMapByID(continent)
+end
+
+local gossipHide = GossipFrame:GetScript('OnHide')
+function Overlay:Disable()
+	self:UnregisterEvent('GOSSIP_CLOSED')
+	GossipFrame:RegisterEvent('GOSSIP_CLOSED')
+	GossipFrame:SetScript('OnHide', gossipHide)
+
+	if(WorldMapFrame:IsShown()) then
+		ToggleWorldMap()
+	end
+end
 
 WorldMapFrame:HookScript('OnHide', function()
 	if(Overlay:IsEventRegistered('GOSSIP_CLOSED')) then
