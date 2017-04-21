@@ -29,7 +29,7 @@ local wormholes = {
 		{zone = 1017, x = 0.45, y = 0.77, name = L['Galebroken Path'], arrowOnly = true},
 		{zone = 1017, x = 0.43, y = 0.82, name = L['Thorignir Refuge'], arrowOnly = true},
 		{zone = 1017, x = 0.41, y = 0.80, name = L['Thorim\'s Peak'], arrowOnly = true},
-		{zone = 1017, x = 0.43, y = 0.67, name = L['Assault on Hrydshal'], atlas = 'ShipMissionIcon-Combat-Map', size = 40},
+		{zone = 1017, x = 0.43, y = 0.67, name = L['Cry More Thunder!'], atlas = 'ShipMissionIcon-Combat-Map', size = 40},
 		continent = 1017,
 	},
 }
