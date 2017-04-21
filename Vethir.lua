@@ -10,11 +10,17 @@ local destinations = {
 }
 
 local Overlay = _G[addonName .. 'MapFrame']
+local Player = CreateFrame('Frame', nil, Overlay)
+Player:SetSize(1, 1)
+
 Overlay:HookScript('OnEvent', function(self, event)
 	if(event == 'GOSSIP_SHOW') then
 		local npcID = tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
 		if(npcID == 108685) then
 			self:Enable(1017)
+
+			local x, y = GetPlayerMapPosition('player')
+			HBDP:AddWorldMapIconMF(self, Player, 1017, 0, x, y)
 
 			for index = 1, GetNumGossipOptions() do
 				local location = destinations[index]
@@ -34,6 +40,7 @@ Overlay:HookScript('OnEvent', function(self, event)
 				Marker.name = location.name
 				Marker.accucate = nil
 				Marker.inaccurate = nil
+				Marker.vector = index ~= 4 and Player
 
 				HBDP:AddWorldMapIconMF(self, Marker, 1017, 0, location.x, location.y)
 			end

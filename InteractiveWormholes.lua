@@ -38,6 +38,11 @@ local Overlay = CreateFrame('Frame', addonName .. 'MapFrame', WorldMapButton)
 Overlay:SetAllPoints()
 Overlay:SetFrameLevel(2000)
 
+local Line = Overlay:CreateLine(nil, 'Overlay')
+Line:SetNonBlocking(true)
+Line:SetAtlas('_UI-Taxi-Line-horizontal')
+Line:SetThickness(32)
+
 local function MarkerClick(self)
 	SelectGossipOption(self:GetID())
 end
@@ -45,6 +50,14 @@ end
 local function MarkerEnter(self)
 	self.Texture:Hide()
 	self.Highlight:Show()
+
+	if(self.vector) then
+		Line:SetStartPoint('CENTER', self.vector)
+		Line:SetEndPoint('CENTER', self)
+		Line:Show()
+	else
+		Line:Hide()
+	end
 
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	WorldMapTooltip:AddLine(self.name or L['Click to travel'], 1, 1, 1)
@@ -61,6 +74,8 @@ end
 local function MarkerLeave(self)
 	self.Texture:Show()
 	self.Highlight:Hide()
+
+	Line:Hide()
 
 	WorldMapUnit_OnLeave(self)
 end
@@ -173,6 +188,7 @@ Overlay:SetScript('OnEvent', function(self, event)
 				Marker.name = HBD:GetLocalizedMap(location.zone)
 				Marker.accurate = data.accurate
 				Marker.inaccurate = data.inaccurate
+				Marker.vector = nil
 
 				HBDP:AddWorldMapIconMF(self, Marker, location.zone, 0, location.x, location.y)
 			end
