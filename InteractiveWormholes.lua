@@ -25,6 +25,16 @@ local wormholes = {
 		continent = 962,
 		atlas = 'MagePortalAlliance',
 	},
+	[101462] = { -- Reaves (with Wormhole Generator module)
+		{zone = 1015, x = 0.47, y = 0.49}, -- Azsuna
+		{zone = 1018, x = 0.56, y = 0.66}, -- Val'sharah
+		{zone = 1024, x = 0.45, y = 0.56}, -- Highmountain
+		{zone = 1017, x = 0.53, y = 0.53}, -- Stormheim
+		{zone = 1033, x = 0.42, y = 0.67}, -- Suramar
+		inaccurate = true,
+		continent = 1007,
+		atlas = 'MagePortalAlliance',
+	},
 	[108685] = { -- Vethir in Stormheim
 		{zone = 1017, x = 0.45, y = 0.77, name = L['Galebroken Path'], arrowOnly = true},
 		{zone = 1017, x = 0.43, y = 0.82, name = L['Thorignir Refuge'], arrowOnly = true},
@@ -138,6 +148,7 @@ local function CreateMarker(index, atlas, size)
 end
 
 local gossipHide = GossipFrame:GetScript('OnHide')
+local reavesPage = 0
 
 local Handler = CreateFrame('Frame')
 Handler:RegisterEvent('GOSSIP_SHOW')
@@ -149,6 +160,17 @@ Handler:SetScript('OnEvent', function(self, event)
 		end
 
 		local npcID = tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
+		if(npcID == 101462) then
+			-- Reaves needs special handling, since the wormholes are under a
+			-- sub-dialogue.
+			self:RegisterEvent('GOSSIP_CLOSED')
+
+			reavesPage = reavesPage + 1
+			if(reavesPage < 2) then
+				return
+			end
+		end
+
 		local data = wormholes[npcID]
 		if(data) then
 			self:RegisterEvent('GOSSIP_CLOSED')
@@ -188,6 +210,8 @@ Handler:SetScript('OnEvent', function(self, event)
 		end
 
 		HBDP:RemoveAllWorldMapIcons(self)
+
+		reavesPage = 0
 	end
 end)
 
