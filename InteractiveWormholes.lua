@@ -1,4 +1,4 @@
-local _, L = ...
+local addonName, L = ...
 
 local HBD = LibStub('HereBeDragons-1.0')
 local HBDP = LibStub('HereBeDragons-Pins-1.0')
@@ -43,6 +43,10 @@ local wormholes = {
 		continent = 1017,
 	},
 }
+
+local Overlay = CreateFrame('Frame', addonName .. 'MapFrame', WorldMapButton)
+Overlay:SetAllPoints()
+Overlay:SetFrameLevel(2000)
 
 local function MarkerClick(self)
 	SelectGossipOption(self:GetID())
@@ -107,7 +111,7 @@ local function CreateMarker(index, atlas, size)
 		size = select(2, GetAtlasInfo(atlas or 'MagePortalAlliance'))
 	end
 
-	local Marker = CreateFrame('Button', nil, WorldMapButton)
+	local Marker = CreateFrame('Button', nil, Overlay)
 	Marker:SetSize(size * 1.2, size * 1.2)
 	Marker:SetScript('OnClick', MarkerClick)
 	Marker:SetScript('OnEnter', MarkerEnter)
@@ -150,9 +154,8 @@ end
 local gossipHide = GossipFrame:GetScript('OnHide')
 local reavesPage = 0
 
-local Handler = CreateFrame('Frame')
-Handler:RegisterEvent('GOSSIP_SHOW')
-Handler:SetScript('OnEvent', function(self, event)
+Overlay:RegisterEvent('GOSSIP_SHOW')
+Overlay:SetScript('OnEvent', function(self, event)
 	if(event == 'GOSSIP_SHOW') then
 		if(IsShiftKeyDown()) then
 			-- For manual operation/debugging
@@ -216,7 +219,7 @@ Handler:SetScript('OnEvent', function(self, event)
 end)
 
 WorldMapFrame:HookScript('OnHide', function()
-	if(Handler:IsEventRegistered('GOSSIP_CLOSED')) then
+	if(Overlay:IsEventRegistered('GOSSIP_CLOSED')) then
 		CloseGossip()
 	end
 end)
