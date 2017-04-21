@@ -1,5 +1,7 @@
 package-as: InteractiveWormholes
 
+enable-nolib-creation: no
+
 externals:
   HereBeDragons-1.0: git://git.wowace.com/wow/herebedragons/mainline.git
 
