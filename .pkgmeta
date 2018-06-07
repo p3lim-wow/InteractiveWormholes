@@ -3,7 +3,9 @@ package-as: InteractiveWormholes
 enable-nolib-creation: no
 
 externals:
-  HereBeDragons-1.0: git://git.wowace.com/wow/herebedragons/mainline.git
+  libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
+  libs/CallbackHandler-1.0: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
+  libs/HereBeDragons: https://github.com/Nevcairiel/HereBeDragons # wait for tag on 2.0
 
 optional-dependencies:
   - herebedragons
@@ -14,3 +16,4 @@ manual-changelog:
 
 ignore:
   - README.md
+  - utils
