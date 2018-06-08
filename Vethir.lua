@@ -1,49 +1,39 @@
-local addonName, L = ...
+local addonName, ns = ...
+local L = ns.L
 
-local HBDP = LibStub('HereBeDragons-Pins-1.0')
+local HBDP = LibStub('HereBeDragons-Pins-2.0')
 
+local STORMHEIM = 634
 local destinations = {
-	{x = 0.45, y = 0.77, name = L['Galebroken Path']},
-	{x = 0.43, y = 0.82, name = L['Thorignir Refuge']},
-	{x = 0.41, y = 0.80, name = L['Thorim\'s Peak']},
-	{x = 0.43, y = 0.67, name = L['Cry More Thunder!']},
+	{x = 0.45, y = 0.77, name = L['Galebroken Path'], natlas = 'Taxi_Frame_Gray', hatlas = 'Taxi_Frame_Yellow', size = 24},
+	{x = 0.43, y = 0.82, name = L['Thorignir Refuge'], natlas = 'Taxi_Frame_Gray', hatlas = 'Taxi_Frame_Yellow', size = 24},
+	{x = 0.41, y = 0.80, name = L['Thorim\'s Peak'], natlas = 'Taxi_Frame_Gray', hatlas = 'Taxi_Frame_Yellow', size = 24},
+	{x = 0.43, y = 0.67, name = L['Cry More Thunder!'], natlas = 'ShipMissionIcon-Combat-Map', hatlas = 'ShipMissionIcon-Combat-Map', size = 40},
 }
 
-local Overlay = _G[addonName .. 'MapFrame']
-local Player = CreateFrame('Frame', nil, Overlay)
-Player:SetSize(1, 1)
+local PlayerMarker = CreateFrame('Frame')
+PlayerMarker:SetSize(1, 1)
 
-Overlay:HookScript('OnEvent', function(self, event)
-	if(event == 'GOSSIP_SHOW') then
-		local npcID = tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
-		if(npcID == 108685) then
-			self:Enable(1017)
+hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
+	local npcID = self:GetNPCID()
+	if(npcID == 108685) then
+		self:Enable(STORMHEIM)
 
-			local x, y = GetPlayerMapPosition('player')
-			HBDP:AddWorldMapIconMF(self, Player, 1017, 0, x, y)
+		local x, y = C_Map.GetPlayerMapPosition(STORMHEIM, 'player'):GetXY()
+		HBDP:AddWorldMapIconMap(self, PlayerMarker, STORMHEIM, x, y)
 
-			for index = 1, GetNumGossipOptions() do
-				local location = destinations[index]
+		for index = 1, GetNumGossipOptions() do
+			local loc = destinations[index]
 
-				local atlas, highlightAtlas, size
-				if(index == 4) then
-					atlas = 'ShipMissionIcon-Combat-Map'
-					highlightAtlas = atlas
-					size = 40
-				else
-					atlas = 'Taxi_Frame_Gray'
-					highlightAtlas = 'Taxi_Frame_Yellow'
-					size = 24
-				end
+			local Marker = self:GetMarker()
+			Marker:SetID(index)
+			Marker:SetNormalAtlas(loc.natlas)
+			Marker:SetHighlightAtlas(loc.hatlas)
+			Marker:SetSize(loc.size)
+			Marker:SetName(loc.name)
+			Marker:SetSource(index ~= 4 and PlayerMarker)
 
-				local Marker = self:SetMarker(index, atlas, highlightAtlas, size)
-				Marker.name = location.name
-				Marker.accucate = nil
-				Marker.inaccurate = nil
-				Marker.vector = index ~= 4 and Player
-
-				HBDP:AddWorldMapIconMF(self, Marker, 1017, 0, location.x, location.y)
-			end
+			HBDP:AddWorldMapIconMap(self, Marker, STORMHEIM, loc.x, loc.y)
 		end
 	end
 end)

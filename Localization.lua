@@ -1,4 +1,5 @@
-local _, L = ...
+local _, ns = ...
+local L = {}
 
 setmetatable(L, {__index = function(L, key)
 	local value = tostring(key)
@@ -28,3 +29,5 @@ elseif(locale == 'zhCN') then
 elseif(locale == 'zhTW') then
 	--@localization(locale="zhTW", format="lua_additive_table")@
 end
+
+ns.L = L

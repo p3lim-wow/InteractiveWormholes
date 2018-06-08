@@ -1,44 +1,42 @@
-local addonName, L = ...
+local addonName, ns = ...
+local L = ns.L
 
-local HBD = LibStub('HereBeDragons-1.0')
-local HBDP = LibStub('HereBeDragons-Pins-1.0')
+local HBD = LibStub('HereBeDragons-2.0')
+local HBDP = LibStub('HereBeDragons-Pins-2.0')
 
 local wormholes = {
 	[35646] = { -- Wormhole Generator: Northrend
-		{zone = 486, x = 0.5178, y = 0.4503}, -- Borean Tundra
-		{zone = 491, x = 0.5853, y = 0.4863}, -- Howling Fjord
-		{zone = 493, x = 0.4921, y = 0.3962}, -- Sholozar Basin
-		{zone = 492, x = 0.6287, y = 0.2692}, -- Icecrown
-		{zone = 495, x = 0.4390, y = 0.2580}, -- Storm Peaks
+		{zone = 114, x = 0.5178, y = 0.4503}, -- Borean Tundra
+		{zone = 117, x = 0.5853, y = 0.4863}, -- Howling Fjord
+		{zone = 119, x = 0.4921, y = 0.3962}, -- Sholozar Basin
+		{zone = 118, x = 0.6287, y = 0.2692}, -- Icecrown
+		{zone = 120, x = 0.4390, y = 0.2580}, -- Storm Peaks
 		accurate = true,
-		continent = 485,
+		continent = 113, -- Northrend
 	},
 	[81205] = { -- Wormhole Centrifuge
-		{zone = 948, x = 0.52, y = 0.33}, -- "A jagged landscape" (Spires of Arak)
-		{zone = 946, x = 0.58, y = 0.65}, -- "A reddish-orange forest" (Talador)
-		{zone = 947, x = 0.49, y = 0.52}, -- "Shadows..." (Shadowmoon Valley)
-		{zone = 950, x = 0.73, y = 0.54}, -- "Grassy plains" (Nagrand)
-		{zone = 949, x = 0.53, y = 0.61}, -- "Primal forest" (Gorgrond)
-		{zone = 941, x = 0.59, y = 0.49}, -- "Lava and snow" (Frostfire Ridge)
-		inaccurate = true,
-		continent = 962,
+		{zone = 542, x = 0.52, y = 0.33}, -- "A jagged landscape" (Spires of Arak)
+		{zone = 535, x = 0.58, y = 0.65}, -- "A reddish-orange forest" (Talador)
+		{zone = 539, x = 0.49, y = 0.52}, -- "Shadows..." (Shadowmoon Valley)
+		{zone = 552, x = 0.73, y = 0.54}, -- "Grassy plains" (Nagrand)
+		{zone = 543, x = 0.53, y = 0.61}, -- "Primal forest" (Gorgrond)
+		{zone = 525, x = 0.59, y = 0.49}, -- "Lava and snow" (Frostfire Ridge)
+		accurate = false,
+		continent = 572, -- Draenor
 	},
 	[101462] = { -- Reaves (with Wormhole Generator module)
-		{zone = 1015, x = 0.47, y = 0.49}, -- Azsuna
-		{zone = 1018, x = 0.56, y = 0.66}, -- Val'sharah
-		{zone = 1024, x = 0.45, y = 0.56}, -- Highmountain
-		{zone = 1017, x = 0.53, y = 0.53}, -- Stormheim
-		{zone = 1033, x = 0.42, y = 0.67}, -- Suramar
-		inaccurate = true,
-		continent = 1007,
+		{zone = 630, x = 0.47, y = 0.49}, -- Azsuna
+		{zone = 641, x = 0.56, y = 0.66}, -- Val'sharah
+		{zone = 650, x = 0.45, y = 0.56}, -- Highmountain
+		{zone = 634, x = 0.53, y = 0.53}, -- Stormheim
+		{zone = 680, x = 0.42, y = 0.67}, -- Suramar
+		accurate = false,
+		continent = 619, -- Broken Isles
 	},
 }
 
-local Overlay = CreateFrame('Frame', addonName .. 'MapFrame', WorldMapButton)
-Overlay:SetAllPoints()
-Overlay:SetFrameLevel(2000)
-
-local Line = Overlay:CreateLine(nil, 'Overlay')
+local Handler = CreateFrame('Frame')
+local Line = Handler:CreateLine(nil, 'OVERLAY')
 Line:SetNonBlocking(true)
 Line:SetAtlas('_UI-Taxi-Line-horizontal')
 Line:SetThickness(32)
@@ -48,70 +46,79 @@ local function MarkerClick(self)
 end
 
 local function MarkerEnter(self)
-	self.Texture:Hide()
-	self.Highlight:Show()
-
-	if(self.vector) then
-		Line:SetStartPoint('CENTER', self.vector)
+	if(self.source) then
+		Line:SetParent(self)
+		Line:SetStartPoint('CENTER', self.source)
 		Line:SetEndPoint('CENTER', self)
 		Line:Show()
-	else
-		Line:Hide()
 	end
 
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	WorldMapTooltip:AddLine(self.name or L['Click to travel'], 1, 1, 1)
 
-	if(self.inaccurate) then
-		WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone.'], 1, 0, 0, true)
-	elseif(self.accurate) then
-		WorldMapTooltip:AddLine('\n' .. L['This is an accurate wormhole!'], 0, 1, 0, true)
+	if(self.accuracy ~= nil) then
+		if(self.accuracy) then
+			WorldMapTooltip:AddLine('\n' .. L['This is an accurate wormhole!'], 0, 1, 0, true)
+		else
+			WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone.'], 1, 0, 0, true)
+		end
 	end
 
 	WorldMapTooltip:Show()
 end
 
-local function MarkerLeave(self)
-	self.Texture:Show()
-	self.Highlight:Hide()
-
+local function MarkerLeave()
 	Line:Hide()
-
-	WorldMapUnit_OnLeave(self)
+	WorldMapTooltip:Hide()
 end
 
 local function MarkerAnimation(self)
 	self.up = not self.up
 
-	if(self.up) then
-		self.Arrow:SetPoint('BOTTOM', self.Marker, 'TOP', 0, 10)
-		self.Bounce:SetSmoothing('OUT')
-	else
-		self.Arrow:SetPoint('BOTTOM', self.Marker, 'TOP', 0, 0)
-		self.Bounce:SetSmoothing('IN')
-	end
-
+	self.Arrow:SetPoint('BOTTOM', self.Marker, 'TOP', 0, self.up and 10 or 0)
+	self.Bounce:SetSmoothing(self.up and 'OUT' or 'IN')
 	self.Bounce:SetOffset(0, self.up and -10 or 10)
 	self:Play()
 end
 
-local markers = {}
-local function CreateMarker(index)
-	if(markers[index]) then
-		return markers[index]
-	end
+local markerMixin = {}
+function markerMixin:SetNormalAtlas(atlas)
+	self.Texture:SetAtlas(atlas)
+end
 
-	local Marker = CreateFrame('Button', nil, Overlay)
+function markerMixin:SetHighlightAtlas(atlas)
+	self.Highlight:SetAtlas(atlas)
+end
+
+function markerMixin:SetSize(size)
+	self:SetWidth(size)
+	self:SetHeight(size)
+	self.Arrow:SetSize(size, size)
+end
+
+function markerMixin:SetName(name)
+	self.name = name
+end
+
+function markerMixin:SetAccuracy(accuracy)
+	self.accuracy = accuracy
+end
+
+function markerMixin:SetSource(marker)
+	self.source = marker
+end
+
+local function CreateMarker()
+	local Marker = CreateFrame('Button')
 	Marker:SetScript('OnClick', MarkerClick)
 	Marker:SetScript('OnEnter', MarkerEnter)
 	Marker:SetScript('OnLeave', MarkerLeave)
-	Marker:SetID(index)
 
 	local Texture = Marker:CreateTexture(nil, 'BACKGROUND')
 	Texture:SetAllPoints()
 	Marker.Texture = Texture
 
-	local Highlight = Marker:CreateTexture(nil, 'BACKGROUND')
+	local Highlight = Marker:CreateTexture(nil, 'HIGHLIGHT')
 	Highlight:SetAllPoints()
 	Marker.Highlight = Highlight
 
@@ -126,7 +133,7 @@ local function CreateMarker(index)
 
 	local Bounce = Animation:CreateAnimation('Translation')
 	Bounce:SetOffset(0, 10)
-	Bounce:SetDuration(1/2)
+	Bounce:SetDuration(0.5)
 	Bounce:SetSmoothing('IN')
 
 	Animation.Marker = Marker
@@ -134,88 +141,42 @@ local function CreateMarker(index)
 	Animation.Bounce = Bounce
 	Animation:Play()
 
-	markers[index] = Marker
+	Mixin(Marker, markerMixin)
 	return Marker
 end
 
-function Overlay:SetMarker(index, atlas, highlightAtlas, size)
-	if(not size) then
-		size = select(2, GetAtlasInfo(atlas))
-	end
-
-	local Marker = CreateMarker(index)
-	-- Marker:SetSize(size * 1.2, size * 1.2)
-	Marker:SetSize(size, size)
-	Marker.Arrow:SetSize(size, size)
-
-	Marker.Texture:SetAtlas(atlas)
-	Marker.Texture:Show()
-
-	Marker.Highlight:SetAtlas(highlightAtlas)
-	Marker.Highlight:Hide()
-
-	return Marker
+local function ResetMarker(_, Marker)
+	Marker:SetAccuracy()
+	Marker:SetSource()
+	Marker:SetName()
+	Marker:SetID(0)
 end
 
-local reavesPage = 0
-Overlay:RegisterEvent('GOSSIP_SHOW')
-Overlay:SetScript('OnEvent', function(self, event)
-	if(event == 'GOSSIP_SHOW') then
-		if(IsShiftKeyDown()) then
-			-- For manual operation/debugging
-			return
-		end
+local markerPool = CreateObjectPool(CreateMarker, ResetMarker)
 
-		local npcID = tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
-		if(npcID == 101462) then
-			-- Reaves needs special handling, since the wormholes are under a
-			-- sub-dialogue.
-			self:RegisterEvent('GOSSIP_CLOSED')
+function Handler:GetMarker()
+	return markerPool:Acquire()
+end
 
-			reavesPage = reavesPage + 1
-			if(reavesPage < 2) then
-				return
-			end
-		end
+function Handler:ReleaseMarkers()
+	markerPool:ReleaseAll()
+end
 
-		local data = wormholes[npcID]
-		if(data) then
-			self:Enable(data.continent)
-
-			for index = 1, GetNumGossipOptions() do
-				local location = data[index]
-				local Marker = self:SetMarker(index, 'MagePortalAlliance', 'MagePortalHorde')
-				Marker.name = HBD:GetLocalizedMap(location.zone)
-				Marker.accurate = data.accurate
-				Marker.inaccurate = data.inaccurate
-				Marker.vector = nil
-
-				HBDP:AddWorldMapIconMF(self, Marker, location.zone, 0, location.x, location.y)
-			end
-		end
-	else
-		self:Disable()
-		HBDP:RemoveAllWorldMapIcons(self)
-
-		reavesPage = 0
-	end
-end)
-
-function Overlay:Enable(continent)
+function Handler:Enable(mapID)
 	self:RegisterEvent('GOSSIP_CLOSED')
 	GossipFrame:UnregisterEvent('GOSSIP_CLOSED')
 	GossipFrame:SetScript('OnHide', nil)
-	HideUIPanel(GossipFrame)
 
 	if(not WorldMapFrame:IsShown()) then
 		ToggleWorldMap()
 	end
 
-	SetMapByID(continent)
+	-- OpenWorldMap(mapID)
+	WorldMapFrame:SetMapID(mapID)
 end
 
 local gossipHide = GossipFrame:GetScript('OnHide')
-function Overlay:Disable()
+function Handler:Disable()
 	self:UnregisterEvent('GOSSIP_CLOSED')
 	GossipFrame:RegisterEvent('GOSSIP_CLOSED')
 	GossipFrame:SetScript('OnHide', gossipHide)
@@ -225,8 +186,72 @@ function Overlay:Disable()
 	end
 end
 
+function Handler:GetNPCID()
+	return tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
+end
+
+local reavesPage = 0
+function Handler:GOSSIP_SHOW()
+	if(IsShiftKeyDown()) then
+		 -- temporary disable
+		return
+	end
+
+	local npcID = self:GetNPCID()
+	if(npcID == 101462) then
+		-- Reaves need special handling, since the wormholes are under a sub-dialogue
+		self:RegisterEvent('GOSSIP_CLOSED')
+
+		reavesPage = reavesPage + 1
+		if(reavesPage < 2) then
+			return
+		end
+	end
+
+	-- local data = wormholes[35646]
+	local data = wormholes[npcID]
+	if(not data) then
+		return
+	end
+
+	self:Enable(data.continent)
+
+	-- for index = 1, 4 do
+	for index = 1, GetNumGossipOptions() do
+		local loc = data[index]
+
+		local normalAtlas = 'MagePortalAlliance'
+		local highlightAtlas = 'MagePortalHorde'
+		local atlasSize = select(2, GetAtlasInfo(normalAtlas))
+
+		local Marker = self:GetMarker()
+		Marker:SetID(index)
+		Marker:SetNormalAtlas(normalAtlas)
+		Marker:SetHighlightAtlas(highlightAtlas)
+		Marker:SetSize(atlasSize)
+		Marker:SetName(HBD:GetLocalizedMap(loc.zone))
+		Marker:SetAccuracy(data.accurate)
+
+		HBDP:AddWorldMapIconMap(self, Marker, loc.zone, loc.x, loc.y, HBD_PINS_WORLDMAP_SHOW_CONTINENT)
+	end
+end
+
+function Handler:GOSSIP_CLOSED()
+	self:Disable()
+	self:ReleaseMarkers()
+	HBDP:RemoveAllWorldMapIcons(self)
+	reavesPage = 0
+end
+
+Handler:RegisterEvent('GOSSIP_SHOW')
+Handler:SetScript('OnEvent', function(self, event, ...)
+	self[event](self, ...)
+end)
+
 WorldMapFrame:HookScript('OnHide', function()
-	if(Overlay:IsEventRegistered('GOSSIP_CLOSED')) then
+	if(Handler:IsEventRegistered('GOSSIP_CLOSED')) then
 		CloseGossip()
 	end
 end)
+
+ns.Handler = Handler
