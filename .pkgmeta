@@ -1,14 +1,11 @@
 package-as: InteractiveWormholes
 
-enable-nolib-creation: no
-
 externals:
-  libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
+  libs/LibStub:
+    url: https://repos.wowace.com/wow/libstub/trunk
+    tag: 1.0
   libs/CallbackHandler-1.0: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
   libs/HereBeDragons: https://github.com/Nevcairiel/HereBeDragons # wait for tag on 2.0
-
-optional-dependencies:
-  - herebedragons
 
 manual-changelog:
   filename: CHANGELOG.md
