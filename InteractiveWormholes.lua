@@ -11,7 +11,6 @@ local wormholes = {
 		{zone = 119, x = 0.4921, y = 0.3962}, -- Sholozar Basin
 		{zone = 118, x = 0.6287, y = 0.2692}, -- Icecrown
 		{zone = 120, x = 0.4390, y = 0.2580}, -- Storm Peaks
-		accurate = true,
 		continent = 113, -- Northrend
 	},
 	[81205] = { -- Wormhole Centrifuge
@@ -21,7 +20,7 @@ local wormholes = {
 		{zone = 552, x = 0.73, y = 0.54}, -- "Grassy plains" (Nagrand)
 		{zone = 543, x = 0.53, y = 0.61}, -- "Primal forest" (Gorgrond)
 		{zone = 525, x = 0.59, y = 0.49}, -- "Lava and snow" (Frostfire Ridge)
-		accurate = false,
+		inaccurate = true,
 		continent = 572, -- Draenor
 	},
 	[101462] = { -- Reaves (with Wormhole Generator module)
@@ -30,7 +29,7 @@ local wormholes = {
 		{zone = 650, x = 0.45, y = 0.56}, -- Highmountain
 		{zone = 634, x = 0.53, y = 0.53}, -- Stormheim
 		{zone = 680, x = 0.42, y = 0.67}, -- Suramar
-		accurate = false,
+		inaccurate = true,
 		continent = 619, -- Broken Isles
 	},
 }
@@ -56,12 +55,8 @@ local function MarkerEnter(self)
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	WorldMapTooltip:AddLine(self.name or L['Click to travel'], 1, 1, 1)
 
-	if(self.accuracy ~= nil) then
-		if(self.accuracy) then
-			WorldMapTooltip:AddLine('\n' .. L['This is an accurate wormhole!'], 0, 1, 0, true)
-		else
-			WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone.'], 1, 0, 0, true)
-		end
+	if(self.inaccurate) then
+		WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone!'], 1, 0, 0, true)
 	end
 
 	WorldMapTooltip:Show()
@@ -100,8 +95,8 @@ function markerMixin:SetName(name)
 	self.name = name
 end
 
-function markerMixin:SetAccuracy(accuracy)
-	self.accuracy = accuracy
+function markerMixin:SetInaccurate(inaccurate)
+	self.inaccurate = inaccurate
 end
 
 function markerMixin:SetSource(marker)
@@ -208,7 +203,6 @@ function Handler:GOSSIP_SHOW()
 		end
 	end
 
-	-- local data = wormholes[35646]
 	local data = wormholes[npcID]
 	if(not data) then
 		return
@@ -216,7 +210,6 @@ function Handler:GOSSIP_SHOW()
 
 	self:Enable(data.continent)
 
-	-- for index = 1, 4 do
 	for index = 1, GetNumGossipOptions() do
 		local loc = data[index]
 
@@ -230,7 +223,7 @@ function Handler:GOSSIP_SHOW()
 		Marker:SetHighlightAtlas(highlightAtlas)
 		Marker:SetSize(atlasSize)
 		Marker:SetName(HBD:GetLocalizedMap(loc.zone))
-		Marker:SetAccuracy(data.accurate)
+		Marker:SetInaccurate(data.inaccurate)
 
 		HBDP:AddWorldMapIconMap(self, Marker, loc.zone, loc.x, loc.y, HBD_PINS_WORLDMAP_SHOW_CONTINENT)
 	end
