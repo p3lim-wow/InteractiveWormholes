@@ -14,6 +14,7 @@ Supported "wormholes":
 - [Wormhole Generator: Northrend](http://www.wowhead.com/item=48933/wormhole-generator-northrend)
 - [Wormhole Centrifuge](http://www.wowhead.com/item=112059/wormhole-centrifuge)
 - [Reaves](http://www.wowhead.com/item=132523/reaves-battery) [Wormhole Generator module](http://www.wowhead.com/item=132524/reaves-module-wormhole-generator-mode)
+- [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
 - [Vethir](http://www.wowhead.com/npc=108685/vethir) in Stormheim
 
 ## Feedback
