@@ -146,7 +146,7 @@ local function CreateMarker()
 end
 
 local function ResetMarker(_, Marker)
-	Marker:SetAccuracy()
+	Marker:SetInaccurate()
 	Marker:SetSource()
 	Marker:SetName()
 	Marker:SetID(0)
