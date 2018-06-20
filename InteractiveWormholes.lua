@@ -32,6 +32,11 @@ local wormholes = {
 		inaccurate = true,
 		continent = 619, -- Broken Isles
 	},
+	[143925] = { -- Mole Machine (Dark Iron Dwarf racial)
+		{zone = 27, x = 0.6148, y = 0.3732}, -- Ironforge (Dun Morogh really)
+		{zone = 84, x = 0.6333, y = 0.3734}, -- Stormwind
+		continent = 13, -- Eastern Kingdoms
+	}
 }
 
 local Handler = CreateFrame('Frame')
@@ -185,7 +190,7 @@ function Handler:GetNPCID()
 	return tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
 end
 
-local reavesPage = 0
+local page = 0
 function Handler:GOSSIP_SHOW()
 	if(IsShiftKeyDown()) then
 		 -- temporary disable
@@ -197,8 +202,17 @@ function Handler:GOSSIP_SHOW()
 		-- Reaves need special handling, since the wormholes are under a sub-dialogue
 		self:RegisterEvent('GOSSIP_CLOSED')
 
-		reavesPage = reavesPage + 1
-		if(reavesPage < 2) then
+		page = page + 1
+		if(page < 2) then
+			return
+		end
+	elseif(npcID == 143925) then
+		-- Mole Machine needs special handling, since the locations are under the first sub-dialogue
+		self:RegisterEvent('GOSSIP_CLOSED')
+
+		page = page + 1
+		if(page < 2) then
+			SelectGossipOption(1)
 			return
 		end
 	end
@@ -233,7 +247,7 @@ function Handler:GOSSIP_CLOSED()
 	self:Disable()
 	self:ReleaseMarkers()
 	HBDP:RemoveAllWorldMapIcons(self)
-	reavesPage = 0
+	page = 0
 end
 
 Handler:RegisterEvent('GOSSIP_SHOW')
