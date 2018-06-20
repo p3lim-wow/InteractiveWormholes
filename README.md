@@ -16,12 +16,6 @@ Supported "wormholes":
 - [Reaves](http://www.wowhead.com/item=132523/reaves-battery) [Wormhole Generator module](http://www.wowhead.com/item=132524/reaves-module-wormhole-generator-mode)
 - [Vethir](http://www.wowhead.com/npc=108685/vethir) in Stormheim
 
-## Translating
-
-If you'd like to help translate this project, please follow this link:  
-<https://wow.curseforge.com/addons/interactivewormholes/localization/>
-
-
 ## Feedback
 
 If you have a question, please use the comments section on Curse/WoWInterface.  
