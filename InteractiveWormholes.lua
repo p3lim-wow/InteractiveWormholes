@@ -31,11 +31,6 @@ local wormholes = {
 		{zone = 680, x = 0.42, y = 0.67}, -- Suramar
 		inaccurate = true,
 		continent = 619, -- Broken Isles
-	},
-	[143925] = { -- Mole Machine (Dark Iron Dwarf racial)
-		{zone = 27, x = 0.6148, y = 0.3732}, -- Ironforge (Dun Morogh really)
-		{zone = 84, x = 0.6333, y = 0.3734}, -- Stormwind
-		continent = 13, -- Eastern Kingdoms
 	}
 }
 
@@ -59,6 +54,11 @@ local function MarkerEnter(self)
 
 	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	WorldMapTooltip:AddLine(self.name or L['Click to travel'], 1, 1, 1)
+
+	for _, line in next, self.tooltipLines do
+		local r, g, b = line.color:GetRGB()
+		WorldMapTooltip:AddLine(line.text, r, g, b, true)
+	end
 
 	if(self.inaccurate) then
 		WorldMapTooltip:AddLine('\n' .. L['You will end up in one of multiple locations within this zone!'], 1, 0, 0, true)
@@ -108,11 +108,37 @@ function markerMixin:SetSource(marker)
 	self.source = marker
 end
 
+function markerMixin:AddTooltipLine(text, color)
+	table.insert(self.tooltipLines, {
+		text = text,
+		color = color or CreateColor(1, 1, 0)
+	})
+end
+
+do
+	local normalAtlas = 'MagePortalAlliance'
+	local highlightAtlas = 'MagePortalHorde'
+	local atlasSize = ((select(2, GetAtlasInfo(normalAtlas))) / 3) * 2
+
+	function markerMixin:Reset()
+		self:SetScript('OnClick', MarkerClick)
+		self:SetNormalAtlas(normalAtlas)
+		self:SetHighlightAtlas(highlightAtlas)
+		self:SetSize(atlasSize)
+		self:SetInaccurate()
+		self:SetSource()
+		self:SetName()
+		self:SetID(0)
+		table.wipe(self.tooltipLines)
+	end
+end
+
 local function CreateMarker()
 	local Marker = CreateFrame('Button')
 	Marker:SetScript('OnClick', MarkerClick)
 	Marker:SetScript('OnEnter', MarkerEnter)
 	Marker:SetScript('OnLeave', MarkerLeave)
+	Marker.tooltipLines = {}
 
 	local Texture = Marker:CreateTexture(nil, 'BACKGROUND')
 	Texture:SetAllPoints()
@@ -142,14 +168,12 @@ local function CreateMarker()
 	Animation:Play()
 
 	Mixin(Marker, markerMixin)
+	Marker:Reset()
 	return Marker
 end
 
 local function ResetMarker(_, Marker)
-	Marker:SetInaccurate()
-	Marker:SetSource()
-	Marker:SetName()
-	Marker:SetID(0)
+	Marker:Reset()
 end
 
 local markerPool = CreateObjectPool(CreateMarker, ResetMarker)
@@ -206,15 +230,6 @@ function Handler:GOSSIP_SHOW()
 		if(page < 2) then
 			return
 		end
-	elseif(npcID == 143925) then
-		-- Mole Machine needs special handling, since the locations are under the first sub-dialogue
-		self:RegisterEvent('GOSSIP_CLOSED')
-
-		page = page + 1
-		if(page < 2) then
-			SelectGossipOption(1)
-			return
-		end
 	end
 
 	local data = wormholes[npcID]
@@ -227,15 +242,8 @@ function Handler:GOSSIP_SHOW()
 	for index = 1, GetNumGossipOptions() do
 		local loc = data[index]
 
-		local normalAtlas = 'MagePortalAlliance'
-		local highlightAtlas = 'MagePortalHorde'
-		local atlasSize = select(2, GetAtlasInfo(normalAtlas))
-
 		local Marker = self:GetMarker()
 		Marker:SetID(index)
-		Marker:SetNormalAtlas(normalAtlas)
-		Marker:SetHighlightAtlas(highlightAtlas)
-		Marker:SetSize(atlasSize)
 		Marker:SetName(HBD:GetLocalizedMap(loc.zone))
 		Marker:SetInaccurate(data.inaccurate)
 

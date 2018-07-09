@@ -27,3 +27,4 @@ locale\zhTW.lua
 
 InteractiveWormholes.lua
 Vethir.lua
+MoleMachine.lua
