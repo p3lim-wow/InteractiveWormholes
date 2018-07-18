@@ -1,3 +1,8 @@
+### Changes in 80000.3-Release
+
+- Added: Support for Dark Iron Dwarf racial "Mole Machine"
+- Changed: Update Interface version
+
 ### Changes in 70200.2-Release
 
 - Added: Support for Reaves' Wormhole Generator module
