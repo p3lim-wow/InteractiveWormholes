@@ -1,4 +1,4 @@
-## Interface: 70200
+## Interface: 80000
 ## Author: p3lim
 ## Version: @project-version@
 ## Title: Interactive Wormholes
