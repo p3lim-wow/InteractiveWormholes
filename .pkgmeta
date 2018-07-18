@@ -5,7 +5,9 @@ externals:
     url: https://repos.wowace.com/wow/libstub/trunk
     tag: 1.0
   libs/CallbackHandler-1.0: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
-  libs/HereBeDragons: https://github.com/Nevcairiel/HereBeDragons # wait for tag on 2.0
+  libs/HereBeDragons:
+    url: https://github.com/Nevcairiel/HereBeDragons
+    tag: latest
 
 manual-changelog:
   filename: CHANGELOG.md
