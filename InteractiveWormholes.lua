@@ -11,6 +11,11 @@ local wormholes = {
 		{zone = 119, x = 0.4921, y = 0.3962}, -- Sholozar Basin
 		{zone = 118, x = 0.6287, y = 0.2692}, -- Icecrown
 		{zone = 120, x = 0.4390, y = 0.2580}, -- Storm Peaks
+		{ -- Underground... (Dalaran, Crystalsong Forest)
+			zone = 127, x = 0.3404, y = 0.3549,
+			name = (GetSpellInfo(68081)),
+			natlas = 'tradeskills-star', hatlas = 'tradeskills-star-off'
+		},
 		continent = 113, -- Northrend
 	},
 	[81205] = { -- Wormhole Centrifuge
@@ -118,7 +123,7 @@ end
 do
 	local normalAtlas = 'MagePortalAlliance'
 	local highlightAtlas = 'MagePortalHorde'
-	local atlasSize = ((select(2, GetAtlasInfo(normalAtlas))) / 3) * 2
+	local atlasSize = 24
 
 	function markerMixin:Reset()
 		self:SetScript('OnClick', MarkerClick)
@@ -244,8 +249,15 @@ function Handler:GOSSIP_SHOW()
 
 		local Marker = self:GetMarker()
 		Marker:SetID(index)
-		Marker:SetName(HBD:GetLocalizedMap(loc.zone))
 		Marker:SetInaccurate(data.inaccurate)
+		Marker:SetName(loc.name or HBD:GetLocalizedMap(loc.zone))
+
+		if(loc.natlas) then
+			Marker:SetNormalAtlas(loc.natlas)
+		end
+		if(loc.hatlas) then
+			Marker:SetHighlightAtlas(loc.hatlas)
+		end
 
 		HBDP:AddWorldMapIconMap(self, Marker, loc.zone, loc.x, loc.y, HBD_PINS_WORLDMAP_SHOW_CONTINENT)
 	end
