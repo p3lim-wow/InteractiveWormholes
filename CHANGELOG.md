@@ -1,3 +1,7 @@
+### Changes in 80000.4-Release
+
+- Added: Support for hidden 6th location for Northrend wormhole
+
 ### Changes in 80000.3-Release
 
 - Added: Support for Dark Iron Dwarf racial "Mole Machine"
