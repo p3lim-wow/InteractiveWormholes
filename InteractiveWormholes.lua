@@ -14,7 +14,7 @@ local wormholes = {
 		{ -- Underground... (Dalaran, Crystalsong Forest)
 			zone = 127, x = 0.3404, y = 0.3549,
 			name = (GetSpellInfo(68081)),
-			natlas = 'tradeskills-star', hatlas = 'tradeskills-star-off'
+			natlas = 'VignetteLootElite',
 		},
 		continent = 113, -- Northrend
 	},
@@ -255,8 +255,8 @@ function Handler:GOSSIP_SHOW()
 		if(loc.natlas) then
 			Marker:SetNormalAtlas(loc.natlas)
 		end
-		if(loc.hatlas) then
-			Marker:SetHighlightAtlas(loc.hatlas)
+		if(loc.hatlas or loc.natlas) then
+			Marker:SetHighlightAtlas(loc.hatlas or loc.natlas)
 		end
 
 		HBDP:AddWorldMapIconMap(self, Marker, loc.zone, loc.x, loc.y, HBD_PINS_WORLDMAP_SHOW_CONTINENT)
