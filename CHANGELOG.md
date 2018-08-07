@@ -1,3 +1,8 @@
+### Changes in 80000.5-Release
+
+- Changed: Icon for hidden 6th location in Northrend
+- Fixed: Issues with old HereBeDragons embed
+
 ### Changes in 80000.4-Release
 
 - Added: Support for hidden 6th location for Northrend wormhole
