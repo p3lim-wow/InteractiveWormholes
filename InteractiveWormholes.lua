@@ -91,8 +91,9 @@ function markerMixin:SetNormalAtlas(atlas)
 	self.Texture:SetAtlas(atlas)
 end
 
-function markerMixin:SetHighlightAtlas(atlas)
+function markerMixin:SetHighlightAtlas(atlas, add)
 	self.Highlight:SetAtlas(atlas)
+	self.Highlight:SetBlendMode(add and 'ADD' or 'BLEND')
 end
 
 function markerMixin:SetSize(size)
