@@ -61,6 +61,11 @@ local function MarkerClick(self)
 end
 
 hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
+	if(IsShiftKeyDown()) then
+		 -- temporary disable
+		return
+	end
+
 	local npcID = self:GetNPCID()
 	if(npcID ~= 143925) then
 		return

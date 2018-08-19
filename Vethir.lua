@@ -15,6 +15,11 @@ local PlayerMarker = CreateFrame('Frame')
 PlayerMarker:SetSize(1, 1)
 
 hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
+	if(IsShiftKeyDown()) then
+		 -- temporary disable
+		return
+	end
+
 	local npcID = self:GetNPCID()
 	if(npcID == 108685) then
 		self:Enable(STORMHEIM)
