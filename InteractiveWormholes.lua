@@ -121,6 +121,10 @@ function markerMixin:AddTooltipLine(text, color)
 	})
 end
 
+function markerMixin:MarkQuest()
+	self.Quest:Show()
+end
+
 do
 	local normalAtlas = 'MagePortalAlliance'
 	local highlightAtlas = 'MagePortalHorde'
@@ -135,6 +139,7 @@ do
 		self:SetSource()
 		self:SetName()
 		self:SetID(0)
+		self.Quest:Hide()
 		table.wipe(self.tooltipLines)
 	end
 end
@@ -153,6 +158,12 @@ local function CreateMarker()
 	local Highlight = Marker:CreateTexture(nil, 'HIGHLIGHT')
 	Highlight:SetAllPoints()
 	Marker.Highlight = Highlight
+
+	local Quest = Marker:CreateTexture(nil, 'OVERLAY')
+	Quest:SetPoint('CENTER')
+	Quest:SetSize(20, 20)
+	Quest:SetAtlas('QuestNormal')
+	Marker.Quest = Quest
 
 	local Arrow = Marker:CreateTexture(nil, 'OVERLAY')
 	Arrow:SetPoint('BOTTOM', Marker, 'TOP')
