@@ -1,6 +1,10 @@
+### Changes in 80000.7-Release
+
+- Added: Footholds/outposts on the Zandalar map for Alliance
+
 ### Changes in 80000.6-Release
 
-- Added: Footholds/outposts on the map
+- Added: Footholds/outposts on the Kul Tiras map for Horde
 - Fixed: Temporarily disabling while holding shift
 
 ### Changes in 80000.5-Release
