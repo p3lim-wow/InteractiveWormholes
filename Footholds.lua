@@ -16,14 +16,14 @@ if(faction == 'Horde') then
 	}
 
 	destinations = {
-		-- Alliance zones
+		-- Kul Tiras zones
 		[HBD:GetLocalizedMap(896)] = {x = 0.2061, y = 0.4569, zone = 896}, -- Drustvar
 		[HBD:GetLocalizedMap(942)] = {x = 0.5198, y = 0.2449, zone = 942}, -- Stormsong Valley
 		[HBD:GetLocalizedMap(895)] = {x = 0.8820, y = 0.5116, zone = 895}, -- Tiragarde Sound
 	}
 elseif(faction == 'Alliance') then
 	factionInfo = {
-		npc = 0, -- ???
+		npc = 135681, -- Grand Admiral Jes-Tereth
 		continent = 875,
 		size = 40,
 		atlas = 'bfa-landingbutton-alliance-up',
@@ -31,10 +31,10 @@ elseif(faction == 'Alliance') then
 	}
 
 	destinations = {
-		-- Horde zones
-		-- [HBD:GetLocalizedMap(862)] = {x = 0., y = 0., zone = 862}, -- Zuldazar
-		-- [HBD:GetLocalizedMap(863)] = {x = 0., y = 0., zone = 863}, -- Nazmir
-		-- [HBD:GetLocalizedMap(864)] = {x = 0., y = 0., zone = 864}, -- Vol'dun
+		-- Zandalar zones
+		[HBD:GetLocalizedMap(862)] = {x = 0.4068, y = 0.7085, zone = 862}, -- Zuldazar
+		[HBD:GetLocalizedMap(863)] = {x = 0.6196, y = 0.4020, zone = 863}, -- Nazmir
+		[HBD:GetLocalizedMap(864)] = {x = 0.3560, y = 0.3317, zone = 864}, -- Vol'dun
 	}
 else
 	-- no point loading for pandas
