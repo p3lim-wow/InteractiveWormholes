@@ -1,3 +1,8 @@
+### Changes in 80000.6-Release
+
+- Added: Footholds/outposts on the map
+- Fixed: Temporarily disabling while holding shift
+
 ### Changes in 80000.5-Release
 
 - Changed: Icon for hidden 6th location in Northrend
