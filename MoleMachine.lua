@@ -31,7 +31,7 @@ local destinations = {
 	},
 	[L['Pandaria']] = {
 		[L['One Keg']]                    = {zone=379,  x=0.5768, y=0.6281, quest=53595}, -- Kun-Lai Summit
-		[L['Stormstout Brewery']]         = {zone=390,  x=0.3151, y=0.7359, quest=53598}, -- Valley of the Four Winds
+		[L['Stormstout Brewery']]         = {zone=376,  x=0.3151, y=0.7359, quest=53598}, -- Valley of the Four Winds
 	},
 	[L['Draenor']] = {
 		[L['Blackrock Foundry Overlook']] = {zone=543,  x=0.4669, y=0.3876, quest=53588}, -- Gorgrond
