@@ -1,3 +1,8 @@
+### Changes in 80000.8-Release
+
+- Added: Honor Hold mole machine location
+- Fixed: Stormstout Brewery mole machine location
+
 ### Changes in 80000.7-Release
 
 - Added: Footholds/outposts on the Zandalar map for Alliance
