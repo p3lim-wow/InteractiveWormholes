@@ -21,8 +21,8 @@ local destinations = {
 		[L['The Great Divide']]           = {zone=199,  x=0.3911, y=0.0930, quest=53600}, -- Southern Barrens
 	},
 	[L['Outland']] = {
-		[L['Fel Pits']]                   = {zone=104,  x=0.5077, y=0.3530, quest=53599}, -- Shadowmoon Valley
 		[L['Honor Hold']]                 = {zone=100,  x=0.5309, y=0.6487, quest=53592}, -- Honor Hold
+		[L['Fel Pits']]                   = {zone=104,  x=0.5077, y=0.3530, quest=53599}, -- Shadowmoon Valley
 		[L['Skald']]                      = {zone=105,  x=0.7242, y=0.1764, quest=53597}, -- Blade's Edge Mountains
 	},
 	[L['Northrend']] = {
