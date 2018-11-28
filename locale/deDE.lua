@@ -9,7 +9,7 @@ L['Galebroken Path'] = 'Der Sturmverwüstete Pfad'
 L['Thorignir Refuge'] = 'Die Zuflucht der Thorignir'
 L['Thorim\'s Peak'] = 'Das Thorimshorn'
 
-L['Eastern Kingdoms'] = 'Östliche Königreiche'
+L['Eastern Kingdoms'] = 'Die Östlichen Königreiche'
 L['Kalimdor'] = 'Kalimdor'
 L['Outland'] = 'Scherbenwelt'
 L['Northrend'] = 'Nordend'
