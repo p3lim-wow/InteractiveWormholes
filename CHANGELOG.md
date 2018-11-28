@@ -1,3 +1,7 @@
+### Changes in 80000.9-Release
+
+- Fixed: Incorrect german localization for Eastern Kingdoms (thanks @flyhard)
+
 ### Changes in 80000.8-Release
 
 - Added: Honor Hold mole machine location
