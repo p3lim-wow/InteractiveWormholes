@@ -40,3 +40,10 @@ L['Broken Shore'] = 'Costa Partida'
 
 -- pulled from http://pt.wowhead.com/quest=41950
 L['Cry More Thunder!'] = 'Mais trovoadas!'
+
+-- L['Sewer Guard Station'] = 'Posto de Guarda dos Esgotos' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = 'Mercado Negro' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = 'Entrada da Estalagem' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = 'Covil do Alquimista' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = 'Cabana abandonada' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = 'Entrada dos Fundos' -- UNCONFIRMED TRANSLATION
