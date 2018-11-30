@@ -41,9 +41,9 @@ L['Broken Shore'] = 'Riva Dispersa'
 -- pulled from http://it.wowhead.com/quest=41950
 L['Cry More Thunder!'] = 'Il ruggito più potente del tuono!'
 
-L['Sewer Guard Station'] = 'Stazione di Guardia dei Sotterranei'
-L['Black Market'] = 'Mercato Nero'
-L['Inn Entrance'] = 'Entrata della Locanda'
-L['Alchemists\' Lair'] = 'Antro degli Alchimisti'
-L['Abandoned Shack'] = 'Capanno Abbandonato'
-L['Rear Entrance'] = 'Entrata Posteriore'
+-- L['Sewer Guard Station'] = 'Stazione di Guardia dei Sotterranei' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = 'Mercato Nero' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = 'Entrata della Locanda' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = 'Antro degli Alchimisti' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = 'Capanno Abbandonato' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = 'Entrata Posteriore' -- UNCONFIRMED TRANSLATION
