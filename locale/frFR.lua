@@ -41,9 +41,9 @@ L['Broken Shore'] = 'Rivage Brisé'
 -- pulled from http://fr.wowhead.com/quest=41950
 L['Cry More Thunder!'] = 'Tonnerre ailé'
 
-L['Sewer Guard Station'] = 'poste de garde des égouts'
-L['Black Market'] = 'marché noir'
-L['Inn Entrance'] = 'entrée de l\'auberge'
-L['Alchemists\' Lair'] = 'antre des alchimistes'
-L['Abandoned Shack'] = 'cabane abandonnée'
-L['Rear Entrance'] = 'porte de derrière'
+-- L['Sewer Guard Station'] = 'poste de garde des égouts' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = 'marché noir' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = 'entrée de l\'auberge' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = 'antre des alchimistes' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = 'cabane abandonnée' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = 'porte de derrière' -- UNCONFIRMED TRANSLATION
