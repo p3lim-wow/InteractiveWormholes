@@ -39,3 +39,10 @@ L['Neltharion\'s Vault'] = '奈薩里奧寶庫'
 L['Broken Shore'] = '破碎海岸'
 
 -- L['Cry More Thunder!'] = '' -- MISSING! incorrect data on wowhead
+
+-- L['Sewer Guard Station'] = '' -- MISSING TRANSLATION
+-- L['Black Market'] = '' -- MISSING TRANSLATION
+-- L['Inn Entrance'] = '' -- MISSING TRANSLATION
+-- L['Alchemists\' Lair'] = '' -- MISSING TRANSLATION
+-- L['Abandoned Shack'] = '' -- MISSING TRANSLATION
+-- L['Rear Entrance'] = '' -- MISSING TRANSLATION
