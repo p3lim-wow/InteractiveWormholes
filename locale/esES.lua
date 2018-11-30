@@ -41,9 +41,9 @@ L['Broken Shore'] = 'Costa Abrupta'
 -- pulled from http://es.wowhead.com/quest=41950
 L['Cry More Thunder!'] = '¡Truenos y truenos!'
 
-L['Sewer Guard Station'] = 'Puesto de guardia de cloaca'
-L['Black Market'] = 'El Mercado Negro'
-L['Inn Entrance'] = 'Entrada de la posada'
-L['Alchemists\' Lair'] = 'Guarida de los alquimistas'
-L['Abandoned Shack'] = 'Cabaña abandonada'
-L['Rear Entrance'] = 'Entrada trasera'
+-- L['Sewer Guard Station'] = 'Puesto de guardia de cloaca' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = 'El Mercado Negro' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = 'Entrada de la posada' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = 'Guarida de los alquimistas' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = 'Cabaña abandonada' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = 'Entrada trasera' -- UNCONFIRMED TRANSLATION
