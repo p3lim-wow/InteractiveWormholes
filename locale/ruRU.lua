@@ -40,3 +40,10 @@ L['Broken Shore'] = 'Расколотый берег'
 
 -- pulled from http://ru.wowhead.com/quest=41950
 L['Cry More Thunder!'] = 'И снова гром и молния!'
+
+-- L['Sewer Guard Station'] = 'пост стража канализации' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = 'черный рынок' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = 'вход в таверну' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = 'логово алхимика' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = 'заброшенная лачуга' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = 'черный ход' -- UNCONFIRMED TRANSLATION
