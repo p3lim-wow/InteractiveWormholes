@@ -41,9 +41,9 @@ L['Broken Shore'] = 'Die Verheerte Küste'
 -- pulled from http://de.wowhead.com/quest=41950
 L['Cry More Thunder!'] = 'Noch mehr Donner des Schmerzes'
 
-L['Sewer Guard Station'] = 'Station der Kanalwächter'
-L['Black Market'] = 'Schwarzmarkt'
-L['Inn Entrance'] = 'Eingang des Gasthauses'
-L['Alchemists\' Lair'] = 'Versteck der Alchemisten'
-L['Abandoned Shack'] = 'Verlassene Hütte'
-L['Rear Entrance'] = 'Hintereingang'
+-- L['Sewer Guard Station'] = 'Station der Kanalwächter' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = 'Schwarzmarkt' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = 'Eingang des Gasthauses' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = 'Versteck der Alchemisten' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = 'Verlassene Hütte' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = 'Hintereingang' -- UNCONFIRMED TRANSLATION
