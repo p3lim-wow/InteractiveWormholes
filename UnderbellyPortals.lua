@@ -21,7 +21,7 @@ hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
 		 -- temporary disable
 		return
 	end
->=
+
 	local npcID = self:GetNPCID()
 	if (npcID >= 107779) and (npcID <= 107784) then
 		-- 107779 = Sewer Guard Station
