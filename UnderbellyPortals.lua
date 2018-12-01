@@ -5,16 +5,13 @@ local HBDP = LibStub('HereBeDragons-Pins-2.0')
 
 local UNDERBELLY = 628
 local destinations = {
-	[L['Sewer Guard Station']]	= {x = 0.69, y = 0.57},
-	[L['Black Market']]			= {x = 0.69, y = 0.17},
-	[L['Inn Entrance']]			= {x = 0.67, y = 0.70},
-	[L['Alchemists\' Lair']]	= {x = 0.78, y = 0.80},
-	[L['Abandoned Shack']]		= {x = 0.43, y = 0.52},
-	[L['Rear Entrance']]		= {x = 0.306, y = 0.467}
+	[L['Sewer Guard Station']]	= {x = 0.685, y = 0.570},
+	[L['Black Market']]		= {x = 0.700, y = 0.167},
+	[L['Inn Entrance']]		= {x = 0.673, y = 0.691},
+	[L['Alchemists\' Lair']]	= {x = 0.781, y = 0.796},
+	[L['Abandoned Shack']]		= {x = 0.425, y = 0.516},
+	[L['Rear Entrance']]		= {x = 0.307, y = 0.467}
 }
-
-local PlayerMarker = CreateFrame('Frame')
-PlayerMarker:SetSize(1, 1)
 
 hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
 	if(IsShiftKeyDown()) then
@@ -31,9 +28,6 @@ hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
 		-- 107783 = Abandoned Shack
 		-- 107784 = Rear Entrance
 		self:Enable(UNDERBELLY)
-
-		local x, y = C_Map.GetPlayerMapPosition(UNDERBELLY, 'player'):GetXY()
-		HBDP:AddWorldMapIconMap(self, PlayerMarker, UNDERBELLY, x, y)
 
 		for index = 1, GetNumGossipOptions() do
 			local s = select((index * 2) - 1, GetGossipOptions())
