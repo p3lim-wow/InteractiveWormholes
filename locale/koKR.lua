@@ -40,3 +40,10 @@ L['Broken Shore'] = '부서진 해변'
 
 -- pulled from http://ko.wowhead.com/quest=41950
 L['Cry More Thunder!'] = '더 퍼부어라!'
+
+-- L['Sewer Guard Station'] = '하수구 경비초소' -- UNCONFIRMED TRANSLATION
+-- L['Black Market'] = '암시장' -- UNCONFIRMED TRANSLATION
+-- L['Inn Entrance'] = '여관 입구' -- UNCONFIRMED TRANSLATION
+-- L['Alchemists\' Lair'] = '연금술사의 방' -- UNCONFIRMED TRANSLATION
+-- L['Abandoned Shack'] = '버려진 집' -- UNCONFIRMED TRANSLATION
+-- L['Rear Entrance'] = '후문' -- UNCONFIRMED TRANSLATION

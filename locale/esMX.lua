@@ -39,3 +39,10 @@ L['Neltharion\'s Vault'] = 'Bóveda de Neltharion'
 L['Broken Shore'] = 'Costa Quebrada'
 
 -- L['Cry More Thunder!'] = '' -- MISSING! (wowhead doesn't have esMX)
+
+-- L['Sewer Guard Station'] = '' -- MISSING TRANSLATION
+-- L['Black Market'] = '' -- MISSING TRANSLATION
+-- L['Inn Entrance'] = '' -- MISSING TRANSLATION
+-- L['Alchemists\' Lair'] = '' -- MISSING TRANSLATION
+-- L['Abandoned Shack'] = '' -- MISSING TRANSLATION
+-- L['Rear Entrance'] = '' -- MISSING TRANSLATION
