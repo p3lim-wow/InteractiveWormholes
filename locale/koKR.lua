@@ -1,14 +1,17 @@
 local L = select(2, ...).L('koKR')
 
+--- general strings
 -- L['Click to travel'] = '' -- MISSING!
 -- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING!
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 
--- pulled from LibBabble-SubZone-3.0
+--- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = '질풍에 휩쓸린 길'
 L['Thorignir Refuge'] = '토리그니르 은거처'
 L['Thorim\'s Peak'] = '토림의 봉우리'
+L['Cry More Thunder!'] = '더 퍼부어라!' -- pulled from http://ko.wowhead.com/quest=41950
 
+--- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = '동부 왕국'
 L['Kalimdor'] = '칼림도어'
 L['Outland'] = '아웃랜드'
@@ -38,9 +41,7 @@ L['Elemental Plateau'] = '정령의 고원'
 L['Neltharion\'s Vault'] = '넬타리온의 석실'
 L['Broken Shore'] = '부서진 해변'
 
--- pulled from http://ko.wowhead.com/quest=41950
-L['Cry More Thunder!'] = '더 퍼부어라!'
-
+--- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = '하수구 경비초소' -- UNCONFIRMED TRANSLATION
 -- L['Black Market'] = '암시장' -- UNCONFIRMED TRANSLATION
 -- L['Inn Entrance'] = '여관 입구' -- UNCONFIRMED TRANSLATION
@@ -48,6 +49,7 @@ L['Cry More Thunder!'] = '더 퍼부어라!'
 -- L['Abandoned Shack'] = '버려진 집' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = '후문' -- UNCONFIRMED TRANSLATION
 
+--- Warfront (Darkshore, Alliance)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION

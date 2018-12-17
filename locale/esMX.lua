@@ -1,14 +1,17 @@
 local L = select(2, ...).L('esMX')
 
+--- general strings
 -- L['Click to travel'] = '' -- MISSING!
 -- L['You will end up in one of multiple locations within this zone.'] = '' -- MISSING!
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 
--- pulled from LibBabble-SubZone-3.0
+--- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = 'Ruta Destruida por el Huracán'
 L['Thorignir Refuge'] = 'Refugio de Thorignir'
 L['Thorim\'s Peak'] = 'Cumbre de Thorim'
+-- L['Cry More Thunder!'] = '' -- MISSING TRANSLATION
 
+--- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Reinos del Este'
 L['Kalimdor'] = 'Kalimdor'
 L['Outland'] = 'Terrallende'
@@ -38,8 +41,7 @@ L['Elemental Plateau'] = 'Meseta Elemental'
 L['Neltharion\'s Vault'] = 'Bóveda de Neltharion'
 L['Broken Shore'] = 'Costa Quebrada'
 
--- L['Cry More Thunder!'] = '' -- MISSING! (wowhead doesn't have esMX)
-
+--- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = '' -- MISSING TRANSLATION
 -- L['Black Market'] = '' -- MISSING TRANSLATION
 -- L['Inn Entrance'] = '' -- MISSING TRANSLATION
@@ -47,6 +49,7 @@ L['Broken Shore'] = 'Costa Quebrada'
 -- L['Abandoned Shack'] = '' -- MISSING TRANSLATION
 -- L['Rear Entrance'] = '' -- MISSING TRANSLATION
 
+--- Warfront (Darkshore, Alliance)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION

@@ -1,14 +1,17 @@
 local L = select(2, ...).L('deDE')
 
+--- general strings
 L['Click to travel'] = 'Klicken, um zu teleportieren'
 L['You will end up in one of multiple locations within this zone!'] = 'Du wirst in einem von mehreren Standorten innerhalb dieser Zone landen!'
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 
--- pulled from LibBabble-SubZone-3.0
+--- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = 'Der Sturmverwüstete Pfad'
 L['Thorignir Refuge'] = 'Die Zuflucht der Thorignir'
 L['Thorim\'s Peak'] = 'Das Thorimshorn'
+L['Cry More Thunder!'] = 'Noch mehr Donner des Schmerzes' -- pulled from http://de.wowhead.com/quest=41950
 
+--- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Die Östlichen Königreiche'
 L['Kalimdor'] = 'Kalimdor'
 L['Outland'] = 'Scherbenwelt'
@@ -38,9 +41,7 @@ L['Elemental Plateau'] = 'Elementarplateau'
 L['Neltharion\'s Vault'] = 'Neltharions Hort'
 L['Broken Shore'] = 'Die Verheerte Küste'
 
--- pulled from http://de.wowhead.com/quest=41950
-L['Cry More Thunder!'] = 'Noch mehr Donner des Schmerzes'
-
+--- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = 'Station der Kanalwächter' -- UNCONFIRMED TRANSLATION
 -- L['Black Market'] = 'Schwarzmarkt' -- UNCONFIRMED TRANSLATION
 -- L['Inn Entrance'] = 'Eingang des Gasthauses' -- UNCONFIRMED TRANSLATION
@@ -48,6 +49,7 @@ L['Cry More Thunder!'] = 'Noch mehr Donner des Schmerzes'
 -- L['Abandoned Shack'] = 'Verlassene Hütte' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'Hintereingang' -- UNCONFIRMED TRANSLATION
 
+--- Warfront (Darkshore, Alliance)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION

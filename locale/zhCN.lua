@@ -1,14 +1,17 @@
 local L = select(2, ...).L('zhCN')
 
+--- general strings
 -- L['Click to travel'] = '' -- MISSING!
 -- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING!
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 
--- pulled from LibBabble-SubZone-3.0
+--- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = '碎风小径'
 L['Thorignir Refuge'] = '托林尼尔避难所'
 L['Thorim\'s Peak'] = '托里姆峰'
+-- L['Cry More Thunder!'] = '' -- MISSING TRANSLATION
 
+--- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = '东部王国'
 L['Kalimdor'] = '卡利姆多'
 L['Outland'] = '外域'
@@ -38,8 +41,7 @@ L['Elemental Plateau'] = '元素高地'
 L['Neltharion\'s Vault'] = '奈萨里奥的宝库'
 L['Broken Shore'] = '破碎海滩'
 
--- L['Cry More Thunder!'] = '' -- MISSING! incorrect data on wowhead
-
+--- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = '下水道卫兵岗哨' -- UNCONFIRMED TRANSLATION
 -- L['Black Market'] = '黑市' -- UNCONFIRMED TRANSLATION
 -- L['Inn Entrance'] = '旅店入口' -- UNCONFIRMED TRANSLATION
@@ -47,6 +49,7 @@ L['Broken Shore'] = '破碎海滩'
 -- L['Abandoned Shack'] = '废弃小屋' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = '后门' -- UNCONFIRMED TRANSLATION
 
+--- Warfront (Darkshore, Alliance)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION

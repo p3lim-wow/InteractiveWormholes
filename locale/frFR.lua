@@ -1,14 +1,17 @@
 local L = select(2, ...).L('frFR')
 
+--- general strings
 -- L['Click to travel'] = '' -- MISSING!
 -- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING!
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 
--- pulled from LibBabble-SubZone-3.0
+--- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = 'Sentier Brise-Vent'
 L['Thorignir Refuge'] = 'Refuge des Thorignirs'
 L['Thorim\'s Peak'] = 'Pic de Thorim'
+L['Cry More Thunder!'] = 'Tonnerre ailé' -- pulled from http://fr.wowhead.com/quest=41950
 
+--- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Royaumes de l’Est'
 L['Kalimdor'] = 'Kalimdor'
 L['Outland'] = 'Outreterre'
@@ -38,9 +41,7 @@ L['Elemental Plateau'] = 'Plateau Élémentaire'
 L['Neltharion\'s Vault'] = 'Caveau de Neltharion'
 L['Broken Shore'] = 'Rivage Brisé'
 
--- pulled from http://fr.wowhead.com/quest=41950
-L['Cry More Thunder!'] = 'Tonnerre ailé'
-
+--- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = 'poste de garde des égouts' -- UNCONFIRMED TRANSLATION
 -- L['Black Market'] = 'marché noir' -- UNCONFIRMED TRANSLATION
 -- L['Inn Entrance'] = 'entrée de l\'auberge' -- UNCONFIRMED TRANSLATION
@@ -48,6 +49,7 @@ L['Cry More Thunder!'] = 'Tonnerre ailé'
 -- L['Abandoned Shack'] = 'cabane abandonnée' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'porte de derrière' -- UNCONFIRMED TRANSLATION
 
+--- Warfront (Darkshore, Alliance)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION

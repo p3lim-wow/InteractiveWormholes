@@ -1,14 +1,17 @@
 local L = select(2, ...).L('itIT')
 
+--- general strings
 -- L['Click to travel'] = '' -- MISSING!
 -- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING!
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 
--- pulled from LibBabble-SubZone-3.0
+--- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = 'Percorso Tempestoso'
 L['Thorignir Refuge'] = 'Rifugio dei Thorignir'
 L['Thorim\'s Peak'] = 'Picco di Thorim'
+L['Cry More Thunder!'] = 'Il ruggito più potente del tuono!' -- pulled from http://it.wowhead.com/quest=41950
 
+--- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Regni Orientali'
 L['Kalimdor'] = 'Kalimdor'
 L['Outland'] = 'Terre Esterne'
@@ -38,9 +41,7 @@ L['Elemental Plateau'] = 'Altopiano Elementale'
 L['Neltharion\'s Vault'] = 'Volta di Neltharion'
 L['Broken Shore'] = 'Riva Dispersa'
 
--- pulled from http://it.wowhead.com/quest=41950
-L['Cry More Thunder!'] = 'Il ruggito più potente del tuono!'
-
+--- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = 'Stazione di Guardia dei Sotterranei' -- UNCONFIRMED TRANSLATION
 -- L['Black Market'] = 'Mercato Nero' -- UNCONFIRMED TRANSLATION
 -- L['Inn Entrance'] = 'Entrata della Locanda' -- UNCONFIRMED TRANSLATION
@@ -48,6 +49,7 @@ L['Cry More Thunder!'] = 'Il ruggito più potente del tuono!'
 -- L['Abandoned Shack'] = 'Capanno Abbandonato' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'Entrata Posteriore' -- UNCONFIRMED TRANSLATION
 
+--- Warfront (Darkshore, Alliance)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
