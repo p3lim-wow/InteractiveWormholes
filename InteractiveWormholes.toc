@@ -30,3 +30,4 @@ Vethir.lua
 MoleMachine.lua
 Footholds.lua
 UnderbellyPortals.lua
+DarkshoreWarfront.lua
