@@ -48,6 +48,6 @@ L['Cry More Thunder!'] = '더 퍼부어라!'
 -- L['Abandoned Shack'] = '버려진 집' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = '후문' -- UNCONFIRMED TRANSLATION
 
--- L['Send me to Bashal\'Aran.'] = '' -- MISSING TRANSLATION
--- L['Send me to Gloomtide Strand.'] = '' -- MISSING TRANSLATION
--- L['Send me to Cinderfall Grove.'] = '' -- MISSING TRANSLATION
+-- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
+-- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
+-- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION

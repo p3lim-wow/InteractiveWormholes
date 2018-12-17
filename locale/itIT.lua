@@ -48,6 +48,6 @@ L['Cry More Thunder!'] = 'Il ruggito più potente del tuono!'
 -- L['Abandoned Shack'] = 'Capanno Abbandonato' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'Entrata Posteriore' -- UNCONFIRMED TRANSLATION
 
--- L['Send me to Bashal\'Aran.'] = '' -- MISSING TRANSLATION
--- L['Send me to Gloomtide Strand.'] = '' -- MISSING TRANSLATION
--- L['Send me to Cinderfall Grove.'] = '' -- MISSING TRANSLATION
+-- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
+-- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
+-- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
