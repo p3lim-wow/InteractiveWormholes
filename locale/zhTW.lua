@@ -46,3 +46,7 @@ L['Broken Shore'] = '破碎海岸'
 -- L['Alchemists\' Lair'] = '' -- MISSING TRANSLATION
 -- L['Abandoned Shack'] = '' -- MISSING TRANSLATION
 -- L['Rear Entrance'] = '' -- MISSING TRANSLATION
+
+-- L['Send me to Bashal\'Aran.'] = '' -- MISSING TRANSLATION
+-- L['Send me to Gloomtide Strand.'] = '' -- MISSING TRANSLATION
+-- L['Send me to Cinderfall Grove.'] = '' -- MISSING TRANSLATION

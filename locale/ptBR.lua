@@ -47,3 +47,7 @@ L['Cry More Thunder!'] = 'Mais trovoadas!'
 -- L['Alchemists\' Lair'] = 'Covil do Alquimista' -- UNCONFIRMED TRANSLATION
 -- L['Abandoned Shack'] = 'Cabana abandonada' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'Entrada dos Fundos' -- UNCONFIRMED TRANSLATION
+
+-- L['Send me to Bashal\'Aran.'] = '' -- MISSING TRANSLATION
+-- L['Send me to Gloomtide Strand.'] = '' -- MISSING TRANSLATION
+-- L['Send me to Cinderfall Grove.'] = '' -- MISSING TRANSLATION
