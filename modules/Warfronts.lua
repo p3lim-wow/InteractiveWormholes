@@ -17,9 +17,10 @@ local npcData = {
 		mapID = 1203,
 		source = {x = 0.4861, y = 0.3447},
 		destinations = {
-			[L['Bashal\'Aran']]     = {x = 0.4956, y = 0.5487},
-			[L['Gloomtide Strand']] = {x = 0.4669, y = 0.4768},
-			[L['Cinderfall Grove']] = {x = 0.5632, y = 0.4407},
+			[L['Bashal\'Aran']]       = {x = 0.4956, y = 0.5487},
+			[L['Gloomtide Strand']]   = {x = 0.4669, y = 0.4768},
+			[L['Cinderfall Grove']]   = {x = 0.5632, y = 0.4407},
+			[L['Lor\'danel Landing']] = {x = 0.5434, y = 0.2252},
 		}
 	},
 }
