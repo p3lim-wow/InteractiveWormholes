@@ -50,7 +50,16 @@ L['Broken Shore'] = 'Riva Dispersa'
 -- L['Abandoned Shack'] = 'Capanno Abbandonato' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'Entrata Posteriore' -- UNCONFIRMED TRANSLATION
 
---- Warfront (Darkshore, Alliance)
+--- Warfront (Arathi)
+-- L['Ar\'gorok'] = '' -- MISSING TRANSLATION
+-- L['Hatchet Ridge'] = '' -- MISSING TRANSLATION
+-- L['Drywhisker Mine'] = '' -- MISSING TRANSLATION
+-- L['Newstead'] = '' -- MISSING TRANSLATION
+-- L['Circle of Elements'] = '' -- MISSING TRANSLATION
+-- L['Stormgarde Keep'] = '' -- MISSING TRANSLATION
+
+--- Warfront (Darkshore)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
+-- L['Lor\'danel Landing'] = '' -- MISSING TRANSLATION
