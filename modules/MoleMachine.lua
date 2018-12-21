@@ -1,11 +1,10 @@
-local addonName, ns = ...
-local L = ns.L
+local addon = select(2, ...)
+local L = addon.L
 
 local HBD = LibStub('HereBeDragons-2.0')
-local HBDP = LibStub('HereBeDragons-Pins-2.0')
 
 local AZEROTH = 947
-local destinations = {
+local continents = {
 	[L['Eastern Kingdoms']] = {
 		[L['Ironforge']]                  = {zone=27,   x=0.6129, y=0.3718},              -- Ironforge
 		[L['Stormwind']]                  = {zone=84,   x=0.6333, y=0.3734},              -- Stormwind
@@ -43,60 +42,40 @@ local destinations = {
 	}
 }
 
-local function SelectGossipLine(text)
-	for index = 1, select('#', GetGossipOptions()), 2 do
-		if((select(index, GetGossipOptions())) == text) then
-			SelectGossipOption(math.ceil(index / 2))
+local location
+local function OnClick(self)
+	-- select the continent in the parent menu, which will trigger the callback again
+	location = self:GetTitle()
+	addon:SelectGossipLine(self.continent)
+end
+
+addon:Add(function(self)
+	local npcID = self:GetNPCID()
+	if(npcID == 143925) then
+		if(location) then
+			-- we've selected the continent, let's select the actual location
+			addon:SelectGossipLine(location)
+			location = nil
 			return
 		end
-	end
 
-	print(string.format('|cffff0000%s|r could not find gossip options "%s", please report.', addonName, text))
-end
+		self:SetMapID(AZEROTH)
 
-local gossipLine
-local function MarkerClick(self)
-	ns.Handler:Disable()
-	gossipLine = self.line
-	SelectGossipLine(self.continent)
-end
+		for continent, locations in next, continents do
+			for name, loc in next, locations do
+				local Marker = self:NewMarker()
+				Marker:SetTitle(line)
+				Marker:SetScript('OnClick', OnClick) -- we need custom logic to handle sub-menus
+				Marker.continent = continent
 
-hooksecurefunc(ns.Handler, 'GOSSIP_SHOW', function(self)
-	if(IsShiftKeyDown()) then
-		 -- temporary disable
-		return
-	end
+				local zoneName = HBD:GetLocalizedMap(loc.zone)
+				if(loc.quest and not IsQuestFlaggedCompleted(loc.quest)) then
+					zoneName = zoneName .. '\n\n|cffff0000' .. L['Not Discovered']
+				end
+				Marker:SetDescription(zoneName)
 
-	local npcID = self:GetNPCID()
-	if(npcID ~= 143925) then
-		return
-	end
-
-	if(gossipLine) then
-		SelectGossipLine(gossipLine)
-		gossipLine = nil
-		return
-	end
-
-	self:Enable(AZEROTH)
-
-	for continent, locations in next, destinations do
-		for line, loc in next, locations do
-			local Marker = self:GetMarker()
-			Marker:Reset()
-			Marker:SetName(line)
-			Marker:AddTooltipLine(HBD:GetLocalizedMap(loc.zone))
-			Marker.continent = continent
-			Marker.line = line
-
-			if(loc.quest and not IsQuestFlaggedCompleted(loc.quest)) then
-				Marker:AddTooltipLine('\n' .. L['Not Discovered'], CreateColor(1, 0, 0))
-				Marker:SetScript('OnClick', nil)
-			else
-				Marker:SetScript('OnClick', MarkerClick)
+				Marker:Pin(loc.zone, loc.x, loc.y, nil, true)
 			end
-
-			HBDP:AddWorldMapIconMap(self, Marker, loc.zone, loc.x, loc.y, HBD_PINS_WORLDMAP_SHOW_WORLD)
 		end
 	end
 end)

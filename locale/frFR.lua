@@ -4,6 +4,7 @@ local L = select(2, ...).L('frFR')
 -- L['Click to travel'] = '' -- MISSING!
 -- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING!
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
+L['You are here'] = TAXINODEYOUAREHERE
 
 --- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = 'Sentier Brise-Vent'

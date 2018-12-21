@@ -4,6 +4,7 @@ local L = select(2, ...).L('deDE')
 L['Click to travel'] = 'Klicken, um zu teleportieren'
 L['You will end up in one of multiple locations within this zone!'] = 'Du wirst in einem von mehreren Standorten innerhalb dieser Zone landen!'
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
+L['You are here'] = TAXINODEYOUAREHERE
 
 --- Vethir (Stormheim "Taxi")
 L['Galebroken Path'] = 'Der Sturmverwüstete Pfad'
