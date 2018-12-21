@@ -3,7 +3,7 @@
 ## Version: @project-version@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when using engineering wormholes
-## OptionalDeps: HereBeDragons-1.0
+## OptionalDeps: HereBeDragons
 
 ## X-Curse-Project-ID: 101522
 ## X-WoWI-ID: 24119
