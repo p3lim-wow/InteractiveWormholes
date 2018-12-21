@@ -3,10 +3,6 @@ local L = addon.L
 
 local HBDP = LibStub('HereBeDragons-Pins-2.0')
 
---[[ Marker:header
-TODO
---]]
-
 local Parent = CreateFrame('Frame')
 local Line = Parent:CreateLine(nil, 'OVERLAY')
 Line:SetNonBlocking(true)

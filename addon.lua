@@ -4,10 +4,6 @@ local showCallbacks, hideCallbacks
 local markerPool = CreateObjectPool(addon.private.createMarker, addon.private.resetMarker)
 addon.private = nil -- it's called private for a reason
 
---[[ addon:header
-TODO
---]]
-
 local Handler = CreateFrame('Frame')
 --[[ addon:Add(callback)
 Adds a new callback that will be triggered when interacting with an NPC that has gossip options.
