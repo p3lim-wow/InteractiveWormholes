@@ -27,6 +27,9 @@ Supported "wormholes":
 If you have a question, please use the comments section on Curse/WoWInterface.  
 If you would like to report a bug, please follow [this link](//github.com/p3lim-wow/InteractiveWormholes/issues?q=) to get started.
 
+If you'd like to contribute with translations, please open a pull request on GitHub.
+If you'd like to contribute a new module, please see the [wiki](https://github.com/p3lim-wow/InteractiveWormholes/wiki).
+
 ## Legal
 
 Please see the [LICENSE](//github.com/p3lim-wow/InteractiveWormholes/blob/master/LICENSE.txt) file.
