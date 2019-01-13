@@ -52,7 +52,7 @@ addon:Add(function(self)
 	if(data) then
 		self:SetMapID(data.mapID)
 
-		for index, ttt in next, self:GetLines() do
+		for index in next, self:GetLines() do
 			local loc = data[index]
 
 			local Marker = self:NewMarker()
