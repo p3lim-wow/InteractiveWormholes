@@ -215,6 +215,7 @@ function addon.private.resetMarker(_, Marker)
 	Marker.source = nil
 
 	Marker:SetID(0)
+	Marker:SetSize(24)
 	Marker:SetScript('OnClick', OnClick)
 	Marker:SetScript('OnEnter', OnEnter)
 	Marker:SetScript('OnLeave', OnLeave)
