@@ -7,7 +7,7 @@ local markerPool = CreateObjectPool(addon.private.createMarker, addon.private.re
 addon.private = nil -- it's called private for a reason
 
 local Handler = CreateFrame('Frame')
---[[ addon:Add(callback)
+--[[ addon:Add(_callback_)
 Adds a new callback that will be triggered when interacting with an NPC that has gossip options.
 
 This is merely the event `GOSSIP_SHOW` with some pre-processing.
@@ -24,7 +24,7 @@ function addon:Add(callback)
 	table.insert(showCallbacks, callback)
 end
 
---[[ addon:Remove(callback)
+--[[ addon:Remove(_callback_)
 Adds a new callback that will be triggered when ending the interaction with an NPC that has gossip options.
 
 This is merely the event `GOSSIP_CLOSED` with some pre-processing.
@@ -48,7 +48,7 @@ function addon:NewMarker()
 	return markerPool:Acquire()
 end
 
---[[ addon:SetMapID(mapID)
+--[[ addon:SetMapID(_mapID_)
 Opens up the world map to the desired zone by map ID.
 
 * `mapID` - the map ID of the zone to display _(integer)_
@@ -77,6 +77,8 @@ end
 Returns the localized name for the given map by ID.
 
 Just a shorthand for HereBeDragons' `GetLocalizedMap` method.
+
+* `mapID` - the map ID of the zone to display _(integer)_
 --]]
 function addon:GetMapName(mapID)
 	return HBD:GetLocalizedMap(mapID)
