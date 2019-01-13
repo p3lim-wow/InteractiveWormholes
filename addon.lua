@@ -1,5 +1,7 @@
 local _, addon = ...
 
+local HBD = LibStub('HereBeDragons-2.0')
+
 local showCallbacks, hideCallbacks
 local markerPool = CreateObjectPool(addon.private.createMarker, addon.private.resetMarker)
 addon.private = nil -- it's called private for a reason
@@ -69,6 +71,15 @@ Returns the currently interacted NPC's ID.
 --]]
 function addon:GetNPCID()
 	return tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
+end
+
+--[[ addon:GetMapName(_mapID_)
+Returns the localized name for the given map by ID.
+
+Just a shorthand for HereBeDragons' `GetLocalizedMap` method.
+--]]
+function addon:GetMapName(mapID)
+	return HBD:GetLocalizedMap(mapID)
 end
 
 local lines = {}

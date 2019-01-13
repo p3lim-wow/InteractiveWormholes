@@ -1,7 +1,6 @@
 local addon = select(2, ...)
 local L = addon.L
 
-local HBD = LibStub('HereBeDragons-2.0')
 local npcData = {
 	[127068] = { -- Flightgineer Krazzle (Arathi, Horde)
 		mapID = 943,

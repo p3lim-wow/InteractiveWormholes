@@ -1,8 +1,6 @@
 local addon = select(2, ...)
 local L = addon.L
 
-local HBD = LibStub('HereBeDragons-2.0')
-
 local npcData = {
 	[35646] = { -- Wormhole Generator: Northrend
 		{zone = 114, x = 0.5178, y = 0.4503}, -- Borean Tundra
@@ -58,7 +56,7 @@ addon:Add(function(self)
 			local loc = data[index]
 
 			local Marker = self:NewMarker()
-			Marker:SetTitle(loc.name or HBD:GetLocalizedMap(loc.zone))
+			Marker:SetTitle(loc.name or self:GetMapName(loc.zone))
 			Marker:SetNormalAtlas(loc.atlas or 'MagePortalAlliance')
 			Marker:SetHighlightAtlas(loc.atlas or 'MagePortalHorde')
 

@@ -1,16 +1,15 @@
 local addon = select(2, ...)
 local L = addon.L
 
-local HBD = LibStub('HereBeDragons-2.0')
 local npcData = {
 	[135690] = { -- Dread-Admiral Tattersail
 		mapID = 876, -- Kul Tiras
 		normalAtlas = 'bfa-landingbutton-horde-up',
 		highlightAtlas = 'bfa-landingbutton-horde-diamondhighlight',
 		destinations = {
-			[HBD:GetLocalizedMap(896)] = {x = 0.2061, y = 0.4569, zone = 896}, -- Drustvar
-			[HBD:GetLocalizedMap(942)] = {x = 0.5198, y = 0.2449, zone = 942}, -- Stormsong Valley
-			[HBD:GetLocalizedMap(895)] = {x = 0.8820, y = 0.5116, zone = 895}, -- Tiragarde Sound
+			[addon:GetMapName(896)] = {x = 0.2061, y = 0.4569, zone = 896}, -- Drustvar
+			[addon:GetMapName(942)] = {x = 0.5198, y = 0.2449, zone = 942}, -- Stormsong Valley
+			[addon:GetMapName(895)] = {x = 0.8820, y = 0.5116, zone = 895}, -- Tiragarde Sound
 		}
 	},
 	[135681] = { -- Grand Admiral Jes-Tereth
@@ -18,9 +17,9 @@ local npcData = {
 		normalAtlas = 'bfa-landingbutton-alliance-up',
 		highlightAtlas = 'bfa-landingbutton-alliance-shieldhighlight',
 		destinations = {
-			[HBD:GetLocalizedMap(862)] = {x = 0.4068, y = 0.7085, zone = 862}, -- Zuldazar
-			[HBD:GetLocalizedMap(863)] = {x = 0.6196, y = 0.4020, zone = 863}, -- Nazmir
-			[HBD:GetLocalizedMap(864)] = {x = 0.3560, y = 0.3317, zone = 864}, -- Vol'dun
+			[addon:GetMapName(862)] = {x = 0.4068, y = 0.7085, zone = 862}, -- Zuldazar
+			[addon:GetMapName(863)] = {x = 0.6196, y = 0.4020, zone = 863}, -- Nazmir
+			[addon:GetMapName(864)] = {x = 0.3560, y = 0.3317, zone = 864}, -- Vol'dun
 		}
 	}
 }

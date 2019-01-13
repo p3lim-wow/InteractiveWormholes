@@ -1,8 +1,6 @@
 local addon = select(2, ...)
 local L = addon.L
 
-local HBD = LibStub('HereBeDragons-2.0')
-
 local AZEROTH = 947
 local continents = {
 	[L['Eastern Kingdoms']] = {
@@ -68,7 +66,7 @@ addon:Add(function(self)
 				Marker:SetScript('OnClick', OnClick) -- we need custom logic to handle sub-menus
 				Marker.continent = continent
 
-				local zoneName = HBD:GetLocalizedMap(loc.zone)
+				local zoneName = self:GetMapName(loc.zone)
 				if(loc.quest and not IsQuestFlaggedCompleted(loc.quest)) then
 					zoneName = zoneName .. '\n\n|cffff0000' .. L['Not Discovered']
 				end
