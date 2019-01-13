@@ -56,6 +56,7 @@ addon:Add(function(self)
 			local loc = data[index]
 
 			local Marker = self:NewMarker()
+			Marker:SetID(index)
 			Marker:SetTitle(loc.name or self:GetMapName(loc.zone))
 			Marker:SetNormalAtlas(loc.atlas or 'MagePortalAlliance')
 			Marker:SetHighlightAtlas(loc.atlas or 'MagePortalHorde')
