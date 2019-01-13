@@ -19,6 +19,8 @@ Supported "wormholes":
 	- Including all 19 possible destinations!
 - [Vethir](http://www.wowhead.com/npc=108685/vethir) in Stormheim
 	- Including the [Cry More Thunder!](http://www.wowhead.com/quest=41950/cry-more-thunder) world quest!
+- [Underbelly portal network](https://www.wowhead.com/item=138028/portal-key-black-market#comments)
+- Warfront Flightmasters (Arathi + Darkshore)
 - War Campaign footholds
 	- With quest markers during the campaign!
 
