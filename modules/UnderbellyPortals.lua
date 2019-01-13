@@ -24,7 +24,6 @@ addon:Add(function(self)
 				Marker:SetTitle(line)
 				Marker:SetNormalAtlas('MagePortalAlliance')
 				Marker:SetHighlightAtlas('MagePortalHorde')
-				Marker:SetSize(24)
 
 				Marker:Pin(UNDERBELLY, loc.x, loc.y)
 			end
