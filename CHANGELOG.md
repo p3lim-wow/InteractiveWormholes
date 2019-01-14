@@ -1,3 +1,12 @@
+### Changes in 80100.10-Release
+
+- Added: Dalaran Underbelly portal support
+- Added: Darkshore Warfront support
+- Added: Arathi Warfront support
+- Changed: Update Interface version
+- Changed: Modularized and documented the addon, making it easier to contribute
+- Fixed: Russian translations for Stormsong Valley foothold
+
 ### Changes in 80000.9-Release
 
 - Fixed: Incorrect german localization for Eastern Kingdoms (thanks @flyhard)
