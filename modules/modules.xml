@@ -1,6 +1,7 @@
 <Ui>
 	<Script file='Footholds.lua'/>
 	<Script file='MoleMachine.lua'/>
+	<Script file='Skyhold.lua'/>
 	<Script file='UnderbellyPortals.lua'/>
 	<Script file='Vethir.lua'/>
 	<Script file='Warfronts.lua'/>
