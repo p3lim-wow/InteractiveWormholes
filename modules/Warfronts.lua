@@ -21,7 +21,7 @@ local npcData = {
 			[L['Highlands Mill']]     = {x = 0.3577, y = 0.5733},
 			[L['Galson\'s Lode']]     = {x = 0.6276, y = 0.6951},
 			[L['Newstead']]           = {x = 0.4069, y = 0.4068},
-		--	[L['Circle of Elements']] = {x = 0.6831, y = 0.4755},
+			[L['Circle of Elements']] = {x = 0.6852, y = 0.4893},
 		}
 	},
 	[148565] = { -- Avery Nightwing (Darkshore, Horde)
