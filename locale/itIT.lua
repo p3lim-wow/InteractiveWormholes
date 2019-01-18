@@ -57,6 +57,8 @@ L['Broken Shore'] = 'Riva Dispersa'
 -- L['Newstead'] = '' -- MISSING TRANSLATION
 -- L['Circle of Elements'] = '' -- MISSING TRANSLATION
 -- L['Stormgarde Keep'] = '' -- MISSING TRANSLATION
+-- L['Highlands Mill'] = '' -- MISSING TRANSLATION
+-- L['Galson\'s Lode'] = '' -- MISSING TRANSLATION
 
 --- Warfront (Darkshore)
 -- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION

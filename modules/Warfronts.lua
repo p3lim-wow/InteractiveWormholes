@@ -13,12 +13,17 @@ local npcData = {
 			[L['Circle of Elements']] = {x = 0.6831, y = 0.4755},
 		}
 	},
-	-- [132005] = { -- Grayson Bell (Arathi, Alliance)
-	-- 	mapID = 943,
-	-- 	source = {x = 0.0, y = 0.0},
-	-- 	destinations = {
-	-- 	}
-	-- },
+	[132005] = { -- Grayson Bell (Arathi, Alliance)
+	 	mapID = 1044,
+		source = {x = 0.5112, y = 0.4709},
+		destinations = {
+			[L['Stromgarde Keep']]    = {x = 0.4583, y = 0.8517},
+			[L['Highlands Mill']]     = {x = 0.3577, y = 0.5733},
+			[L['Galson\'s Lode']]     = {x = 0.6276, y = 0.6951},
+			[L['Newstead']]           = {x = 0.4069, y = 0.4068},
+			[L['Circle of Elements']] = {x = 0.6852, y = 0.4893},
+		}
+	},
 	[148565] = { -- Avery Nightwing (Darkshore, Horde)
 		mapID = 1203,
 		source = {x = 0.4861, y = 0.3447},
