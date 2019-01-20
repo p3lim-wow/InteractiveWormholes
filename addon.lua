@@ -70,7 +70,7 @@ end
 Returns the currently interacted NPC's ID.
 --]]
 function addon:GetNPCID()
-	return tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-'))
+	return tonumber(string.match(UnitGUID('npc') or '', '%w+%-.-%-.-%-.-%-.-%-(.-)%-')) or 0
 end
 
 --[[ addon:GetMapName(_mapID_)
