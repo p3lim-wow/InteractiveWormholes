@@ -65,3 +65,11 @@ L['Broken Shore'] = '破碎海滩'
 -- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
 -- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
 -- L['Lor\'danel Landing'] = '' -- MISSING TRANSLATION
+
+--- Legion Zones (for Skyhold module)
+-- L['Dalaran'] = '' -- MISSING TRANSLATION
+-- L['Stormheim'] = '' -- MISSING TRANSLATION
+-- L['Azsuna'] = '' -- MISSING TRANSLATION
+-- L['Val\'sharah'] = '' -- MISSING TRANSLATION
+-- L['Highmountain'] = '' -- MISSING TRANSLATION
+-- L['Suramar'] = '' -- MISSING TRANSLATION
