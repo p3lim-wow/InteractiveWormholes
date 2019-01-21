@@ -7,8 +7,7 @@ local destinations = {
 	[addon:GetMapName(634)]	= {zone = 634, x = 0.6034, y = 0.5106}, -- Stormheim
 	[addon:GetMapName(630)]	= {zone = 630, x = 0.4749, y = 0.2755}, -- Azsuna
 	[addon:GetMapName(641)]	= {zone = 641, x = 0.5462, y = 0.7313}, -- Val'sharah
-	[addon:GetMapName(650)]	= {zone = 650, x = 0.4591, y = 0.6026}, -- Highmountain (Thunder Totem)
-	                       -- {zone = 750, x = 0.3853, y = 0.4554}, -- Thunder Totem
+	[addon:GetMapName(650)]	= {zone = 750, x = 0.3853, y = 0.4554}, -- Thunder Totem
 	[addon:GetMapName(680)]	= {zone = 680, x = 0.3381, y = 0.4940}, -- Suramar
 	[addon:GetMapName(646)]	= {zone = 646, x = 0.4427, y = 0.6299}, -- Broken Shore
 }
