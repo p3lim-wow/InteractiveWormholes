@@ -13,6 +13,7 @@ local function OnClick(self)
 	SelectGossipOption(self:GetID())
 end
 
+local tooltip = WorldMapTooltip or GameTooltip
 local function OnEnter(self)
 	if(self.source) then
 		Line:SetParent(self)
@@ -21,19 +22,19 @@ local function OnEnter(self)
 		Line:Show()
 	end
 
-	WorldMapTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-	WorldMapTooltip:AddLine(self.title or L['Click to travel'], 1, 1, 1)
+	tooltip:SetOwner(self, 'ANCHOR_RIGHT')
+	tooltip:AddLine(self.title or L['Click to travel'], 1, 1, 1)
 
 	if(self.description) then
-		WorldMapTooltip:AddLine(self.description, nil, nil, nil, true)
+		tooltip:AddLine(self.description, nil, nil, nil, true)
 	end
 
-	WorldMapTooltip:Show()
+	tooltip:Show()
 end
 
 local function OnLeave(self)
 	Line:Hide()
-	WorldMapTooltip:Hide()
+	tooltip:Hide()
 end
 
 local function OnAnimate(self)
