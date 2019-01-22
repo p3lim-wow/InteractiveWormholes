@@ -40,7 +40,7 @@ local continents = {
 	}
 }
 
-local location
+local location, guid
 local function OnClick(self)
 	if(self:IsEnabled()) then
 		-- select the continent first, the target location will be handled when the
@@ -53,6 +53,7 @@ local function PreClick(self)
 	if(self:IsEnabled()) then
 		-- grab the target location name _before_ the click goes through and resets the marker
 		location = self:GetTitle()
+		guid = UnitGUID('npc')
 	end
 end
 
@@ -61,11 +62,15 @@ addon:Add(function(self)
 	if(npcID == 143925) then
 		self:SetMapID(AZEROTH)
 
-		if(location) then
+		if(location and guid == UnitGUID('npc')) then
 			-- if the target location is selected, select it, then bail out
 			addon:SelectGossipLine(location)
 			location = nil
 			return
+		else
+			-- interacting with a different npc, reset the local variables
+			location = nil
+			guid = nil
 		end
 
 		for continent, locations in next, continents do
