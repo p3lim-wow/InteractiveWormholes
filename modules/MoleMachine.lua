@@ -50,19 +50,23 @@ local function OnClick(self)
 end
 
 local function PreClick(self)
-	-- grab the target location name _before_ the click goes through and resets the marker
-	location = self:GetTitle()
+	if(self:IsEnabled()) then
+		-- grab the target location name _before_ the click goes through and resets the marker
+		location = self:GetTitle()
+	end
 end
 
 addon:Add(function(self)
 	local npcID = self:GetNPCID()
-	if(location) then
-		-- if the target location is selected, select it.
-		-- for some reason the NPC has no ID, no idea why, which is why we check for it first.
-		addon:SelectGossipLine(location)
-		location = nil
-	elseif(npcID == 143925) then
+	if(npcID == 143925) then
 		self:SetMapID(AZEROTH)
+
+		if(location) then
+			-- if the target location is selected, select it, then bail out
+			addon:SelectGossipLine(location)
+			location = nil
+			return
+		end
 
 		for continent, locations in next, continents do
 			for name, loc in next, locations do
