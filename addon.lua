@@ -104,7 +104,7 @@ Returns true/false if the option exists and was clicked.
 --]]
 function addon:SelectGossipLine(text)
 	for index, line in next, addon:GetLines() do
-		if(line == text) then
+		if(line:match(text)) then
 			SelectGossipOption(index)
 			return true
 		end
