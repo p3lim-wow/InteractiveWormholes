@@ -42,28 +42,34 @@ local continents = {
 
 local location
 local function OnClick(self)
-	-- select the continent in the parent menu, which will trigger the callback again
+	if(self:IsEnabled()) then
+		-- select the continent first, the target location will be handled when the
+		-- gossip window reappears
+		addon:SelectGossipLine(self.continent)
+	end
+end
+
+local function PreClick(self)
+	-- grab the target location name _before_ the click goes through and resets the marker
 	location = self:GetTitle()
-	addon:SelectGossipLine(self.continent)
 end
 
 addon:Add(function(self)
 	local npcID = self:GetNPCID()
-	if(npcID == 143925) then
-		if(location) then
-			-- we've selected the continent, let's select the actual location
-			addon:SelectGossipLine(location)
-			location = nil
-			return
-		end
-
+	if(location) then
+		-- if the target location is selected, select it.
+		-- for some reason the NPC has no ID, no idea why, which is why we check for it first.
+		addon:SelectGossipLine(location)
+		location = nil
+	elseif(npcID == 143925) then
 		self:SetMapID(AZEROTH)
 
 		for continent, locations in next, continents do
 			for name, loc in next, locations do
 				local Marker = self:NewMarker()
-				Marker:SetScript('OnClick', OnClick) -- we need custom logic to handle sub-menus
 				Marker:SetTitle(name)
+				Marker:SetScript('OnClick', OnClick)
+				Marker:SetScript('PreClick', PreClick)
 				Marker:SetNormalAtlas('MagePortalAlliance')
 				Marker:SetHighlightAtlas('MagePortalHorde')
 				Marker.continent = continent
