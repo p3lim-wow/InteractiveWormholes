@@ -10,7 +10,9 @@ Line:SetAtlas('_UI-Taxi-Line-horizontal')
 Line:SetThickness(32)
 
 local function OnClick(self)
-	SelectGossipOption(self:GetID())
+	if(self:IsEnabled()) then
+		SelectGossipOption(self:GetID())
+	end
 end
 
 local tooltip = WorldMapTooltip or GameTooltip
@@ -157,6 +159,29 @@ function markerMixin:DisableArrow()
 	self.Arrow:Hide()
 end
 
+--[[ Marker:Disable()
+Disables the Marker and desatures its texture/atlas.
+--]]
+function markerMixin:Disable()
+	self.Texture:SetDesaturated(true)
+	self.disabled = true
+end
+
+--[[ Marker:Enable()
+Enables the Marker and re-saturates its texture/atlas.
+--]]
+function markerMixin:Enable()
+	self.Texture:SetDesaturated(false)
+	self.disabled = false
+end
+
+--[[ Marker:IsEnabled()
+Returns `true` or `false` whether the Marker is enabled or not.
+--]]
+function markerMixin:IsEnabled()
+	return not self.disabled
+end
+
 --[[ Marker:SetID(_id_)
 Sets the ID of the Marker, used to select the gossip option when the Marker is clicked.  
 See [addon:GetLines()](Addon#getlines).
@@ -214,12 +239,14 @@ function addon.private.resetMarker(_, Marker)
 	Marker.title = nil
 	Marker.description = nil
 	Marker.source = nil
+	Marker.disabled = false
 
 	Marker:SetID(0)
 	Marker:SetSize(24)
 	Marker:SetScript('OnClick', OnClick)
 	Marker:SetScript('OnEnter', OnEnter)
 	Marker:SetScript('OnLeave', OnLeave)
+	Marker.Texture:SetDesaturated(false)
 	Marker.Quest:Hide()
 	Marker.Arrow:Show()
 
