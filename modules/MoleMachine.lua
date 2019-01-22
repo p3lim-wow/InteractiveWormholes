@@ -71,6 +71,9 @@ addon:Add(function(self)
 				local zoneName = self:GetMapName(loc.zone)
 				if(loc.quest and not IsQuestFlaggedCompleted(loc.quest)) then
 					zoneName = zoneName .. '\n\n|cffff0000' .. L['Not Discovered']
+
+					Marker:DisableArrow()
+					Marker:Disable()
 				end
 				Marker:SetDescription(zoneName)
 
