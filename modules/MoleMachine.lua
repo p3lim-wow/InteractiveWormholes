@@ -62,8 +62,8 @@ addon:Add(function(self)
 		for continent, locations in next, continents do
 			for name, loc in next, locations do
 				local Marker = self:NewMarker()
-				Marker:SetTitle(line)
 				Marker:SetScript('OnClick', OnClick) -- we need custom logic to handle sub-menus
+				Marker:SetTitle(name)
 				Marker:SetNormalAtlas('MagePortalAlliance')
 				Marker:SetHighlightAtlas('MagePortalHorde')
 				Marker.continent = continent
