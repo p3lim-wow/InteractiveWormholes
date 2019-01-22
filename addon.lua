@@ -150,6 +150,6 @@ end)
 
 WorldMapFrame:HookScript('OnHide', function()
 	if(Handler:IsEventRegistered('GOSSIP_CLOSED')) then
-		CloseGossip()
+		C_Timer.After(1, CloseGossip)
 	end
 end)
