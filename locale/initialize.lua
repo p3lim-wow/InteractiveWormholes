@@ -13,6 +13,6 @@ setmetatable(ns.L, {
 	end,
 	__index = function(_, key)
 		local localeTable = localizations[locale]
-		return lbsz[key] or (localeTable and localeTable[key]) or tostring(key)
+		return localeTable and localeTable[key] or lbsz[key] or tostring(key)
 	end
 })
