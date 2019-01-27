@@ -11,7 +11,7 @@ L['You are here'] = TAXINODEYOUAREHERE
 L['Galebroken Path'] = 'Trilha Arrasavento'
 L['Thorignir Refuge'] = 'Refúgio Thorignir'
 L['Thorim\'s Peak'] = 'Pico de Thorim'
-L['Cry More Thunder!'] = 'Mais trovoadas!' -- pulled from http://pt.wowhead.com/quest=41950
+L['Hrydshal'] = 'Hrydshal'
 
 --- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Reinos do Leste'

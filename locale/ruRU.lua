@@ -11,7 +11,7 @@ L['You are here'] = TAXINODEYOUAREHERE
 L['Galebroken Path'] = 'Разоренная бурей тропа'
 L['Thorignir Refuge'] = 'Приют торигниров'
 L['Thorim\'s Peak'] = 'Пик Торима'
-L['Cry More Thunder!'] = 'И снова гром и молния!' -- pulled from http://ru.wowhead.com/quest=41950
+L['Hrydshal'] = 'Хридшал'
 
 --- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Восточные королевства'

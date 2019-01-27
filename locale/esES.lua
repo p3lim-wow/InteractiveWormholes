@@ -11,7 +11,7 @@ L['You are here'] = TAXINODEYOUAREHERE
 L['Galebroken Path'] = 'Sendero Rompeciclón'
 L['Thorignir Refuge'] = 'Refugio de los Thorignir'
 L['Thorim\'s Peak'] = 'Cima de Thorim'
-L['Cry More Thunder!'] = '¡Truenos y truenos!' -- pulled from http://es.wowhead.com/quest=41950
+L['Hrydshal'] = 'Hrydshal'
 
 --- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Reinos del Este'

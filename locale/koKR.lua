@@ -11,7 +11,7 @@ L['You are here'] = TAXINODEYOUAREHERE
 L['Galebroken Path'] = '질풍에 휩쓸린 길'
 L['Thorignir Refuge'] = '토리그니르 은거처'
 L['Thorim\'s Peak'] = '토림의 봉우리'
-L['Cry More Thunder!'] = '더 퍼부어라!' -- pulled from http://ko.wowhead.com/quest=41950
+L['Hrydshal'] = '흐뤼츠할'
 
 --- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = '동부 왕국'

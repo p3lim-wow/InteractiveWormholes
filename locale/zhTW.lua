@@ -11,7 +11,7 @@ L['You are here'] = TAXINODEYOUAREHERE
 L['Galebroken Path'] = '風裂小徑'
 L['Thorignir Refuge'] = '索林尼爾避難所'
 L['Thorim\'s Peak'] = '索林姆之巔'
--- L['Cry More Thunder!'] = '' -- MISSING TRANSLATION
+L['Hrydshal'] = '赫德夏爾'
 
 --- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = '東部王國'

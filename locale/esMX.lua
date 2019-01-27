@@ -11,7 +11,7 @@ L['You are here'] = TAXINODEYOUAREHERE
 L['Galebroken Path'] = 'Ruta Destruida por el Huracán'
 L['Thorignir Refuge'] = 'Refugio de Thorignir'
 L['Thorim\'s Peak'] = 'Cumbre de Thorim'
--- L['Cry More Thunder!'] = '' -- MISSING TRANSLATION
+L['Hrydshal'] = 'Hrydshal'
 
 --- Dark Iron Mole Machine
 L['Eastern Kingdoms'] = 'Reinos del Este'
