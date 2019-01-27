@@ -49,14 +49,16 @@ local function OnAnimate(self)
 end
 
 local markerMixin = {}
---[[ Marker:Pin(_mapID, x, y, showContinent, showWorld_)
+--[[ Marker:Pin(_mapID, x, y[, showContinent][, showWorld]_)
 Adds the Marker to the world map.
 
 * `mapID`         - the map ID of the zone to display the Marker in _(integer)_
 * `x`             - the x-axis coordinate to place the Marker _(float)_
 * `y`             - the y-axis coordinate to place the Marker _(float)_
 * `showContinent` - show the Marker on the relative Continent for the zone _(boolean)_
+   * _optional, defaults to `false`_
 * `showWorld`     - show the Marker on the World map _(boolean)_
+   * _optional, defaults to `false`_
 --]]
 function markerMixin:Pin(mapID, x, y, showContinent, showWorld)
 	local flag
@@ -110,18 +112,19 @@ function markerMixin:SetNormalAtlas(atlas)
 	self.Texture:SetAtlas(atlas)
 end
 
---[[ Marker:SetHighlightAtlas(_atlas, add_)
+--[[ Marker:SetHighlightAtlas(_atlas[, add]_)
 Sets the atlas texture displayed when hovering the the Marker.
 
 * `atlas` - Any valid atlas name _(string)_
 * `add`   - Wether to use addative blending or not _(boolean)_
+   * _optional, defaults to `false`_
 --]]
 function markerMixin:SetHighlightAtlas(atlas, add)
 	self.Highlight:SetAtlas(atlas)
 	self.Highlight:SetBlendMode(add and 'ADD' or 'BLEND')
 end
 
---[[ Marker:SetSize(_width, height_)
+--[[ Marker:SetSize(_width[, height]_)
 Sets the size of the Marker.
 
 * `width`  - The width of the Marker (integer)
