@@ -100,7 +100,7 @@ end
 An alternative to [SelectGossipOption]() that selects the line by text instead of index.  
 Returns true/false if the option exists and was clicked.
 
-* `text` - The full text of a line.
+* `text` - Full or partial text of a gossip line.
 --]]
 function addon:SelectGossipLine(text)
 	for index, line in next, addon:GetLines() do
