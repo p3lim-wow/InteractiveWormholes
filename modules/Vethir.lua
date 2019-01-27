@@ -6,7 +6,7 @@ local destinations = {
 	[L['Galebroken Path']]   = {x = 0.45, y = 0.77},
 	[L['Thorignir Refuge']]  = {x = 0.43, y = 0.82},
 	[L['Thorim\'s Peak']]    = {x = 0.41, y = 0.80},
-	[L['Cry More Thunder!']] = {x = 0.43, y = 0.67, atlas = 'ShipMissionIcon-Combat-Map', size = 40},
+	[L['Hrydshal']] = {x = 0.43, y = 0.67, atlas = 'ShipMissionIcon-Combat-Map', size = 40},
 }
 
 addon:Add(function(self)
