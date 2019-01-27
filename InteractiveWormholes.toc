@@ -12,6 +12,7 @@ libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 libs\HereBeDragons\HereBeDragons-2.0.lua
 libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+libs\LibBabble-SubZone-3.0\lib.xml
 
 locale\initialize.lua
 locale\deDE.lua
