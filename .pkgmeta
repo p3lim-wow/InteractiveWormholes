@@ -8,6 +8,9 @@ externals:
   libs/HereBeDragons:
     url: https://github.com/Nevcairiel/HereBeDragons
     tag: latest
+  libs/LibBabble-SubZone-3.0:
+    url: https://repos.wowace.com/wow/libbabble-subzone-3-0/trunk
+    tag: latest
 
 manual-changelog:
   filename: CHANGELOG.md

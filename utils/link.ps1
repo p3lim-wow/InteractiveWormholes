@@ -24,3 +24,10 @@ If(-Not (Test-Path -Path "libs\HereBeDragons")){
 	Remove-Item -Path "libs\HereBeDragons"
 	New-Item -ItemType SymbolicLink -Path "libs" -Name HereBeDragons -Value ..\HereBeDragons
 }
+
+If(-Not (Test-Path -Path "libs\LibBabble-SubZone-3.0")){
+	New-Item -ItemType SymbolicLink -Path "libs" -Name LibBabble-SubZone-3.0 -Value ..\LibBabble-SubZone-3.0
+} ElseIf(-Not (((Get-Item -Path "libs\LibBabble-SubZone-3.0").Attributes.ToString()) -Match "ReparsePoint")){
+	Remove-Item -Path "libs\LibBabble-SubZone-3.0"
+	New-Item -ItemType SymbolicLink -Path "libs" -Name LibBabble-SubZone-3.0 -Value ..\LibBabble-SubZone-3.0
+}

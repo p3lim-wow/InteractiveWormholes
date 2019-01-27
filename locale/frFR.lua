@@ -2,46 +2,19 @@ if(GetLocale() ~= 'frFR') then return end
 local L = select(2, ...).L('frFR')
 
 --- general strings
--- L['Click to travel'] = '' -- MISSING!
--- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING!
+-- L['Click to travel'] = '' -- MISSING TRANSLATION
+-- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING TRANSLATION
 L['Not Discovered'] = TAXI_PATH_UNREACHABLE
 L['You are here'] = TAXINODEYOUAREHERE
 
---- Vethir (Stormheim "Taxi")
-L['Galebroken Path'] = 'Sentier Brise-Vent'
-L['Thorignir Refuge'] = 'Refuge des Thorignirs'
-L['Thorim\'s Peak'] = 'Pic de Thorim'
-L['Hrydshal'] = 'Hrydshal'
-
---- Dark Iron Mole Machine
-L['Eastern Kingdoms'] = 'Royaumes de l’Est'
-L['Kalimdor'] = 'Kalimdor'
-L['Outland'] = 'Outreterre'
-L['Northrend'] = 'Norfendre'
-L['Pandaria'] = 'Pandarie'
-L['Draenor'] = 'Draenor'
-L['Broken Isles'] = 'Îles Brisées'
-
-L['Ironforge'] = 'Forgefer'
-L['Stormwind'] = 'Hurlevent'
-L['Nethergarde Keep'] = 'Rempart-du-Néant'
-L['Aerie Peak'] = 'Nid-de-l’Aigle'
-L['The Masonary'] = 'La Maçonnerie'
-L['Shadowforge City'] = 'Ville des Ombreforges'
-L['Fire Plume Ridge'] = 'Crête de la Fournaise'
+--- Subzones missing in LibBabble-SubZone
 L['Throne of Flame'] = 'Le Trône des Flammes'
-L['The Great Divide'] = 'La Grande division'
 L['Fel Pits'] = 'Les Gangrefosses'
-L['Honor Hold'] = 'Bastion de l\'Honneur'
-L['Skald'] = 'Skald'
-L['Argent Tournament Grounds'] = 'Enceinte du tournoi d’Argent'
-L['Ruby Dragonshrine'] = 'Sanctuaire draconique Rubis'
-L['One Keg'] = 'Monofu'
-L['Stormstout Brewery'] = 'Brasserie Brune d’Orage'
 -- L['Blackrock Foundry Overlook'] = '' -- MISSING TRANSLATION
-L['Elemental Plateau'] = 'Plateau Élémentaire'
-L['Neltharion\'s Vault'] = 'Caveau de Neltharion'
-L['Broken Shore'] = 'Rivage Brisé'
+-- L['Stormgarde Keep'] = '' -- MISSING TRANSLATION
+-- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
+-- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
+-- L['Lor\'danel Landing'] = '' -- MISSING TRANSLATION
 
 --- Dalaran Sewer Portals
 -- L['Sewer Guard Station'] = 'poste de garde des égouts' -- UNCONFIRMED TRANSLATION
@@ -50,19 +23,3 @@ L['Broken Shore'] = 'Rivage Brisé'
 -- L['Alchemists\' Lair'] = 'antre des alchimistes' -- UNCONFIRMED TRANSLATION
 -- L['Abandoned Shack'] = 'cabane abandonnée' -- UNCONFIRMED TRANSLATION
 -- L['Rear Entrance'] = 'porte de derrière' -- UNCONFIRMED TRANSLATION
-
---- Warfront (Arathi)
--- L['Ar\'gorok'] = '' -- MISSING TRANSLATION
--- L['Hatchet Ridge'] = '' -- MISSING TRANSLATION
--- L['Drywhisker Mine'] = '' -- MISSING TRANSLATION
--- L['Newstead'] = '' -- MISSING TRANSLATION
--- L['Circle of Elements'] = '' -- MISSING TRANSLATION
--- L['Stormgarde Keep'] = '' -- MISSING TRANSLATION
--- L['Highlands Mill'] = '' -- MISSING TRANSLATION
--- L['Galson\'s Lode'] = '' -- MISSING TRANSLATION
-
---- Warfront (Darkshore)
--- L['Bashal\'Aran'] = '' -- MISSING TRANSLATION
--- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
--- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
--- L['Lor\'danel Landing'] = '' -- MISSING TRANSLATION
