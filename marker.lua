@@ -68,7 +68,7 @@ function markerMixin:Pin(mapID, x, y, showContinent, showWorld)
 		flag = HBD_PINS_WORLDMAP_SHOW_CONTINENT
 	end
 
-	HBDP:AddWorldMapIconMap(Parent, self, mapID, x, y, flag)
+	HBDP:AddWorldMapIconMap(Parent, self, mapID, x, y, flag, 'PIN_FRAME_LEVEL_TOPMOST')
 end
 
 --[[ Marker:SetTitle(_title_)
