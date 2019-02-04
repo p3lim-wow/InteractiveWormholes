@@ -1,6 +1,15 @@
+### Changes in 80100.11-Release
+
+- Added: Stormflight support (Warrior order hall) (thanks @tiker)
+- Added: Arathi Warfront Alliance support (thanks @tiker)
+- Changed: Undiscovered Mole Machine locations are now disabled (greyed out, unclickable)
+- Changed: Now using LibBabble-SubZone for _most_ of the translations
+- Fixed: Mole Machine support
+- Fixed: Cry More Thunder! world quest not appearing on the map (thanks @markvl91)
+
 ### Changes in 80100.10-Release
 
-- Added: Dalaran Underbelly portal support
+- Added: Dalaran Underbelly portal support (thanks @tiker)
 - Added: Darkshore Warfront support
 - Added: Arathi Warfront support
 - Changed: Update Interface version
