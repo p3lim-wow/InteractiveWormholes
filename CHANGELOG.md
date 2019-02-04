@@ -1,3 +1,7 @@
+### Changes in 80100.12-Release
+
+- Fixed: Destinations being rendered under other pins on the map
+
 ### Changes in 80100.11-Release
 
 - Added: Stormflight support (Warrior order hall) (thanks @tiker)
