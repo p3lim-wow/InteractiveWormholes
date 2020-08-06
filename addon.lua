@@ -1,5 +1,7 @@
 local _, addon = ...
 
+local WOW_9 = select(4, GetBuildInfo()) >= 90000
+
 local HBD = LibStub('HereBeDragons-2.0')
 
 local showCallbacks, hideCallbacks
@@ -105,7 +107,11 @@ Returns true/false if the option exists and was clicked.
 function addon:SelectGossipLine(text)
 	for index, line in next, addon:GetLines() do
 		if(line:match(text)) then
-			SelectGossipOption(index)
+			if(WOW_9) then
+				C_GossipInfo.SelectOption(index)
+			else
+				SelectGossipOption(index)
+			end
 			return true
 		end
 	end
@@ -121,9 +127,16 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 		end
 
 		table.wipe(lines)
-		for index = 1, GetNumGossipOptions() do
-			-- this indexed crap is a pain to work with, tables are much nicer
-			table.insert(lines, (select((index * 2) - 1, GetGossipOptions())))
+
+		if(WOW_9) then
+			for _, info in next, C_GossipInfo.GetOptions() do
+				table.insert(lines, info.name)
+			end
+		else
+			for index = 1, GetNumGossipOptions() do
+				-- this indexed crap is a pain to work with, tables are much nicer
+				table.insert(lines, (select((index * 2) - 1, GetGossipOptions())))
+			end
 		end
 
 		for _, callback in next, showCallbacks do
