@@ -23,6 +23,13 @@ jobs:
         run: |
           pwd
           ls -la
+          ls -la .wiki
+
+      - name: look inside container
+        uses: docker://alpine:latest
+        with:
+          entrypoint: /bin/sh
+          args: -c "ls -la ; pwd"
 
       - name: Parse and generate docs
         uses: p3lim/lua-doc-parser@master
