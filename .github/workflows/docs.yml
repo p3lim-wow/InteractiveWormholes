@@ -12,27 +12,24 @@ jobs:
         run: |
           pwd
           ls -la
-          la -la ..
 
       - name: Clone wiki
         uses: actions/checkout@v2
         with:
           repository: ${{ github.repository }}.wiki
-          path: ../wiki
+          path: .wiki
 
       - name: ls2
         run: |
           pwd
           ls -la
-          la -la ..
 
       - name: Parse and generate docs
         uses: p3lim/lua-doc-parser@master
         with:
-          path: ../wiki
+          path: .wiki
 
       - name: ls3
         run: |
           pwd
           ls -la
-          la -la ..
