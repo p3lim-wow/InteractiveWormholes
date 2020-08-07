@@ -1,0 +1,9 @@
+name: Generate docs
+on: push
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: p3lim/lua-doc-parser@master
