@@ -7,15 +7,29 @@ jobs:
     steps:
       - name: Clone project
         uses: actions/checkout@v2
+
+      - name: ls1
+        run: |
+          pwd
+          ls -la
+
       - name: Clone wiki
         uses: actions/checkout@v2
         with:
           repository: ${{ github.repository }}.wiki
+          path: wiki
+
+      - name: ls2
+        run: |
+          pwd
+          ls -la
+
       - name: Parse and generate docs
         uses: p3lim/lua-doc-parser@master
         with:
-          path: ${{ github.repository }}.wiki
-      - name: Commit and push changes
+          path: wiki
+
+      - name: ls3
         run: |
           pwd
           ls -la
