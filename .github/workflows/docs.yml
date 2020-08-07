@@ -2,8 +2,20 @@ name: Generate docs
 on: push
 
 jobs:
-  release:
+  docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: p3lim/lua-doc-parser@master
+      - name: Clone project
+        uses: actions/checkout@v2
+      - name: Clone wiki
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}.wiki
+      - name: Parse and generate docs
+        uses: p3lim/lua-doc-parser@master
+        with:
+          path: ${{ github.repository }}.wiki
+      - name: Commit and push changes
+        run: |
+          pwd
+          ls -la
