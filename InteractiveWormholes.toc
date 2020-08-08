@@ -3,7 +3,7 @@
 ## Version: @project-version@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when interacting with gossip windows that offer teleportation
-## OptionalDeps: HereBeDragons
+## OptionalDeps: LibStub, CallbackHandler-1.0, HereBeDragons, LibBabble-SubZone-3.0
 
 ## X-Curse-Project-ID: 101522
 ## X-WoWI-ID: 24119
