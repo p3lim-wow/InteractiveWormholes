@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Clone project
         uses: actions/checkout@v2
-        
+
       - name: Package and release
         uses: BigWigsMods/packager@github-action
     env:
-      CF_API_TOKEN: ${{ secrets.CF_API_KEY }}
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
       WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
