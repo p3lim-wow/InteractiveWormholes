@@ -12,6 +12,7 @@ jobs:
         run: |
           pwd
           ls -la
+          git remote -v
 
       - name: Clone wiki
         uses: actions/checkout@v2
@@ -24,6 +25,7 @@ jobs:
           pwd
           ls -la
           ls -la .wiki
+          git remote -v
 
       - name: look inside container
         uses: docker://alpine:latest
