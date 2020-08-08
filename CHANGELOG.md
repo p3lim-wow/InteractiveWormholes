@@ -1,3 +1,8 @@
+### Changes in 80300.13-Release
+
+- Added: Initial support for Shadowlands
+- Changed: Update Interface version
+
 ### Changes in 80100.12-Release
 
 - Fixed: Destinations being rendered under other pins on the map
