@@ -190,8 +190,6 @@ Sets the ID of the Marker, used to select the gossip option when the Marker is c
 See [addon:GetLines()](Addon#getlines).
 
 * `id` - The ID/index of a gossip options _(integer)_
-
-test
 --]]
 
 addon.private = {} -- this gets removed in addon.lua once used
