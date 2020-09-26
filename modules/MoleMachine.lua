@@ -40,6 +40,10 @@ local continents = {
 	}
 }
 
+-- 8.0/9.0 compat
+-- TODO: remove post-9.0 release
+local IsQuestFlaggedCompleted = select(4, GetBuildInfo()) >= 90000 and C_QuestLog.IsQuestFlaggedCompleted or IsQuestFlaggedCompleted
+
 local location, guid
 local function OnClick(self)
 	if(self:IsEnabled()) then
