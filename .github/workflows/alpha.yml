@@ -1,4 +1,4 @@
-name: Package and release
+name: Package and create artifact
 on:
   push:
     branches:
@@ -13,10 +13,17 @@ jobs:
       - name: Clone project
         uses: actions/checkout@v2
 
-      - name: Package and release
+      - name: Package
         uses: BigWigsMods/packager@master
         with:
           args: -w 0 -p 0
 
-    env:
-      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get short commit sha
+        id: sha
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: InteractiveWormhole-${{ steps.sha.outputs.sha_short }}.zip
+          path: .release/InteractiveWormhole-${{ steps.sha.outputs.sha_short }}.zip
