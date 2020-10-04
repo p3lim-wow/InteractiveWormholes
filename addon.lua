@@ -120,13 +120,23 @@ Returns true/false if the option exists and was clicked.
 function addon:SelectGossipLine(text)
 	for index, line in next, addon:GetLines() do
 		if(line:match(text)) then
-			if(WOW_9) then
-				C_GossipInfo.SelectOption(index)
-			else
-				SelectGossipOption(index)
-			end
+			addon:SelectGossipIndex(index)
 			return true
 		end
+	end
+end
+
+--[[ addon:SelectGossipIndex(_index_)
+A wrapper for [SelectGossipOption]().
+
+* `index` - Index of a gossip option.
+--]]
+function addon:SelectGossipIndex(index)
+	-- TODO: verify that the option exists first
+	if(WOW_9) then
+		C_GossipInfo.SelectOption(index)
+	else
+		SelectGossipOption(index)
 	end
 end
 
