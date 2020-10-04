@@ -16,7 +16,7 @@ jobs:
       - name: Package
         uses: BigWigsMods/packager@master
         with:
-          args: -w 0 -p 0
+          args: -z
 
       - name: Get short commit sha
         id: sha
@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: InteractiveWormholes-${{ steps.sha.outputs.sha_short }}.zip
-          path: .release/InteractiveWormholes-${{ steps.sha.outputs.sha_short }}.zip
+          path: .release/
