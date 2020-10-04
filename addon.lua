@@ -43,6 +43,19 @@ function addon:Remove(callback)
 	table.insert(hideCallbacks, callback)
 end
 
+--[[ addon:RemoveAll()
+Removes all markers on the map.
+--]]
+function addon:RemoveAll()
+	if(markerPool) then
+		markerPool:ReleaseAll()
+	end
+
+	for _, callback in next, hideCallbacks do
+		callback(addon)
+	end
+end
+
 --[[ addon:NewMarker()
 Creates and returns a new [Marker](Marker).
 --]]
@@ -151,13 +164,7 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 			ToggleWorldMap()
 		end
 
-		if(markerPool) then
-			markerPool:ReleaseAll()
-		end
-
-		for _, callback in next, hideCallbacks do
-			callback(addon)
-		end
+		addon:RemoveAll()
 	end
 end)
 
