@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: InteractiveWormhole-${{ steps.sha.outputs.sha_short }}.zip
-          path: .release/InteractiveWormhole-${{ steps.sha.outputs.sha_short }}.zip
+          path: ${{ env.working-directory }}.release/InteractiveWormhole-${{ steps.sha.outputs.sha_short }}.zip
