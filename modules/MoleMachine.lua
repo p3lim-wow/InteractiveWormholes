@@ -121,8 +121,7 @@ addon:Add(function(self)
 				Marker.continentIndex = continentIndex
 				Marker.locationIndex = locationIndex
 
-				-- Marker:SetDescription(zoneName)
-				Marker:SetDescription(string.format('%s\n\ncontinentIndex: %d\nlocationIndex: %d', zoneName, continentIndex, locationIndex))
+				Marker:SetDescription(zoneName)
 				Marker:Pin(location.zone, location.x, location.y, nil, true)
 			end
 
