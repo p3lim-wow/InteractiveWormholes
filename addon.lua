@@ -70,7 +70,11 @@ Opens up the world map to the desired zone by map ID.
 --]]
 function addon:SetMapID(mapID)
 	Handler:RegisterEvent('GOSSIP_CLOSED')
-	GossipFrame:SetScript('OnEvent', nil)
+	if WOW_9 then
+		CustomGossipFrameManager:SetScript('OnEvent', nil)
+	else
+		GossipFrame:SetScript('OnEvent', nil)
+	end
 	GossipFrame:SetScript('OnHide', nil)
 
 	-- OpenWorldMap(mapID) -- doesn't work properly for whatever reason
@@ -167,7 +171,11 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 		end
 	elseif(event == 'GOSSIP_CLOSED') then
 		self:UnregisterEvent(event)
-		GossipFrame:SetScript('OnEvent', GossipFrame_OnEvent)
+		if WOW_9 then
+			CustomGossipFrameManager:SetScript('OnEvent', CustomGossipManagerMixin.OnEvent)
+		else
+			GossipFrame:SetScript('OnEvent', GossipFrame_OnEvent)
+		end
 		GossipFrame:SetScript('OnHide', origGossipHide)
 
 		if(WorldMapFrame:IsShown()) then
