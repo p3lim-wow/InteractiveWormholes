@@ -25,5 +25,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: InteractiveWormholes-${{ steps.sha.outputs.sha_short }}.zip
+          name: InteractiveWormholes-${{ steps.sha.outputs.sha_short }}
           path: .release/
