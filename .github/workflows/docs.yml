@@ -15,9 +15,9 @@ jobs:
           path: .wiki
 
       - name: Parse and generate docs
-        uses: p3lim/lua-doc-parser@master
+        uses: p3lim/lua-doc-parser@v2
         with:
-          path: .wiki
+          output: .wiki
 
       - name: Push docs
         run: |
