@@ -1,3 +1,9 @@
+### Changes in 90000.14-Release:
+
+- Changed: Update Interface version
+- Fixed: Shadowlands compatibility
+- Fixed: Mole Machine with maximized world map
+
 ### Changes in 80300.13-Release
 
 - Added: Initial support for Shadowlands
