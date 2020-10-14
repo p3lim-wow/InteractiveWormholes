@@ -1,7 +1,5 @@
 local _, addon = ...
 
-local WOW_9 = select(4, GetBuildInfo()) >= 90000
-
 local HBD = LibStub('HereBeDragons-2.0')
 
 local showCallbacks, hideCallbacks
@@ -70,11 +68,7 @@ Opens up the world map to the desired zone by map ID.
 --]]
 function addon:SetMapID(mapID)
 	Handler:RegisterEvent('GOSSIP_CLOSED')
-	if WOW_9 then
-		CustomGossipFrameManager:SetScript('OnEvent', nil)
-	else
-		GossipFrame:SetScript('OnEvent', nil)
-	end
+	CustomGossipFrameManager:SetScript('OnEvent', nil)
 	GossipFrame:SetScript('OnHide', nil)
 
 	-- OpenWorldMap(mapID) -- doesn't work properly for whatever reason
@@ -137,11 +131,7 @@ A wrapper for [SelectGossipOption]().
 --]]
 function addon:SelectGossipIndex(index)
 	-- TODO: verify that the option exists first
-	if(WOW_9) then
-		C_GossipInfo.SelectOption(index)
-	else
-		SelectGossipOption(index)
-	end
+	C_GossipInfo.SelectOption(index)
 end
 
 local origGossipHide = GossipFrame:GetScript('OnHide')
@@ -155,15 +145,8 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 
 		table.wipe(lines)
 
-		if(WOW_9) then
-			for _, info in next, C_GossipInfo.GetOptions() do
-				table.insert(lines, info.name)
-			end
-		else
-			for index = 1, GetNumGossipOptions() do
-				-- this indexed crap is a pain to work with, tables are much nicer
-				table.insert(lines, (select((index * 2) - 1, GetGossipOptions())))
-			end
+		for _, info in next, C_GossipInfo.GetOptions() do
+			table.insert(lines, info.name)
 		end
 
 		for _, callback in next, showCallbacks do
@@ -171,11 +154,7 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 		end
 	elseif(event == 'GOSSIP_CLOSED') then
 		self:UnregisterEvent(event)
-		if WOW_9 then
-			CustomGossipFrameManager:SetScript('OnEvent', CustomGossipManagerMixin.OnEvent)
-		else
-			GossipFrame:SetScript('OnEvent', GossipFrame_OnEvent)
-		end
+		CustomGossipFrameManager:SetScript('OnEvent', CustomGossipManagerMixin.OnEvent)
 		GossipFrame:SetScript('OnHide', origGossipHide)
 
 		if(WorldMapFrame:IsShown()) then
@@ -191,10 +170,6 @@ WorldMapFrame:HookScript('OnHide', function()
 		-- we delay the gossip close just so the NPC ID isn't invalid instantly.
 		-- this seems like a bug with the Blizzard API, it should be cached until the
 		-- player actually _stops_ the gossip, not before it actually happens.
-		if WOW_9 then
-			C_Timer.After(1, C_GossipInfo.CloseGossip)
-		else
-			C_Timer.After(1, CloseGossip)
-		end
+		C_Timer.After(1, C_GossipInfo.CloseGossip)
 	end
 end)

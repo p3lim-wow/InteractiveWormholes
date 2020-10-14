@@ -61,10 +61,6 @@ local continents = {
 	},
 }
 
--- TODO: remove post-9.0 release
-local WOW_9 = select(4, GetBuildInfo()) >= 90000
-local IsQuestFlaggedCompleted = WOW_9 and C_QuestLog.IsQuestFlaggedCompleted or IsQuestFlaggedCompleted
-
 local selectedLocationIndex
 local function OnClick(self)
 	if(self:IsEnabled()) then
@@ -106,8 +102,7 @@ addon:Add(function(self)
 				Marker:SetHighlightAtlas('MagePortalHorde')
 
 				local zoneName = self:GetMapName(location.zone)
-				-- if(location.quest and not C_QuestLog.IsQuestFlaggedCompleted(location.quest)) then
-				if(location.quest and not IsQuestFlaggedCompleted(location.quest)) then -- XXX: 8.x compat
+				if(location.quest and not C_QuestLog.IsQuestFlaggedCompleted(location.quest)) then
 					zoneName = zoneName .. '\n\n|cffff0000' .. L['Not Discovered']
 
 					Marker:DisableArrow()
