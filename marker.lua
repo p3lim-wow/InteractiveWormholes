@@ -11,7 +11,7 @@ Line:SetThickness(32)
 
 local function OnClick(self)
 	if(self:IsEnabled()) then
-		SelectGossipOption(self:GetID())
+		addon:SelectGossipIndex(self:GetID())
 	end
 end
 
