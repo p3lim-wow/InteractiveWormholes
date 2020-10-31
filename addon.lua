@@ -49,8 +49,10 @@ function addon:RemoveAll()
 		markerPool:ReleaseAll()
 	end
 
-	for _, callback in next, hideCallbacks do
-		callback(addon)
+	if hideCallbacks then
+		for _, callback in next, hideCallbacks do
+			callback(addon)
+		end
 	end
 end
 
