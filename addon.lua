@@ -167,9 +167,6 @@ end)
 
 WorldMapFrame:HookScript('OnHide', function()
 	if(Handler:IsEventRegistered('GOSSIP_CLOSED')) then
-		-- we delay the gossip close just so the NPC ID isn't invalid instantly.
-		-- this seems like a bug with the Blizzard API, it should be cached until the
-		-- player actually _stops_ the gossip, not before it actually happens.
-		C_Timer.After(1, C_GossipInfo.CloseGossip)
+		C_GossipInfo.CloseGossip()
 	end
 end)
