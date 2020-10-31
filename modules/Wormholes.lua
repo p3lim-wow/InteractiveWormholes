@@ -70,7 +70,9 @@ addon:Add(function(self)
 	end
 end)
 
-addon:Remove(function()
-	-- this triggers when the gossip is closed, we use it to reset the Reaves page logic
+local Handler = CreateFrame('Frame')
+Handler:RegisterEvent('GOSSIP_CLOSED')
+Handler:SetScript('OnEvent', function()
+	-- reset the Reaves page logic
 	page = 0
 end)
