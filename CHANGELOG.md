@@ -1,3 +1,8 @@
+### Changes in 90000.18-Release:
+
+- Fixed: Reeves logic sometimes failing if used too fast
+- Removed: Old fix for gossip state firing incorrectly
+
 ### Changes in 90000.17-Release:
 
 - Fixed: Errors when selecting a target location
