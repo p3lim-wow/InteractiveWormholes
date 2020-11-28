@@ -1,3 +1,8 @@
+### Changes in 90000.19-Release:
+
+- Added: Support for Wormhole Generator: Shadowlands
+- Changed: Update Interface version
+
 ### Changes in 90000.18-Release:
 
 - Fixed: Reeves logic sometimes failing if used too fast
