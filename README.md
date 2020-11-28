@@ -11,6 +11,7 @@ Instead of that, *Interactive Wormholes* displays these destinations as clickabl
 
 Supported "wormholes":
 
+- [Wormhole Generator: Shadowlands](https://www.wowhead.com/item=172924/wormhole-generator-shadowlands)
 - [Wormhole Generator: Northrend](http://www.wowhead.com/item=48933/wormhole-generator-northrend)
 	- Including the "secret" 6th destination!
 - [Wormhole Centrifuge](http://www.wowhead.com/item=112059/wormhole-centrifuge)

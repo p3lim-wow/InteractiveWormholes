@@ -33,7 +33,16 @@ local npcData = {
 		{zone = 680, x = 0.42, y = 0.67}, -- Suramar
 		inaccurate = true,
 		mapID = 619, -- Broken Isles
-	}
+	},
+	[169501] = { -- Wormhole Generator: Shadowlands
+		{zone = 1670, x = 0.5208, y = 0.2613}, -- "Oribos, The Eternal City"
+		{zone = 1533, x = 0.5185, y = 0.8776}, -- "Bastion, Home of the Kyrian"
+		{zone = 1536, x = 0.4244, y = 0.4399}, -- "Maldraxxus, Citadel of the Necrolords"
+		{zone = 1565, x = 0.5442, y = 0.6032}, -- "Ardenweald, Forest of the Night Fae"
+		{zone = 1525, x = 0.3750, y = 0.7655}, -- "Revendreth, Court of the Venthyr"
+		{zone = 1543, x = 0.2245, y = 0.2815}, -- "The Maw, Wasteland of the Damned"
+		mapID = 1550, -- Shadowlands
+	},
 }
 
 local page = 0
