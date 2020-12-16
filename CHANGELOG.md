@@ -1,3 +1,7 @@
+### Changes in 90000.20-Release:
+
+- Added: Support for Animaflow Teleporter in The Maw
+
 ### Changes in 90000.19-Release:
 
 - Added: Support for Wormhole Generator: Shadowlands
