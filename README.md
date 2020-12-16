@@ -24,7 +24,8 @@ Supported "wormholes":
 - Warfront Flightmasters (Arathi + Darkshore)
 - War Campaign footholds
 	- With quest markers during the campaign!
-- [Stormflight](https://www.wowhead.com/npc=96679/aerylia) (Warrior order hall)
+- [Stormflight](https://www.wowhead.com/npc=96679/aerylia) in the Warrior order hall
+- [Animaflow Teleporter](https://www.wowhead.com/npc=172925) in The Maw
 
 ## Feedback
 

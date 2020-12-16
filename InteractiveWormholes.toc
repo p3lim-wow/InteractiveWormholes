@@ -36,3 +36,4 @@ modules\UnderbellyPortals.lua
 modules\Vethir.lua
 modules\Warfronts.lua
 modules\Wormholes.lua
+modules\Maw.lua
