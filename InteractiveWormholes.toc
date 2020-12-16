@@ -29,4 +29,10 @@ locale\zhTW.lua
 marker.lua
 addon.lua
 
-modules\modules.xml
+modules\Footholds.lua
+modules\MoleMachine.lua
+modules\Stormflight.lua
+modules\UnderbellyPortals.lua
+modules\Vethir.lua
+modules\Warfronts.lua
+modules\Wormholes.lua
