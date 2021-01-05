@@ -76,5 +76,7 @@ addon:Add(function(self)
 				end
 			end
 		end
+
+		return true
 	end
 end)

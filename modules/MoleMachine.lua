@@ -125,5 +125,7 @@ addon:Add(function(self)
 				continentIndex = continentIndex + 1
 			end
 		end
+
+		return true
 	end
 end)

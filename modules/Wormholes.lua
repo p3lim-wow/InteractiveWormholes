@@ -76,6 +76,8 @@ addon:Add(function(self)
 
 			Marker:Pin(loc.zone, loc.x, loc.y, true)
 		end
+
+		return true
 	end
 end)
 

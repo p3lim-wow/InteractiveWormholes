@@ -183,8 +183,19 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 			table.insert(lines, info.name)
 		end
 
+		local activated
 		for _, callback in next, showCallbacks do
-			callback(addon)
+			if callback(addon) then
+				activated = true
+			end
+		end
+
+		if not activated then
+			MapButton.mapID = nil
+
+			if not InCombatLockdown() then
+				MapButton:Hide()
+			end
 		end
 	elseif(event == 'GOSSIP_CLOSED') then
 		self:UnregisterEvent(event)
@@ -195,6 +206,14 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 		end
 
 		addon:RemoveAll()
+
+		if InCombatLockdown() then
+			self:RegisterEvent('PLAYER_REGEN_ENABLED')
+		else
+			MapButton:Show()
+		end
+	elseif event == 'PLAYER_REGEN_ENABLED' then
+		MapButton:Show()
 	end
 end)
 

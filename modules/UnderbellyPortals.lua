@@ -28,5 +28,7 @@ addon:Add(function(self)
 				Marker:Pin(UNDERBELLY, loc.x, loc.y)
 			end
 		end
+
+		return true
 	end
 end)
