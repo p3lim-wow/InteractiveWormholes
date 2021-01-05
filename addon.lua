@@ -1,4 +1,4 @@
-local _, addon = ...
+local addonName, addon = ...
 
 -- we store the original CloseGossip API because we have to override it to prevent the gossiping
 -- from ending when we open up the map, and the alternative (disabling what's calling CloseGossip)
@@ -11,6 +11,36 @@ addon.private = nil -- it's called private for a reason
 
 local HBD = LibStub('HereBeDragons-2.0')
 local Handler = CreateFrame('Frame')
+
+-- create a button that will be shown in the gossip frame whenever we're in combat
+-- to let the player open the map manually
+local MapButton = CreateFrame('Button', addonName .. 'MapButton', GossipFrame, 'SecureActionButtonTemplate')
+MapButton:SetSize(48, 32)
+MapButton:SetPoint('TOPRIGHT', 0, -26)
+MapButton:SetAttribute('type', 'macro')
+MapButton:SetAttribute('macrotext', '/click QuestLogMicroButton')
+MapButton:HookScript('PreClick', function()
+	Handler:RegisterEvent('GOSSIP_CLOSED')
+	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
+end)
+
+MapButton:HookScript('PostClick', function(self)
+	if WorldMapFrame:IsShown() then
+		WorldMapFrame:SetMapID(self.mapID)
+	end
+end)
+
+local Texture = MapButton:CreateTexture('$parentTexture', 'ARTWORK')
+Texture:SetPoint('RIGHT')
+Texture:SetSize(48, 32)
+Texture:SetTexture([[Interface\QuestFrame\UI-QuestMap_Button]])
+Texture:SetTexCoord(0.125, 0.875, 0, 0.5)
+
+local Highlight = MapButton:CreateTexture('$parentHighlight', 'HIGHLIGHT')
+Highlight:SetPoint('RIGHT', -7, 0)
+Highlight:SetSize(32, 25)
+Highlight:SetTexture([[Interface\Buttons\ButtonHilight-Square]])
+Highlight:SetBlendMode('ADD')
 
 --[[ addon:Add(_callback_)
 Adds a new callback that will be triggered when interacting with an NPC that has gossip options.
@@ -75,6 +105,8 @@ Opens up the world map to the desired zone by map ID.
 --]]
 function addon:SetMapID(mapID)
 	if (IsShiftKeyDown() or InCombatLockdown()) and not WorldMapFrame:IsShown() then
+		-- show the map button in the gossip whenever the user is in combat or holds shift
+		MapButton.mapID = mapID
 	else
 		Handler:RegisterEvent('GOSSIP_CLOSED')
 		C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
