@@ -1,12 +1,17 @@
 local _, addon = ...
 
-local HBD = LibStub('HereBeDragons-2.0')
+-- we store the original CloseGossip API because we have to override it to prevent the gossiping
+-- from ending when we open up the map, and the alternative (disabling what's calling CloseGossip)
+-- will taint during combat
+local CloseGossip = C_GossipInfo.CloseGossip
 
 local showCallbacks, hideCallbacks
 local markerPool = CreateObjectPool(addon.private.createMarker, addon.private.resetMarker)
 addon.private = nil -- it's called private for a reason
 
+local HBD = LibStub('HereBeDragons-2.0')
 local Handler = CreateFrame('Frame')
+
 --[[ addon:Add(_callback_)
 Adds a new callback that will be triggered when interacting with an NPC that has gossip options.
 
@@ -69,16 +74,17 @@ Opens up the world map to the desired zone by map ID.
 * `mapID` - the map ID of the zone to display _(integer)_
 --]]
 function addon:SetMapID(mapID)
-	Handler:RegisterEvent('GOSSIP_CLOSED')
-	CustomGossipFrameManager:SetScript('OnEvent', nil)
-	GossipFrame:SetScript('OnHide', nil)
+	if (IsShiftKeyDown() or InCombatLockdown()) and not WorldMapFrame:IsShown() then
+	else
+		Handler:RegisterEvent('GOSSIP_CLOSED')
+		C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
 
-	-- OpenWorldMap(mapID) -- doesn't work properly for whatever reason
-	if(not WorldMapFrame:IsShown()) then
-		ToggleWorldMap()
+		if not WorldMapFrame:IsShown() then
+			ToggleWorldMap()
+		end
+
+		WorldMapFrame:SetMapID(mapID)
 	end
-
-	WorldMapFrame:SetMapID(mapID)
 end
 
 --[[ addon:GetNPCID()
@@ -136,15 +142,9 @@ function addon:SelectGossipIndex(index)
 	C_GossipInfo.SelectOption(index)
 end
 
-local origGossipHide = GossipFrame:GetScript('OnHide')
 Handler:RegisterEvent('GOSSIP_SHOW')
 Handler:SetScript('OnEvent', function(self, event, ...)
 	if(event == 'GOSSIP_SHOW') then
-		if(IsShiftKeyDown()) then
-			-- bail out in case the user wants to access the original gossip menu
-			return
-		end
-
 		table.wipe(lines)
 
 		for _, info in next, C_GossipInfo.GetOptions() do
@@ -156,10 +156,9 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 		end
 	elseif(event == 'GOSSIP_CLOSED') then
 		self:UnregisterEvent(event)
-		CustomGossipFrameManager:SetScript('OnEvent', CustomGossipManagerMixin.OnEvent)
-		GossipFrame:SetScript('OnHide', origGossipHide)
+		C_GossipInfo.CloseGossip = CloseGossip
 
-		if(WorldMapFrame:IsShown()) then
+		if not InCombatLockdown() and WorldMapFrame:IsShown() then
 			ToggleWorldMap()
 		end
 
@@ -168,7 +167,5 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 end)
 
 WorldMapFrame:HookScript('OnHide', function()
-	if(Handler:IsEventRegistered('GOSSIP_CLOSED')) then
-		C_GossipInfo.CloseGossip()
-	end
+	CloseGossip()
 end)
