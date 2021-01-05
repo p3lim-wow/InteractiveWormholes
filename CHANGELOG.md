@@ -1,3 +1,8 @@
+### Changes in 90000.21-Release:
+
+- Added: Button to open the map (and activating Interactive Wormholes) on gossip windows
+- Fixed: Taint issues when opening any gossip window after using Interactive Wormholes
+
 ### Changes in 90000.20-Release:
 
 - Added: Support for Animaflow Teleporter in The Maw
