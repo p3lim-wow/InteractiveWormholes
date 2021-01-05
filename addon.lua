@@ -19,6 +19,7 @@ MapButton:SetSize(48, 32)
 MapButton:SetPoint('TOPRIGHT', 0, -26)
 MapButton:SetAttribute('type', 'macro')
 MapButton:SetAttribute('macrotext', '/click QuestLogMicroButton')
+MapButton:SetAlpha(0)
 MapButton:HookScript('PreClick', function()
 	Handler:RegisterEvent('GOSSIP_CLOSED')
 	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
@@ -108,6 +109,7 @@ function addon:SetMapID(mapID)
 	if (IsShiftKeyDown() or InCombatLockdown()) and not WorldMapFrame:IsShown() then
 		-- show the map button in the gossip whenever the user is in combat or holds shift
 		MapButton.mapID = mapID
+		MapButton:SetAlpha(1)
 	else
 		Handler:RegisterEvent('GOSSIP_CLOSED')
 		C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
@@ -193,10 +195,7 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 
 		if not activated then
 			MapButton.mapID = nil
-
-			if not InCombatLockdown() then
-				MapButton:Hide()
-			end
+			MapButton:SetAlpha(0)
 		end
 	elseif(event == 'GOSSIP_CLOSED') then
 		self:UnregisterEvent(event)
@@ -207,14 +206,7 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 		end
 
 		addon:RemoveAll()
-
-		if InCombatLockdown() then
-			self:RegisterEvent('PLAYER_REGEN_ENABLED')
-		else
-			MapButton:Show()
-		end
-	elseif event == 'PLAYER_REGEN_ENABLED' then
-		MapButton:Show()
+		MapButton:SetAlpha(0)
 	end
 end)
 
