@@ -44,6 +44,7 @@ Highlight:SetBlendMode('ADD')
 
 --[[ addon:Add(_callback_)
 Adds a new callback that will be triggered when interacting with an NPC that has gossip options.
+The callback *must* return positively (`true`) whenever the map should be shown.
 
 This is merely the event `GOSSIP_SHOW` with some pre-processing.
 
