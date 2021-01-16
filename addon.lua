@@ -122,6 +122,13 @@ function addon:SetMapID(mapID)
 	end
 end
 
+--[[ addon:IsActive()
+Returns `true`/`false` if the map is rendering markers.
+--]]
+function addon:IsActive()
+	return Handler:IsEventRegistered('GOSSIP_CLOSED')
+end
+
 --[[ addon:GetNPCID()
 Returns the currently interacted NPC's ID.
 --]]
@@ -211,5 +218,7 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 end)
 
 WorldMapFrame:HookScript('OnHide', function()
-	CloseGossip()
+	if addon:IsActive() then
+		CloseGossip()
+	end
 end)
