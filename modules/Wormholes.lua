@@ -59,7 +59,14 @@ addon:Add(function(self)
 
 	local data = npcData[npcID]
 	if(data) then
-		self:SetMapID(data.mapID)
+		local mapID = C_Map.GetBestMapForUnit('player')
+		local mapInfo = C_Map.GetMapInfo(mapID)
+		if not MapUtil.IsChildMap(mapID, data.mapID) or mapInfo.mapType > Enum.UIMapType.Zone then
+			-- only set the zone to the continent if we're not within a subzone of it
+			mapID = data.mapID
+		end
+
+		self:SetMapID(mapID)
 
 		for index in next, self:GetLines() do
 			local loc = data[index]
