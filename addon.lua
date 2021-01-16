@@ -159,6 +159,13 @@ function addon:GetLines()
 	return lines
 end
 
+--[[ addon:GetNumLines()
+Returns the number of gossip options the currently interacted NPC has to offer.  
+--]]
+function addon:GetNumLines()
+	return C_GossipInfo.GetNumOptions()
+end
+
 --[[ addon:SelectGossipLine(_text_)
 An alternative to [SelectGossipOption]() that selects the line by text instead of index.  
 Returns true/false if the option exists and was clicked.
