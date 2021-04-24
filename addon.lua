@@ -9,6 +9,12 @@ local showCallbacks, hideCallbacks
 local markerPool = CreateObjectPool(addon.private.createMarker, addon.private.resetMarker)
 addon.private = nil -- it's called private for a reason
 
+local function renderMarkers()
+	for _, callback in next, showCallbacks do
+		callback(addon)
+	end
+end
+
 local HBD = LibStub('HereBeDragons-2.0')
 local Handler = CreateFrame('Frame')
 
@@ -26,9 +32,11 @@ MapButton:HookScript('PreClick', function()
 end)
 
 MapButton:HookScript('PostClick', function(self)
-	if WorldMapFrame:IsShown() then
-		WorldMapFrame:SetMapID(self.mapID)
-	end
+	-- if WorldMapFrame:IsShown() then
+	-- 	WorldMapFrame:SetMapID(self.mapID)
+	-- end
+
+	renderMarkers()
 end)
 
 local Texture = MapButton:CreateTexture('$parentTexture', 'ARTWORK')
@@ -106,20 +114,21 @@ Opens up the world map to the desired zone by map ID.
 * `mapID` - the map ID of the zone to display _(integer)_
 --]]
 function addon:SetMapID(mapID)
-	if (IsShiftKeyDown() or InCombatLockdown()) and not WorldMapFrame:IsShown() then
-		-- show the map button in the gossip whenever the user is in combat or holds shift
-		MapButton.mapID = mapID
-		MapButton:SetAlpha(1)
-	else
-		Handler:RegisterEvent('GOSSIP_CLOSED')
-		C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
+	Handler:RegisterEvent('GOSSIP_CLOSED')
+	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
 
-		if not WorldMapFrame:IsShown() then
-			ToggleWorldMap()
-		end
-
-		WorldMapFrame:SetMapID(mapID)
+	if not WorldMapFrame:IsShown() and not InCombatLockdown() then
+		ToggleWorldMap()
 	end
+
+	WorldMapFrame:SetMapID(mapID)
+end
+
+--[[ addon:GetMapID()
+Returns the map ID of the zone that should be displayed, if any.
+--]]
+function addon:GetMapID()
+	return self.mapID
 end
 
 --[[ addon:IsActive()
@@ -200,16 +209,11 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 			table.insert(lines, info.name)
 		end
 
-		local activated
-		for _, callback in next, showCallbacks do
-			if callback(addon) then
-				activated = true
-			end
-		end
-
-		if not activated then
-			MapButton.mapID = nil
-			MapButton:SetAlpha(0)
+		if WorldMapFrame:IsShown() or not (IsShiftKeyDown() or InCombatLockdown()) then
+			renderMarkers()
+		else
+			-- show the map button in the gossip whenever the user is in combat or holds shift
+			MapButton:SetAlpha(1)
 		end
 	elseif(event == 'GOSSIP_CLOSED') then
 		self:UnregisterEvent(event)
