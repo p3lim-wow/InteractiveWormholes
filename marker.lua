@@ -4,10 +4,19 @@ local L = addon.L
 local HBDP = LibStub('HereBeDragons-Pins-2.0')
 
 local Parent = CreateFrame('Frame')
-local Line = Parent:CreateLine(nil, 'OVERLAY')
-Line:SetNonBlocking(true)
-Line:SetAtlas('_UI-Taxi-Line-horizontal')
-Line:SetThickness(32)
+
+-- Line pool
+local linePoolMixin = CreateFromMixins(ObjectPoolMixin)
+local function linePoolFactory(linePool)
+	local Line = Parent:CreateLine(nil, 'OVERLAY')
+	Line:SetNonBlocking(true)
+	Line:SetAtlas('_UI-Taxi-Line-horizontal')
+	Line:SetThickness(32)
+	return Line
+end
+
+local linePool = CreateFromMixins(linePoolMixin)
+ObjectPoolMixin.OnLoad(linePool, linePoolFactory, FramePool_Hide)
 
 local function OnClick(self)
 	if(self:IsEnabled()) then
@@ -17,7 +26,19 @@ end
 
 local tooltip = WorldMapTooltip or GameTooltip
 local function OnEnter(self)
-	if(self.source) then
+	if self.showRoute then
+		local Marker = self
+		while Marker and Marker:GetSource() do
+			local Line = linePool:Acquire()
+			Line:SetParent(Marker)
+			Line:SetStartPoint('CENTER', Marker.source)
+			Line:SetEndPoint('CENTER', Marker)
+			Line:Show()
+
+			Marker = Marker:GetSource()
+		end
+	elseif self.source then
+		local Line = linePool:Acquire()
 		Line:SetParent(self)
 		Line:SetStartPoint('CENTER', self.source)
 		Line:SetEndPoint('CENTER', self)
@@ -35,7 +56,7 @@ local function OnEnter(self)
 end
 
 local function OnLeave(self)
-	Line:Hide()
+	linePool:ReleaseAll()
 	tooltip:Hide()
 end
 
@@ -144,15 +165,24 @@ function markerMixin:MarkQuest()
 	self.Quest:Show()
 end
 
---[[ Marker:SetSource(_Marker_)
+--[[ Marker:SetSource(_Marker_, _showRoute_)
 Sets the source Marker used to draw lines _from_.  
 This is typically used for taxi-esque markers.
 
 * `Marker` - The parent Marker to treat as a source _(Marker)_
+* `showRoute` - Draw lines through all the source's sources
 --]]
-function markerMixin:SetSource(Marker)
+function markerMixin:SetSource(Marker, showRoute)
 	self.source = Marker
+	self.showRoute = showRoute
 	-- Marker:UseFrameLevelType('PIN_FRAME_LEVEL_FLIGHT_POINT')
+end
+
+--[[ Marker:GetSource()
+Returns the source Marker, if any.
+--]]
+function markerMixin:GetSource()
+	return self.source
 end
 
 --[[ Marker:DisableArrow()
@@ -252,6 +282,8 @@ function addon.private.resetMarker(_, Marker)
 	Marker.Texture:SetDesaturated(false)
 	Marker.Quest:Hide()
 	Marker.Arrow:Show()
+
+	linePool:ReleaseAll()
 
 	HBDP:RemoveWorldMapIcon(Parent, Marker)
 end
