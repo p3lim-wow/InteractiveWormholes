@@ -1,3 +1,9 @@
+### Changes in 90000.23-Release:
+
+- Added: Support for Azshara rocketway
+- Added: Support for recursive sources and lines
+- Fixed: Overlapping rendering
+
 ### Changes in 90000.22-Release:
 
 - Added: Support for Silas' Stone of Transportation
