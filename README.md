@@ -26,6 +26,7 @@ Supported "wormholes":
 	- With quest markers during the campaign!
 - [Stormflight](https://www.wowhead.com/npc=96679) in the Warrior order hall
 - [Animaflow Teleporter](https://www.wowhead.com/npc=172925) in The Maw
+- [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 
 ## Feedback
 
