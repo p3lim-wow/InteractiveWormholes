@@ -41,6 +41,7 @@ local npcData = {
 		{zone = 1565, x = 0.5442, y = 0.6032}, -- "Ardenweald, Forest of the Night Fae"
 		{zone = 1525, x = 0.3750, y = 0.7655}, -- "Revendreth, Court of the Venthyr"
 		{zone = 1543, x = 0.2245, y = 0.2815}, -- "The Maw, Wasteland of the Damned"
+		{zone = 1961, x = 0.6240, y = 0.2458}, -- "Korthia, City of Secrets"
 		mapID = 1550, -- Shadowlands
 	},
 }
