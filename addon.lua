@@ -62,7 +62,7 @@ This is merely the event `GOSSIP_SHOW` with some pre-processing.
       * `self` - the [addon](Addon) namespace
 --]]
 function addon:Add(callback)
-	if(not showCallbacks) then
+	if not showCallbacks then
 		showCallbacks = {}
 	end
 
@@ -79,7 +79,7 @@ This is merely the event `GOSSIP_CLOSED` with some pre-processing.
       * `self` - the [addon](Addon) namespace
 --]]
 function addon:Remove(callback)
-	if(not hideCallbacks) then
+	if not hideCallbacks then
 		hideCallbacks = {}
 	end
 
@@ -90,7 +90,7 @@ end
 Removes all markers on the map.
 --]]
 function addon:RemoveAll()
-	if(markerPool) then
+	if markerPool then
 		markerPool:ReleaseAll()
 	end
 
@@ -183,7 +183,7 @@ Returns true/false if the option exists and was clicked.
 --]]
 function addon:SelectGossipLine(text)
 	for index, line in next, addon:GetLines() do
-		if(line:match(text)) then
+		if line:match(text) then
 			addon:SelectGossipIndex(index)
 			return true
 		end
@@ -201,8 +201,8 @@ function addon:SelectGossipIndex(index)
 end
 
 Handler:RegisterEvent('GOSSIP_SHOW')
-Handler:SetScript('OnEvent', function(self, event, ...)
-	if(event == 'GOSSIP_SHOW') then
+Handler:SetScript('OnEvent', function(self, event)
+	if event == 'GOSSIP_SHOW' then
 		table.wipe(lines)
 
 		for _, info in next, C_GossipInfo.GetOptions() do
@@ -215,7 +215,7 @@ Handler:SetScript('OnEvent', function(self, event, ...)
 			-- show the map button in the gossip whenever the user is in combat or holds shift
 			MapButton:SetAlpha(1)
 		end
-	elseif(event == 'GOSSIP_CLOSED') then
+	elseif event == 'GOSSIP_CLOSED' then
 		self:UnregisterEvent(event)
 		C_GossipInfo.CloseGossip = CloseGossip
 

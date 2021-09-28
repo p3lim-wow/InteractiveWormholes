@@ -19,7 +19,7 @@ local linePool = CreateFromMixins(linePoolMixin)
 ObjectPoolMixin.OnLoad(linePool, linePoolFactory, FramePool_Hide)
 
 local function OnClick(self)
-	if(self:IsEnabled()) then
+	if self:IsEnabled() then
 		addon:SelectGossipIndex(self:GetID())
 	end
 end
@@ -48,7 +48,7 @@ local function OnEnter(self)
 	tooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	tooltip:AddLine(self.title or L['Click to travel'], 1, 1, 1)
 
-	if(self.description) then
+	if self.description then
 		tooltip:AddLine(self.description, nil, nil, nil, true)
 	end
 
@@ -83,9 +83,9 @@ Adds the Marker to the world map.
 --]]
 function markerMixin:Pin(mapID, x, y, showContinent, showWorld)
 	local flag
-	if(showWorld) then
+	if showWorld then
 		flag = HBD_PINS_WORLDMAP_SHOW_WORLD
-	elseif(showContinent) then
+	elseif showContinent then
 		flag = HBD_PINS_WORLDMAP_SHOW_CONTINENT
 	end
 
