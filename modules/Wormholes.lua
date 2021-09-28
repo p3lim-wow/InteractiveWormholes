@@ -46,39 +46,38 @@ local npcData = {
 	},
 }
 
-local page = 0
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
+local function showCondition(self, npcID)
+	return not not npcData[npcID]
+end
 
-	if(npcID == 101462) then
+local reavesPage = 0
+addon:Add(showCondition, function(self, npcID)
+	if npcID == 101462 then
 		-- Reaves needs special handling, since the destinations are under a sub-dialogue
-		page = page + 1
-		if(page < 2) then
+		reavesPage = reavesPage + 1
+		if reavesPage < 2 then
+			-- bail out if we're not in the destination sub-dialogue
 			return
 		end
 	end
 
 	local data = npcData[npcID]
-	if(data) then
-		self:SetMapID(data.mapID)
+	self:SetMapID(data.mapID)
 
-		for index in next, self:GetLines() do
-			local loc = data[index]
+	for index in next, self:GetLines() do
+		local loc = data[index]
 
-			local Marker = self:NewMarker()
-			Marker:SetID(index)
-			Marker:SetTitle(loc.name or self:GetMapName(loc.zone))
-			Marker:SetNormalAtlas(loc.atlas or 'MagePortalAlliance')
-			Marker:SetHighlightAtlas(loc.atlas or 'MagePortalHorde')
+		local Marker = self:NewMarker()
+		Marker:SetID(index)
+		Marker:SetTitle(loc.name or self:GetMapName(loc.zone))
+		Marker:SetNormalAtlas(loc.atlas or 'MagePortalAlliance')
+		Marker:SetHighlightAtlas(loc.atlas or 'MagePortalHorde')
 
-			if(data.inaccurate) then
-				Marker:SetDescription('\n|cffff0000' .. L['You will end up in one of multiple locations within this zone!'])
-			end
-
-			Marker:Pin(loc.zone, loc.x, loc.y, true)
+		if data.inaccurate then
+			Marker:SetDescription('\n|cffff0000' .. L['You will end up in one of multiple locations within this zone!'])
 		end
 
-		return true
+		Marker:Pin(loc.zone, loc.x, loc.y, true)
 	end
 end)
 
@@ -86,5 +85,5 @@ local Handler = CreateFrame('Frame')
 Handler:RegisterEvent('GOSSIP_CLOSED')
 Handler:SetScript('OnEvent', function()
 	-- reset the Reaves page logic
-	page = 0
+	reavesPage = 0
 end)

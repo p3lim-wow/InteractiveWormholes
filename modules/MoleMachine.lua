@@ -1,7 +1,6 @@
 local addon = select(2, ...)
 local L = addon.L
 
-local AZEROTH = 947
 local continents = {
 	{
 		name = L['Eastern Kingdoms'],
@@ -62,8 +61,8 @@ local continents = {
 }
 
 local selectedLocationIndex
-local function OnClick(self)
-	if(self:IsEnabled()) then
+local function onClick(self)
+	if self:IsEnabled() then
 		-- we're clicking a location to go there, store the location index for later, since this
 		-- is stored on the marker itself
 		selectedLocationIndex = self.locationIndex
@@ -74,58 +73,57 @@ local function OnClick(self)
 	end
 end
 
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
-	if(npcID == 143925) then
-		if selectedLocationIndex then
-			-- the location has been clicked, and by this point, the continent gossip option has
-			-- been clicked, we'll need to finish the interaction by clicking the location within
-			addon:SelectGossipIndex(selectedLocationIndex)
+local function showCondition(self, npcID)
+	return npcID == 143925 -- Dark Iron Mole Machine
+end
 
-			-- we'll also need to reset everything so we get the map again next time
-			selectedLocationIndex = nil
+addon:Add(showCondition, function(self)
+	if selectedLocationIndex then
+		-- the location has been clicked, and by this point, the continent gossip option has
+		-- been clicked, we'll need to finish the interaction by clicking the location within
+		addon:SelectGossipIndex(selectedLocationIndex)
 
-			-- and don't continue with the map logic
-			return
-		end
+		-- we'll also need to reset everything so we get the map again next time
+		selectedLocationIndex = nil
 
-		self:SetMapID(AZEROTH)
+		-- and don't continue with the map logic
+		return
+	end
 
-		local continentIndex = 1
-		for _, continent in next, continents do
-			local locationIndex = 0
-			for _, location in next, continent.locations do
-				local Marker = self:NewMarker()
-				Marker:SetTitle(location.name)
-				Marker:SetScript('OnClick', OnClick)
-				Marker:SetNormalAtlas('MagePortalAlliance')
-				Marker:SetHighlightAtlas('MagePortalHorde')
+	self:SetMapID(947) -- Azeroth
 
-				local zoneName = self:GetMapName(location.zone)
-				if(location.quest and not C_QuestLog.IsQuestFlaggedCompleted(location.quest)) then
-					zoneName = zoneName .. '\n\n|cffff0000' .. L['Not Discovered']
+	local continentIndex = 1
+	for _, continent in next, continents do
+		local locationIndex = 0
+		for _, location in next, continent.locations do
+			local Marker = self:NewMarker()
+			Marker:SetTitle(location.name)
+			Marker:SetScript('OnClick', onClick)
+			Marker:SetNormalAtlas('MagePortalAlliance')
+			Marker:SetHighlightAtlas('MagePortalHorde')
 
-					Marker:DisableArrow()
-					Marker:Disable()
-				else
-					-- this location is known, increment the known locations for this continent
-					locationIndex = locationIndex + 1
-				end
+			local zoneName = self:GetMapName(location.zone)
+			if(location.quest and not C_QuestLog.IsQuestFlaggedCompleted(location.quest)) then
+				zoneName = zoneName .. '\n\n|cffff0000' .. L['Not Discovered']
 
-				-- store the continent and location indices on the marker for the click operations
-				Marker.continentIndex = continentIndex
-				Marker.locationIndex = locationIndex
-
-				Marker:SetDescription(zoneName)
-				Marker:Pin(location.zone, location.x, location.y, nil, true)
+				Marker:DisableArrow()
+				Marker:Disable()
+			else
+				-- this location is known, increment the known locations for this continent
+				locationIndex = locationIndex + 1
 			end
 
-			if locationIndex > 0 then
-				-- this continent had known locations, increment the continent index for the next set
-				continentIndex = continentIndex + 1
-			end
+			-- store the continent and location indices on the marker for the click operations
+			Marker.continentIndex = continentIndex
+			Marker.locationIndex = locationIndex
+
+			Marker:SetDescription(zoneName)
+			Marker:Pin(location.zone, location.x, location.y, nil, true)
 		end
 
-		return true
+		if locationIndex > 0 then
+			-- this continent had known locations, increment the continent index for the next set
+			continentIndex = continentIndex + 1
+		end
 	end
 end)

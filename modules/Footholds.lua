@@ -29,31 +29,30 @@ if(GetLocale() == 'ruRU') then
 	npcData[135690].destinations['долину Штормов'] = npcData[135690].destinations[addon:GetMapName(942)]
 end
 
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
+local function showCondition(self, npcID)
+	return not not npcData[npcID]
+end
+
+addon:Add(showCondition, function(self, npcID)
 	local data = npcData[npcID]
-	if(data) then
-		self:SetMapID(data.mapID)
+	self:SetMapID(data.mapID)
 
-		for index, line in next, self:GetLines() do
-			for name, loc in next, data.destinations do
-				if(line:match(name)) then
-					local Marker = self:NewMarker()
-					Marker:SetID(index)
-					Marker:SetNormalAtlas(data.normalAtlas)
-					Marker:SetHighlightAtlas(data.highlightAtlas, true)
-					Marker:SetSize(40)
+	for index, line in next, self:GetLines() do
+		for name, loc in next, data.destinations do
+			if line:match(name) then
+				local Marker = self:NewMarker()
+				Marker:SetID(index)
+				Marker:SetNormalAtlas(data.normalAtlas)
+				Marker:SetHighlightAtlas(data.highlightAtlas, true)
+				Marker:SetSize(40)
 
-					if(line:match('FF0000FF')) then
-						-- part of the text is colored blue when it's part of an active quest
-						Marker:MarkQuest()
-					end
-
-					Marker:Pin(loc.zone, loc.x, loc.y, true)
+				if line:match('FF0000FF') then
+					-- part of the text is colored blue when it's part of an active quest
+					Marker:MarkQuest()
 				end
+
+				Marker:Pin(loc.zone, loc.x, loc.y, true)
 			end
 		end
-
-		return true
 	end
 end)

@@ -3,7 +3,6 @@ local L = addon.L
 local HBD = LibStub('HereBeDragons-2.0')
 
 local AZSHARA = 76
-local ROCKET_JOCKEY = 43217
 local WARNING = L['The rocket might not land exactly where you\'d expect, nor take the path exactly as shown.']
 
 local destinations = {
@@ -14,11 +13,11 @@ local destinations = {
 	[L['Southern Rocketway Terminus']]  = {x = 0.5078, y = 0.7403, index = 5},
 }
 
-addon:Add(function(self)
-	if self:GetNPCID() ~= ROCKET_JOCKEY then
-		return
-	end
+local function showCondition(self, npcID)
+	return npcID == 43217 -- Bilgewater Rocket-jockey
+end
 
+addon:Add(showCondition, function(self)
 	self:SetMapID(AZSHARA)
 
 	local Source = self:NewMarker()
@@ -74,6 +73,4 @@ addon:Add(function(self)
 			end
 		end
 	end
-
-	return true
 end)

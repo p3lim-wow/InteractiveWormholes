@@ -9,39 +9,38 @@ local destinations = {
 	[L['Hrydshal']] = {x = 0.43, y = 0.67, atlas = 'ShipMissionIcon-Combat-Map', size = 40},
 }
 
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
-	if(npcID == 108685) then
-		self:SetMapID(STORMHEIM)
+local function showCondition(self, npcID)
+	return npcID == 108685 -- Vethir
+end
 
-		local Source = self:NewMarker()
-		Source:SetTitle(L['You are here'])
-		Source:SetNormalAtlas('Taxi_Frame_Green')
-		Source:SetHighlightAtlas('Taxi_Frame_Green')
-		Source:SetSize(24)
-		Source:DisableArrow()
-		Source:Pin(STORMHEIM, 0.4467, 0.5950)
+addon:Add(showCondition, function(self)
+	self:SetMapID(STORMHEIM)
 
-		for index, line in next, self:GetLines() do
-			for name, loc in next, destinations do
-				if(line:match(name)) then
-					local Marker = self:NewMarker()
-					Marker:SetID(index)
-					Marker:SetTitle(name)
-					Marker:SetNormalAtlas(loc.atlas or 'Taxi_Frame_Gray')
-					Marker:SetHighlightAtlas(loc.atlas or 'Taxi_Frame_Yellow')
-					Marker:SetSize(loc.size or 20)
+	local Source = self:NewMarker()
+	Source:SetTitle(L['You are here'])
+	Source:SetNormalAtlas('Taxi_Frame_Green')
+	Source:SetHighlightAtlas('Taxi_Frame_Green')
+	Source:SetSize(24)
+	Source:DisableArrow()
+	Source:Pin(STORMHEIM, 0.4467, 0.5950)
 
-					if(not loc.atlas) then
-						-- all options except for the world quest "Cry More Thunder!"
-						Marker:SetSource(Source)
-					end
+	for index, line in next, self:GetLines() do
+		for name, loc in next, destinations do
+			if line:match(name) then
+				local Marker = self:NewMarker()
+				Marker:SetID(index)
+				Marker:SetTitle(name)
+				Marker:SetNormalAtlas(loc.atlas or 'Taxi_Frame_Gray')
+				Marker:SetHighlightAtlas(loc.atlas or 'Taxi_Frame_Yellow')
+				Marker:SetSize(loc.size or 20)
 
-					Marker:Pin(STORMHEIM, loc.x, loc.y)
+				if not loc.atlas then
+					-- all options except for the world quest "Cry More Thunder!"
+					Marker:SetSource(Source)
 				end
+
+				Marker:Pin(STORMHEIM, loc.x, loc.y)
 			end
 		end
-
-		return true
 	end
 end)

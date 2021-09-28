@@ -7,35 +7,34 @@ local destinations = {
 	[L['The Beastwarrens']]	= {x = 0.5342, y = 0.6364},
 }
 
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
-	if npcID == 172925 then
-		self:SetMapID(MAW)
+local function showCondition(self, npcID)
+	return npcID == 172925 -- Animaflow Teleporter
+end
 
-		local Source = self:NewMarker()
-		Source:SetTitle(L['You are here'])
-		Source:SetNormalAtlas('Taxi_Frame_Green')
-		Source:SetHighlightAtlas('Taxi_Frame_Green')
-		Source:SetSize(24)
-		Source:DisableArrow()
-		Source:Pin(MAW, 0.4829, 0.4144)
+addon:Add(showCondition, function(self)
+	self:SetMapID(MAW)
 
-		for index, line in next, self:GetLines() do
-			for name, loc in next, destinations do
-				if line:match(name) then
-					local Marker = self:NewMarker()
-					Marker:SetID(index)
-					Marker:SetTitle(name)
-					Marker:SetNormalAtlas('Taxi_Frame_Gray')
-					Marker:SetHighlightAtlas('Taxi_Frame_Yellow')
-					Marker:SetSize(24)
-					Marker:SetSource(Source)
+	local Source = self:NewMarker()
+	Source:SetTitle(L['You are here'])
+	Source:SetNormalAtlas('Taxi_Frame_Green')
+	Source:SetHighlightAtlas('Taxi_Frame_Green')
+	Source:SetSize(24)
+	Source:DisableArrow()
+	Source:Pin(MAW, 0.4829, 0.4144)
 
-					Marker:Pin(MAW, loc.x, loc.y, true)
-				end
+	for index, line in next, self:GetLines() do
+		for name, loc in next, destinations do
+			if line:match(name) then
+				local Marker = self:NewMarker()
+				Marker:SetID(index)
+				Marker:SetTitle(name)
+				Marker:SetNormalAtlas('Taxi_Frame_Gray')
+				Marker:SetHighlightAtlas('Taxi_Frame_Yellow')
+				Marker:SetSize(24)
+				Marker:SetSource(Source)
+
+				Marker:Pin(MAW, loc.x, loc.y, true)
 			end
 		end
-
-		return true
 	end
 end)

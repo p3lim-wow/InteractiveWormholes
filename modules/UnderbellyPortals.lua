@@ -11,24 +11,23 @@ local destinations = {
 	[L['Rear Entrance']]       = {x = 0.307, y = 0.467},
 }
 
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
-	if(npcID >= 107779 and npcID <= 107784) then
-		self:SetMapID(UNDERBELLY)
+local function showCondition(self, npcID)
+	return npcID >= 107779 and npcID <= 107784 -- Underbelly Portal
+end
 
-		for index, line in next, self:GetLines() do
-			local loc = destinations[line]
-			if(loc) then
-				local Marker = self:NewMarker()
-				Marker:SetID(index)
-				Marker:SetTitle(line)
-				Marker:SetNormalAtlas('MagePortalAlliance')
-				Marker:SetHighlightAtlas('MagePortalHorde')
+addon:Add(showCondition, function(self)
+	self:SetMapID(UNDERBELLY)
 
-				Marker:Pin(UNDERBELLY, loc.x, loc.y)
-			end
+	for index, line in next, self:GetLines() do
+		local loc = destinations[line]
+		if loc then
+			local Marker = self:NewMarker()
+			Marker:SetID(index)
+			Marker:SetTitle(line)
+			Marker:SetNormalAtlas('MagePortalAlliance')
+			Marker:SetHighlightAtlas('MagePortalHorde')
+
+			Marker:Pin(UNDERBELLY, loc.x, loc.y)
 		end
-
-		return true
 	end
 end)

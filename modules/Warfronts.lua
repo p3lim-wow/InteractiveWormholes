@@ -46,37 +46,35 @@ local npcData = {
 	},
 }
 
-addon:Add(function(self)
-	local npcID = self:GetNPCID()
+local function showCondition(self, npcID)
+	return not not npcData[npcID]
+end
+
+addon:Add(showCondition, function(self, npcID)
 	local data = npcData[npcID]
-	if(data) then
-		local mapID = data.mapID
-		self:SetMapID(mapID)
+	self:SetMapID(data.mapID)
 
-		local Source = self:NewMarker()
-		Source:SetTitle(L['You are here'])
-		Source:SetNormalAtlas('Taxi_Frame_Green')
-		Source:SetHighlightAtlas('Taxi_Frame_Green')
-		Source:SetSize(24)
-		Source:DisableArrow()
-		Source:Pin(mapID, data.source.x, data.source.y)
+	local Source = self:NewMarker()
+	Source:SetTitle(L['You are here'])
+	Source:SetNormalAtlas('Taxi_Frame_Green')
+	Source:SetHighlightAtlas('Taxi_Frame_Green')
+	Source:SetSize(24)
+	Source:DisableArrow()
+	Source:Pin(data.mapID, data.source.x, data.source.y)
 
-		for index, line in next, self:GetLines() do
-			for name, loc in next, data.destinations do
-				if(line:match(name)) then
-					local Marker = self:NewMarker()
-					Marker:SetID(index)
-					Marker:SetTitle(name)
-					Marker:SetNormalAtlas('Taxi_Frame_Gray')
-					Marker:SetHighlightAtlas('Taxi_Frame_Yellow')
-					Marker:SetSize(20)
-					Marker:SetSource(Source)
+	for index, line in next, self:GetLines() do
+		for name, loc in next, data.destinations do
+			if line:match(name) then
+				local Marker = self:NewMarker()
+				Marker:SetID(index)
+				Marker:SetTitle(name)
+				Marker:SetNormalAtlas('Taxi_Frame_Gray')
+				Marker:SetHighlightAtlas('Taxi_Frame_Yellow')
+				Marker:SetSize(20)
+				Marker:SetSource(Source)
 
-					Marker:Pin(mapID, loc.x, loc.y)
-				end
+				Marker:Pin(data.mapID, loc.x, loc.y)
 			end
 		end
-
-		return true
 	end
 end)
