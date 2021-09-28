@@ -1,3 +1,9 @@
+### Changes in 90100.25-Release:
+
+- Changed: Wormholes now default to showing the parent map again
+- Fixed: Map button not working correctly
+- Fixed: Mole Machine not working at all
+
 ### Changes in 90100.24-Release:
 
 - Added: Korthia location to Shadowlands wormhole
