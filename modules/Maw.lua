@@ -3,8 +3,10 @@ local L = addon.L
 
 local MAW = 1543
 local destinations = {
-	[L['The Tremaculum']]	= {x = 0.3419, y = 0.1473},
-	[L['The Beastwarrens']]	= {x = 0.5342, y = 0.6364},
+	[L['The Tremaculum']]   = {x = 0.3419, y = 0.1473},
+	[L['The Beastwarrens']] = {x = 0.5342, y = 0.6364},
+	[L['Perdition Hold']]   = {x = 0.3394, y = 0.5678},
+	[L['Desmotaeron']]      = {x = 0.6889, y = 0.3680},
 }
 
 local function showCondition(self, npcID)
