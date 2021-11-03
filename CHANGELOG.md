@@ -1,3 +1,8 @@
+### Changes in 90105.26-Release:
+
+- Added: Support for new Animaflow Teleporter locations (thanks @jrowles)
+- Changed: Update Interface version
+
 ### Changes in 90100.25-Release:
 
 - Changed: Wormholes now default to showing the parent map again
