@@ -216,11 +216,11 @@ Handler:SetScript('OnEvent', function(self, event)
 				table.insert(lines, info.name)
 			end
 
-			if WorldMapFrame:IsShown() or not (IsShiftKeyDown() or InCombatLockdown()) then
-				moduleCallback(addon, addon:GetNPCID())
-			else
+			if IsShiftKeyDown() or InCombatLockdown() then
 				-- show the map button in the gossip whenever the user is in combat or holds shift
 				MapButton:SetAlpha(1)
+			else
+				moduleCallback(addon, addon:GetNPCID())
 			end
 		end
 	elseif event == 'GOSSIP_CLOSED' then
@@ -237,11 +237,7 @@ Handler:SetScript('OnEvent', function(self, event)
 end)
 
 WorldMapFrame:HookScript('OnHide', function()
-	-- TODO: we only want to close the gossip if it was a player choice to close the world map,
-	--       this is an ugly hack to give the module logic some time to finish
-	C_Timer.After(0.1, function()
-		if not GossipFrame:IsShown() then
-			CloseGossip()
-		end
-	end)
+	if addon:IsActive() then
+		CloseGossip()
+	end
 end)
