@@ -4,6 +4,12 @@ local addonName, addon = ...
 -- from ending when we open up the map, and the alternative (disabling what's calling CloseGossip)
 -- will taint during combat
 local CloseGossip = C_GossipInfo.CloseGossip
+local function disableGossipAPI()
+	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
+end
+local function enableGossipAPI()
+	C_GossipInfo.CloseGossip = CloseGossip
+end
 
 local moduleCallbacks, hideCallbacks
 local markerPool = CreateObjectPool(addon.private.createMarker, addon.private.resetMarker)
@@ -31,7 +37,7 @@ MapButton:SetAlpha(0)
 MapButton:HookScript('PreClick', function()
 	-- we'll need to prevent the gossip from being closed before we show the map with the secure
 	-- macro, then trigger the callback after the map has been shown
-	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
+	disableGossipAPI()
 end)
 MapButton:HookScript('PostClick', function()
 	local moduleCallback = getActiveModuleCallback()
@@ -125,7 +131,7 @@ Opens up the world map to the desired zone by map ID.
 --]]
 function addon:SetMapID(mapID)
 	Handler:RegisterEvent('GOSSIP_CLOSED')
-	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
+	disableGossipAPI()
 
 	if not WorldMapFrame:IsShown() and not InCombatLockdown() then
 		ToggleWorldMap()
@@ -230,7 +236,7 @@ Handler:SetScript('OnEvent', function(self, event)
 		end
 	elseif event == 'GOSSIP_CLOSED' then
 		self:UnregisterEvent(event)
-		C_GossipInfo.CloseGossip = CloseGossip
+		enableGossipAPI()
 
 		if not InCombatLockdown() and WorldMapFrame:IsShown() then
 			ToggleWorldMap()
