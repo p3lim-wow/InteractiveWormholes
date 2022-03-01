@@ -29,6 +29,11 @@ MapButton:SetAttribute('type', 'macro')
 MapButton:SetAttribute('macrotext', '/click QuestLogMicroButton')
 MapButton:SetAlpha(0)
 MapButton:HookScript('PreClick', function()
+	-- we'll need to prevent the gossip from being closed before we show the map with the secure
+	-- macro, then trigger the callback after the map has been shown
+	C_GossipInfo.CloseGossip = nop -- possibly destructive for other addons
+end)
+MapButton:HookScript('PostClick', function()
 	local moduleCallback = getActiveModuleCallback()
 	if moduleCallback then
 		moduleCallback(addon, addon:GetNPCID())
