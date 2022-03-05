@@ -1,3 +1,7 @@
+### Changes in 90200.29-Release:
+
+- Added: Zereth Mortis wormhole location
+
 ### Changes in 90200.28-Release:
 
 - Fixed: Gossip map button not working correctly
