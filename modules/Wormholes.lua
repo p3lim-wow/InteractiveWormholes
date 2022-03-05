@@ -42,6 +42,7 @@ local npcData = {
 		{zone = 1525, x = 0.3750, y = 0.7655}, -- "Revendreth, Court of the Venthyr"
 		{zone = 1543, x = 0.2245, y = 0.2815}, -- "The Maw, Wasteland of the Damned"
 		{zone = 1961, x = 0.6240, y = 0.2458}, -- "Korthia, City of Secrets"
+		{zone = 1970, x = 0.4552, y = 0.5528}, -- "Zereth Mortis, Enlightened Haven"
 		mapID = 1550, -- Shadowlands
 	},
 }
@@ -75,6 +76,16 @@ addon:Add(showCondition, function(self, npcID)
 
 		if data.inaccurate then
 			Marker:SetDescription('\n|cffff0000' .. L['You will end up in one of multiple locations within this zone!'])
+		end
+
+		if loc.zone == 1970 then
+			-- add a world-map marked for Zereth Mortis, since HBD can't relate it
+			local Marker = self:NewMarker()
+			Marker:SetID(index)
+			Marker:SetTitle(loc.name or self:GetMapName(loc.zone))
+			Marker:SetNormalAtlas(loc.atlas or 'MagePortalAlliance')
+			Marker:SetHighlightAtlas(loc.atlas or 'MagePortalHorde')
+			Marker:Pin(data.mapID, 0.8541, 0.8050)
 		end
 
 		Marker:Pin(loc.zone, loc.x, loc.y, true)
