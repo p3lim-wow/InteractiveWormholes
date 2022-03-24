@@ -9,11 +9,13 @@
 ## X-WoWI-ID: 24119
 ## X-Wago-ID: RqGYQOGg
 
-libs\LibStub\LibStub.lua
-libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
-libs\HereBeDragons\HereBeDragons-2.0.lua
-libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
-libs\LibBabble-SubZone-3.0\lib.xml
+#@non-debug@
+# libs\LibStub\LibStub.lua
+# libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+# libs\HereBeDragons\HereBeDragons-2.0.lua
+# libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+# libs\LibBabble-SubZone-3.0\lib.xml
+#@end-non-debug@
 
 locale\initialize.lua
 locale\deDE.lua
