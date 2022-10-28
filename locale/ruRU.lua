@@ -1,28 +1,19 @@
-if(GetLocale() ~= 'ruRU') then return end
+if GetLocale() ~= 'ruRU' then return end
 local L = select(2, ...).L('ruRU')
 
 --- general strings
 L['Click to travel'] = 'Нажмите, чтобы путешествовать'
-L['You will end up in one of multiple locations within this zone!'] = 'Вы окажетесь в одном из нескольких мест в этой локации!'
-L['The rocket might not land exactly where you\'d expect, nor take the path exactly as shown.'] = 'Ракета может приземлиться не совсем там, где вы ожидаете, и не пройти путь точно так, как показано на рисунке.'
-L['Not Discovered'] = TAXI_PATH_UNREACHABLE
-L['You are here'] = TAXINODEYOUAREHERE
 
---- Subzones missing in LibBabble-SubZone
-L['Throne of Flame'] = 'Трон Пламени'
-L['Fel Pits'] = 'Ямы Скверны'
-L['Blackrock Foundry Overlook'] = 'Яма'
-L['Stormgarde Keep'] = 'Стромгард'
-L['Gloomtide Strand'] = 'Темные Берега'
-L['Cinderfall Grove'] = 'Пепельная роща'
-L['Lor\'danel Landing'] = 'Лор\'данел'
-L['Northern Rocketway Terminus'] = 'Северный конечный пункт ракетной дороги'
-L['Gallywix Rocketway Exchange'] = 'Ракетная дорога Галливикса'
+-- tooltips
+L['Galebroken Path'] = 'Разоренная бурей тропа' -- AreaTable.db2, id=7611
+L['Thorignir Refuge'] = 'Приют торигниров' -- AreaTable.db2, id=8267
+L['Thorim\'s Peak'] = 'Пик Торима' -- AreaTable.db2, id=7612
 
---- Dalaran Sewer Portals
-L['Sewer Guard Station'] = 'Пост стража канализации'
-L['Black Market'] = 'Черный Рынок'
-L['Inn Entrance'] = 'Вход в таверну'
-L['Alchemists\' Lair'] = 'Логово алхимика'
-L['Abandoned Shack'] = 'Заброшенная лачуга'
-L['Rear Entrance'] = 'Черный ход'
+L['Orgrimmar Rocketway Exchange'] = 'Оргриммарская пересадочная станция ракетной дороги' -- AreaTable.db2, id=4830
+L['Gallywix Rocketway Exchange'] = 'Ракетная дорога Галливикса' -- @Hubbotu
+L['Northern Rocketway Exchange'] = 'Северная пересадочная станция ракетной дороги' -- AreaTable.db2, id=4825
+L['Northern Rocketway Terminus'] = 'Северный конечный пункт ракетной дороги' -- @Hubbotu
+L['Southern Rocketway Terminus'] = 'Южная конечная станция ракетной дороги' -- AreaTable.db2, id=4828
+
+L['The Masonary'] = 'Каменоломня' -- WMOAreaTable.db2, id=15548
+L['Shadowforge City'] = 'Тенегорн' -- WMOAreaTable.db2, id=26748

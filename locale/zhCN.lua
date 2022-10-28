@@ -1,28 +1,19 @@
-if(GetLocale() ~= 'zhCN') then return end
+if GetLocale() ~= 'zhCN' then return end
 local L = select(2, ...).L('zhCN')
 
 --- general strings
 -- L['Click to travel'] = '' -- MISSING TRANSLATION
--- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING TRANSLATION
--- L['The rocket might not land exactly where you\'d expect, nor take the path exactly as shown.'] = '' -- MISSING TRANSLATION
-L['Not Discovered'] = TAXI_PATH_UNREACHABLE
-L['You are here'] = TAXINODEYOUAREHERE
 
---- Subzones missing in LibBabble-SubZone
-L['Throne of Flame'] = '烈焰王座'
-L['Fel Pits'] = '魔能熔池'
--- L['Blackrock Foundry Overlook'] = '' -- MISSING TRANSLATION
--- L['Stormgarde Keep'] = '' -- MISSING TRANSLATION
--- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
--- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
--- L['Lor\'danel Landing'] = '' -- MISSING TRANSLATION
--- L['Northern Rocketway Terminus'] = '' -- MISSING TRANSLATION
+-- tooltips
+L['Galebroken Path'] = '碎风小径' -- AreaTable.db2, id=7611
+L['Thorignir Refuge'] = '托林尼尔避难所' -- AreaTable.db2, id=8267
+L['Thorim\'s Peak'] = '托里姆峰' -- AreaTable.db2, id=7612
+
+L['Orgrimmar Rocketway Exchange'] = '奥格瑞玛火箭车换乘站' -- AreaTable.db2, id=4830
 -- L['Gallywix Rocketway Exchange'] = '' -- MISSING TRANSLATION
+L['Northern Rocketway Exchange'] = '北方火箭车换乘站' -- AreaTable.db2, id=4825
+-- L['Northern Rocketway Terminus'] = '' -- MISSING TRANSLATION
+L['Southern Rocketway Terminus'] = '南部火箭车终点站' -- AreaTable.db2, id=4828
 
---- Dalaran Sewer Portals
--- L['Sewer Guard Station'] = '下水道卫兵岗哨' -- UNCONFIRMED TRANSLATION
--- L['Black Market'] = '黑市' -- UNCONFIRMED TRANSLATION
--- L['Inn Entrance'] = '旅店入口' -- UNCONFIRMED TRANSLATION
--- L['Alchemists\' Lair'] = '炼金师之巢' -- UNCONFIRMED TRANSLATION
--- L['Abandoned Shack'] = '废弃小屋' -- UNCONFIRMED TRANSLATION
--- L['Rear Entrance'] = '后门' -- UNCONFIRMED TRANSLATION
+L['The Masonary'] = '石匠区' -- WMOAreaTable.db2, id=15548
+L['Shadowforge City'] = '暗炉城' -- WMOAreaTable.db2, id=26748

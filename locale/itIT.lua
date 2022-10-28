@@ -1,28 +1,19 @@
-if(GetLocale() ~= 'itIT') then return end
+if GetLocale() ~= 'itIT' then return end
 local L = select(2, ...).L('itIT')
 
 --- general strings
 -- L['Click to travel'] = '' -- MISSING TRANSLATION
--- L['You will end up in one of multiple locations within this zone!'] = '' -- MISSING TRANSLATION
--- L['The rocket might not land exactly where you\'d expect, nor take the path exactly as shown.'] = '' -- MISSING TRANSLATION
-L['Not Discovered'] = TAXI_PATH_UNREACHABLE
-L['You are here'] = TAXINODEYOUAREHERE
 
---- Subzones missing in LibBabble-SubZone
-L['Throne of Flame'] = 'Trono delle Fiamme'
-L['Fel Pits'] = 'Fosse Vili'
--- L['Blackrock Foundry Overlook'] = '' -- MISSING TRANSLATION
--- L['Stormgarde Keep'] = '' -- MISSING TRANSLATION
--- L['Gloomtide Strand'] = '' -- MISSING TRANSLATION
--- L['Cinderfall Grove'] = '' -- MISSING TRANSLATION
--- L['Lor\'danel Landing'] = '' -- MISSING TRANSLATION
--- L['Northern Rocketway Terminus'] = '' -- MISSING TRANSLATION
+-- tooltips
+L['Galebroken Path'] = 'Percorso Tempestoso' -- AreaTable.db2, id=7611
+L['Thorignir Refuge'] = 'Rifugio dei Thorignir' -- AreaTable.db2, id=8267
+L['Thorim\'s Peak'] = 'Picco di Thorim' -- AreaTable.db2, id=7612
+
+L['Orgrimmar Rocketway Exchange'] = 'Scambio della Razzovia di Orgrimmar' -- AreaTable.db2, id=4830
 -- L['Gallywix Rocketway Exchange'] = '' -- MISSING TRANSLATION
+L['Northern Rocketway Exchange'] = 'Scambio Settentrionale della Razzovia' -- AreaTable.db2, id=4825
+-- L['Northern Rocketway Terminus'] = '' -- MISSING TRANSLATION
+L['Southern Rocketway Terminus'] = 'Terminale Sud della Razzovia' -- AreaTable.db2, id=4828
 
---- Dalaran Sewer Portals
--- L['Sewer Guard Station'] = 'Stazione di Guardia dei Sotterranei' -- UNCONFIRMED TRANSLATION
--- L['Black Market'] = 'Mercato Nero' -- UNCONFIRMED TRANSLATION
--- L['Inn Entrance'] = 'Entrata della Locanda' -- UNCONFIRMED TRANSLATION
--- L['Alchemists\' Lair'] = 'Antro degli Alchimisti' -- UNCONFIRMED TRANSLATION
--- L['Abandoned Shack'] = 'Capanno Abbandonato' -- UNCONFIRMED TRANSLATION
--- L['Rear Entrance'] = 'Entrata Posteriore' -- UNCONFIRMED TRANSLATION
+L['The Masonary'] = 'Corridoio Oscuro' -- WMOAreaTable.db2, id=15548
+L['Shadowforge City'] = 'Forgiascura' -- WMOAreaTable.db2, id=26748
