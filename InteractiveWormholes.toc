@@ -1,9 +1,9 @@
-## Interface: 90207
+## Interface: 100000
 ## Author: p3lim
 ## Version: @project-version@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when interacting with gossip windows that offer teleportation
-## OptionalDeps: LibStub, CallbackHandler-1.0, HereBeDragons, LibBabble-SubZone-3.0
+## OptionalDeps: HereBeDragons
 
 ## X-Curse-Project-ID: 101522
 ## X-WoWI-ID: 24119
@@ -14,7 +14,6 @@
 # libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 # libs\HereBeDragons\HereBeDragons-2.0.lua
 # libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
-# libs\LibBabble-SubZone-3.0\lib.xml
 #@end-non-debug@
 
 locale\initialize.lua
@@ -29,16 +28,8 @@ locale\ruRU.lua
 locale\zhCN.lua
 locale\zhTW.lua
 
-marker.lua
+data.lua
+line.lua
+arrow.lua
+pin.lua
 addon.lua
-
-modules\Footholds.lua
-modules\MoleMachine.lua
-modules\SilasSphere.lua
-modules\Stormflight.lua
-modules\UnderbellyPortals.lua
-modules\Vethir.lua
-modules\Warfronts.lua
-modules\Wormholes.lua
-modules\Maw.lua
-modules\AzsharaRocketway.lua
