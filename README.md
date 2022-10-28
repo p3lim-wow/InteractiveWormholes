@@ -3,7 +3,7 @@
 This is an addon for the popular MMORPG "World of Warcraft".  
 It can be downloaded at one of the following sites:
 
-- [Curse](https://www.curseforge.com/wow/addons/interactivewormholes)
+- [CurseForge](https://www.curseforge.com/wow/addons/interactivewormholes)
 - [WoWInterface](https://wowinterface.com/downloads/info24119)
 - [Wago](https://addons.wago.io/addons/interactivewormholes)
 - [GitHub](https://github.com/p3lim-wow/InteractiveWormholes/releases)
@@ -17,14 +17,14 @@ Instead of that, *Interactive Wormholes* displays these destinations as clickabl
 Supported "wormholes":
 
 - [Wormhole Generator: Shadowlands](https://www.wowhead.com/item=172924)
-- [Wormhole Generator: Northrend](http://www.wowhead.com/item=48933)
+- [Wormhole Generator: Northrend](https://www.wowhead.com/item=48933)
 	- Including the "secret" 6th destination!
-- [Wormhole Centrifuge](http://www.wowhead.com/item=112059)
-- [Reaves](http://www.wowhead.com/item=132523)' [Wormhole Generator module](http://www.wowhead.com/item=132524)
+- [Wormhole Centrifuge](https://www.wowhead.com/item=112059)
+- [Reaves](https://www.wowhead.com/item=132523)' [Wormhole Generator module](https://www.wowhead.com/item=132524)
 - [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
 	- Including all 19 possible destinations!
-- [Vethir](http://www.wowhead.com/npc=108685) in Stormheim
-	- Including the [Cry More Thunder!](http://www.wowhead.com/quest=41950) world quest!
+- [Vethir](https://www.wowhead.com/npc=108685) in Stormheim
+	- Including the [Cry More Thunder!](https://www.wowhead.com/quest=41950) world quest!
 - [Underbelly portal network](https://www.wowhead.com/item=138028)
 - Warfront Flightmasters (Arathi + Darkshore)
 - War Campaign footholds
