@@ -25,9 +25,9 @@ local function renderLines(pin)
 		-- start off by enumerating all the pins and sorting them by their taxi index
 		-- TODO: this logic assumes the route is linear and won't work with a tree
 		local taxiIndexPins = {}
-		for pin in addon.pinPool:EnumerateActive() do
-			if pin.taxiIndex then
-				taxiIndexPins[pin.taxiIndex] = pin
+		for activePin in addon.pinPool:EnumerateActive() do
+			if activePin.taxiIndex then
+				taxiIndexPins[activePin.taxiIndex] = activePin
 			end
 		end
 
