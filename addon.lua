@@ -183,7 +183,7 @@ function addon:GOSSIP_CLOSED()
 end
 
 WorldMapFrame:HookScript('OnHide', function()
-	if addon.isActive and not self.stagedGossipOptionID then
+	if addon.isActive and not addon.stagedGossipOptionID then
 		C_GossipInfo.CloseGossip()
 	end
 end)
