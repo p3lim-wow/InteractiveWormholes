@@ -93,6 +93,7 @@ function addon:HandleGossip()
 		-- option and bail out, also preventing the default gossip UI from activating
 		if self.stagedGossipOptionID == gossipInfo.gossipOptionID then
 			C_GossipInfo.SelectOption(self.stagedGossipOptionID)
+			self.stagedGossipOptionID = nil
 			return
 		end
 
@@ -176,13 +177,13 @@ function addon:GOSSIP_SHOW()
 end
 
 function addon:GOSSIP_CLOSED()
-	if self.isActive then
+	if self.isActive and not self.stagedGossipOptionID then
 		self:Reset()
 	end
 end
 
 WorldMapFrame:HookScript('OnHide', function()
-	if addon.isActive then
+	if addon.isActive and not self.stagedGossipOptionID then
 		C_GossipInfo.CloseGossip()
 	end
 end)
