@@ -3,6 +3,7 @@ local L = select(2, ...).L('itIT')
 
 --- general strings
 -- L['Click to travel'] = '' -- MISSING TRANSLATION
+L['You are here'] = _G.TAXINODEYOUAREHERE -- already available from globalstrings
 
 -- tooltips
 L['Galebroken Path'] = 'Percorso Tempestoso' -- AreaTable.db2, id=7611

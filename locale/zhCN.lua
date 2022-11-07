@@ -3,6 +3,7 @@ local L = select(2, ...).L('zhCN')
 
 --- general strings
 -- L['Click to travel'] = '' -- MISSING TRANSLATION
+L['You are here'] = _G.TAXINODEYOUAREHERE -- already available from globalstrings
 
 -- tooltips
 L['Galebroken Path'] = '碎风小径' -- AreaTable.db2, id=7611

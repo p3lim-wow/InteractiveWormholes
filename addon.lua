@@ -133,11 +133,11 @@ function addon:HandleGossip()
 		-- if there are any options not handled while we're active we'll need to inform the player
 		if #unusedOptions > 0 then
 			-- TODO: improve this
-			print('There are other options not shown on the map:')
+			self:Print('There are more options not shown on the map:')
 			for index, gossipInfo in next, unusedOptions do
-				print(string.format('- %d: %d (%s)', index, gossipInfo.gossipOptionID, gossipInfo.name))
+				self:Printf('- %d: %d (%s)', index, gossipInfo.gossipOptionID, gossipInfo.name)
 			end
-			print('Please report this at https://github.com/p3lim-wow/InteractiveWormholes/issues')
+			self:Print('Please report this at https://github.com/p3lim-wow/InteractiveWormholes/issues')
 		end
 
 		-- if if there are options considered to be taxi destinations then show a source pin on the

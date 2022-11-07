@@ -20,7 +20,6 @@
 ..\Dashi\embed.xml
 #@end-debug@
 
-locale\initialize.lua
 locale\deDE.lua
 locale\esES.lua
 locale\esMX.lua

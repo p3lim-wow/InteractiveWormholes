@@ -104,8 +104,7 @@ end
 
 addon.pinPool = CreateObjectPool(function()
 	-- createPin
-	local pin = Mixin(CreateFrame('Button'), pinMixin)
-	pin:RegisterForClicks('AnyUp', 'AnyDown') -- see https://github.com/Stanzilla/WoWUIBugs/issues/268
+	local pin = Mixin(addon:CreateButton('Button'), pinMixin)
 	pin:SetScript('OnClick', pin.OnClick)
 	pin:SetScript('OnEnter', pin.OnEnter)
 	pin:SetScript('OnLeave', pin.OnLeave)
