@@ -1,3 +1,8 @@
+### Changes in 100000.31-Release:
+
+- Fixed: Mole Machine not fully working
+- Fixed: Some taint (impossible to fix it all sadly, blame Blizzard)
+
 ### Changes in 100000.30-Release:
 
 - Added: Arrow indicators on the cosmic map
