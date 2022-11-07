@@ -22,14 +22,11 @@ read_globals = {
 	'WorldMapFrame',
 	'GameTooltip',
 	'GossipFrame',
-	'GossipFrameMixin',
 	'GossipFrameSharedMixin',
-	'EventRegistry',
 	'MapCanvasDataProviderMixin',
 	'MapCanvasPinMixin',
 
 	-- FrameXML functions
-	'ToggleWorldMap',
 	'tContains',
 	'Mixin',
 	'CreateFromMixins',
@@ -48,6 +45,7 @@ read_globals = {
 	'InCombatLockdown',
 	'IsShiftKeyDown',
 	'GetLocale',
+	'securecall',
 
 	-- external
 	'LibStub',
