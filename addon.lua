@@ -8,7 +8,8 @@ addon.activeCosmicWorlds = {}
 function addon:ShowMap()
 	if not WorldMapFrame:IsShown() and not InCombatLockdown() then
 		-- never attempt to toggle the map while in combat
-		ToggleWorldMap() -- POSSIBLE TAINT
+		securecall('ShowUIPanel', WorldMapFrame) -- SAFE
+		-- ToggleWorldMap() -- TAINT
 	end
 
 	-- get the common parent map of all pins
@@ -23,7 +24,8 @@ function addon:ShowMap()
 	end
 
 	-- change to a map
-	WorldMapFrame:SetMapID(commonMapID) -- POSSIBLE TAINT
+	WorldMapFrame:SetMapID(commonMapID) -- TAINT, no alternative
+	-- securecall('OpenWorldMap', commonMapID) -- TAINT, but blames a different addon
 end
 
 do
@@ -91,7 +93,7 @@ function addon:HandleGossip()
 		-- option and bail out, also preventing the default gossip UI from activating
 		if self.stagedGossipOptionID == gossipInfo.gossipOptionID then
 			C_GossipInfo.SelectOption(self.stagedGossipOptionID)
-			return true
+			return
 		end
 
 		-- check if we support the option
@@ -125,6 +127,9 @@ function addon:HandleGossip()
 	end
 
 	if self.isActive then
+		-- prevent GossipFrame hiding from closing gossip API
+		GossipFrame:SetScript('OnHide', nil)
+
 		-- if there are any options not handled while we're active we'll need to inform the player
 		if #unusedOptions > 0 then
 			-- TODO: improve this
@@ -143,14 +148,14 @@ function addon:HandleGossip()
 
 		-- show the world map, which will figure out by itself which map to display
 		self:ShowMap()
-		return true
 	end
 end
 
 function addon:Reset()
 	if not InCombatLockdown() and WorldMapFrame:IsShown() then
 		-- never attempt to toggle the map while in combat
-		ToggleWorldMap() -- POSSIBLE TAINT
+		securecall('HideUIPanel', WorldMapFrame)
+		-- ToggleWorldMap() -- TAINT
 	end
 
 	self.isActive = false
@@ -161,28 +166,20 @@ function addon:Reset()
 	addon.pinPool:ReleaseAll()
 	table.wipe(addon.activeMaps)
 	table.wipe(addon.activeCosmicWorlds)
+
+	-- restore GossipFrame functionality
+	GossipFrame:SetScript('OnHide', GossipFrameSharedMixin.OnHide)
 end
 
--- we'll need to override GossipFrame's own methods to prevent it from running if we are
--- TODO: figure out if there is any way to deal with this better
-function GossipFrame.HandleShow(...) -- POSSIBLE TAINT
-	if not addon:HandleGossip() then
-		GossipFrameMixin.HandleShow(...) -- POSSIBLE TAINT
-	end
+function addon:GOSSIP_SHOW()
+	self:HandleGossip()
 end
 
-GossipFrame:SetScript('OnHide', function(...) -- POSSIBLE TAINT
-	if not addon.isActive then
-		GossipFrameSharedMixin.OnHide(...) -- POSSIBLE TAINT
+function addon:GOSSIP_CLOSED()
+	if self.isActive then
+		self:Reset()
 	end
-end)
-
--- add reset methods of our own
-EventRegistry:RegisterFrameEventAndCallback('GOSSIP_CLOSED', function()
-	if addon.isActive then
-		addon:Reset()
-	end
-end)
+end
 
 WorldMapFrame:HookScript('OnHide', function()
 	if addon.isActive then
