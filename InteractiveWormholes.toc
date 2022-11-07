@@ -10,11 +10,15 @@
 ## X-Wago-ID: RqGYQOGg
 
 #@non-debug@
+# libs\Dashi\embed.xml
 # libs\LibStub\LibStub.lua
 # libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 # libs\HereBeDragons\HereBeDragons-2.0.lua
 # libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
 #@end-non-debug@
+#@debug@
+..\Dashi\embed.xml
+#@end-debug@
 
 locale\initialize.lua
 locale\deDE.lua
