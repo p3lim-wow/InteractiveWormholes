@@ -32,6 +32,7 @@ Supported "wormholes":
 - [Stormflight](https://www.wowhead.com/npc=96679) in the Warrior order hall
 - [Animaflow Teleporter](https://www.wowhead.com/npc=172925) in The Maw
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
+- [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter)
 
 ## Feedback
 
