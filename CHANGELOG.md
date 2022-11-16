@@ -1,3 +1,8 @@
+### Changes in 100002.32-Release:
+
+- Added: Manapoof support (thanks @Taizunz)
+- Changed: Update Interface version
+
 ### Changes in 100000.31-Release:
 
 - Fixed: Mole Machine not fully working
