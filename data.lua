@@ -1027,6 +1027,38 @@ data[47011] = { -- Blackrock Depths
 	tooltipMap = 242, -- Blackrock Depths
 }
 
+-- Wyrmhole Generator
+data[63911] = { -- Waking Shores (random location)
+	mapID = 2022,
+	x = 0.56,
+	y = 0.50,
+	tooltipMap = 2022,
+}
+data[63910] = { -- Ohn'ahran Plains (random location)
+	mapID = 2023,
+	x = 0.56,
+	y = 0.52,
+	tooltipMap = 2023,
+}
+data[63909] = { -- Azure Span (random location)
+	mapID = 2024,
+	x = 0.58,
+	y = 0.38,
+	tooltipMap = 2024,
+}
+data[63908] = { -- Thaldraszus (random location)
+	mapID = 2025,
+	x = 0.49,
+	y = 0.61,
+	tooltipMap = 2025,
+}
+data[63907] = { -- "Carelessly leap into the portal, you daredevil"
+	mapID = 1978,
+	x = 0.25,
+	y = 0.25,
+	-- tooltipMap = 1978,
+}
+
 -- MISSING:
 -- - Darkshore/Arathi warfronts
 
