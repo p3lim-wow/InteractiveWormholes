@@ -70,6 +70,7 @@ do
 
 		-- if it gets to here a map was not found
 		-- TODO: consider throwing an error
+		return nil, {}
 	end
 end
 
