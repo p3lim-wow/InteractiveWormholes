@@ -1,3 +1,8 @@
+### Changes in 100002.33-Release:
+
+- Added: Support for the Wyrmhole Teleporter
+- Fixed: Odd bugs
+
 ### Changes in 100002.32-Release:
 
 - Added: Manapoof support (thanks @Taizunz)
