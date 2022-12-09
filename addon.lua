@@ -15,11 +15,13 @@ function addon:ShowMap()
 	-- get the common parent map of all pins
 	local commonMapID, mapAncestries = self:GetCommonMap()
 
-	-- we want to show hints on the cosmic map when there are destinations
-	-- available in worlds within, so we store the world map IDs for each one
-	for _, mapAncestry in next, mapAncestries do
-		if not tContains(self.activeCosmicWorlds, mapAncestry[2]) then
-			table.insert(self.activeCosmicWorlds, mapAncestry[2])
+	if mapAncestries then
+		-- we want to show hints on the cosmic map when there are destinations
+		-- available in worlds within, so we store the world map IDs for each one
+		for _, mapAncestry in next, mapAncestries do
+			if not tContains(self.activeCosmicWorlds, mapAncestry[2]) then
+				table.insert(self.activeCosmicWorlds, mapAncestry[2])
+			end
 		end
 	end
 
@@ -70,7 +72,6 @@ do
 
 		-- if it gets to here a map was not found
 		-- TODO: consider throwing an error
-		return nil, {}
 	end
 end
 
