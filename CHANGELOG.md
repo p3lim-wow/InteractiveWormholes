@@ -1,3 +1,9 @@
+### Changes in 100005.34-Release:
+
+- Changed: Update Interface version
+- Fixed: Error when there's no ancestors on the cosmic map
+- Fixed: Missing Stormflight path during campaign
+
 ### Changes in 100002.33-Release:
 
 - Added: Support for the Wyrmhole Teleporter
