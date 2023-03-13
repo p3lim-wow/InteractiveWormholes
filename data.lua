@@ -456,6 +456,13 @@ data[44731] = { -- Fury artifact quest
 	isQuest = true,
 	tooltipQuest = 40043, -- "The Hunter of Heroes"
 }
+data[44732] = { -- campaign
+	mapID = 120, -- Storm Peaks
+	x = 0.41,
+	y = 0.18,
+	isQuest = true,
+	tooltipQuest = 43090, -- "Ulduar's Oath"
+}
 
 -- Underbelly Portal network
 data[45922] = { -- Sewer Guard Station, from Inn Entrance
