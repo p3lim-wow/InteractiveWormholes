@@ -463,6 +463,30 @@ data[44732] = { -- campaign
 	isQuest = true,
 	tooltipQuest = 43090, -- "Ulduar's Oath"
 }
+data[44740] = { -- campaign
+	mapID = 649, -- Helheim (in Stormheim)
+	x = 0.3544,
+	y = 0.3067,
+	isQuest = true,
+	tooltipQuest = 44849, -- "Recruitment Drive"
+	displayExtra = {
+		{
+			-- HBD doesn't translate from Helheim to Stormheim, so we'll have to do it manually
+			mapID = 634, -- Stormheim
+			x = 0.7298,
+			y = 0.4096,
+			isQuest = true,
+			tooltipQuest = 44849,
+		}
+	}
+}
+data[44741] = { -- campaign
+	mapID = 646, -- Broken Shore
+	x = 0.6963,
+	y = 0.3558,
+	isQuest = true,
+	tooltipQuest = 44889, -- "Resource Management"
+}
 
 -- Underbelly Portal network
 data[45922] = { -- Sewer Guard Station, from Inn Entrance
