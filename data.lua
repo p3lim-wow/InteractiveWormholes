@@ -458,8 +458,8 @@ data[44731] = { -- Fury artifact quest
 }
 data[44732] = { -- campaign
 	mapID = 120, -- Storm Peaks
-	x = 0.41,
-	y = 0.18,
+	x = 0.4119,
+	y = 0.1034,
 	isQuest = true,
 	tooltipQuest = 43090, -- "Ulduar's Oath"
 }
