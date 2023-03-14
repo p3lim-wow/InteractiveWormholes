@@ -66,6 +66,10 @@ function pinMixin:OnEnter()
 		renderLines(self)
 	end
 
+	if self.tooltipCallback then
+		self.tooltip = self.tooltipCallback(unpack(self.tooltipCallbackArgs))
+	end
+
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	GameTooltip:AddLine(self.tooltip or L['Click to travel'])
 	GameTooltip:Show()
@@ -102,6 +106,11 @@ function pinMixin:SetTooltip(text)
 	self.tooltip = text
 end
 
+function pinMixin:SetTooltipCallback(callback, ...)
+	self.tooltipCallback = callback
+	self.tooltipCallbackArgs = {...}
+end
+
 addon.pinPool = CreateObjectPool(function()
 	-- createPin
 	local pin = Mixin(addon:CreateButton('Button'), pinMixin)
@@ -125,6 +134,8 @@ end, function(_, pin)
 	pin:SetSize(24, 24)
 	pin.arrow:Show()
 	pin.tooltip = nil
+	pin.tooltipCallback = nil
+	pin.tooltipCallbackArgs = nil
 	pin.isTaxi = nil
 	pin.taxiIndex = nil
 	pin.taxiSourceIndex = nil
@@ -157,7 +168,8 @@ function addon:AddPin(info, gossipID, gossipName)
 	end
 
 	if info.tooltipQuest then
-		pin:SetTooltip(QuestUtils_GetQuestName(info.tooltipQuest))
+		QuestUtils_GetQuestName(info.tooltipQuest) -- trigger once for cache
+		pin:SetTooltipCallback(QuestUtils_GetQuestName, info.tooltipQuest)
 	elseif info.tooltipMap or not (info.tooltip or gossipName) then
 		local mapInfo = C_Map.GetMapInfo(info.tooltipMap or info.mapID)
 		pin:SetTooltip(mapInfo.name)
