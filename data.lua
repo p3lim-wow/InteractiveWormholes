@@ -1083,6 +1083,12 @@ data[63908] = { -- Thaldraszus (random location)
 	y = 0.61,
 	tooltipMap = 2025,
 }
+data[108016] = { -- Forbidden Reach (random location)
+	mapID = 2151,
+	x = 0.51,
+	y = 0.47,
+	tooltipMap = 2151,
+}
 data[63907] = { -- "Carelessly leap into the portal, you daredevil"
 	mapID = 1978,
 	x = 0.25,
