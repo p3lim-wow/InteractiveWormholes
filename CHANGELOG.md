@@ -1,8 +1,15 @@
+### Changes in 100007.35-Release:
+
+- Added: Wyrmhole destination for The Forbidden REach
+- Added: Missing Stormflight path during mount campaign
+- Changed: Update Interface version
+- Fixed: Stormflight destination during "Ulduar's Oath" campaign quest
+
 ### Changes in 100005.34-Release:
 
+- Added: Missing Stormflight path during campaign
 - Changed: Update Interface version
 - Fixed: Error when there's no ancestors on the cosmic map
-- Fixed: Missing Stormflight path during campaign
 
 ### Changes in 100002.33-Release:
 
