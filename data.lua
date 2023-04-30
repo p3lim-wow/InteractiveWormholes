@@ -1,6 +1,8 @@
 local _, addon = ...
 local L = addon.L
 
+local FACTION = UnitFactionGroup('player')
+
 local data = {}
 --[[ data structure:
 
@@ -651,7 +653,7 @@ data[50780] = { -- Ironmaul Overlook (Horde)
 	x = 0.7592,
 	y = 0.6409,
 }
-data[50783] = { -- Seeker's Vista (Horde)
+data[50783] = { -- Seeker's Vista
 	mapID = 942, -- Stormsong Valley
 	x = 0.4007,
 	y = 0.3726,
@@ -666,8 +668,37 @@ data[50787] = { -- Windfall Cavern (Horde)
 	x = 0.6083,
 	y = 0.2719,
 }
--- TODO: Stormsong Valley (Alliance)
-data[50763] = { -- Castaway Point (Horde)
+data[50785] = { -- Tidecross (Alliance)
+	mapID = 942, -- Stormsong Valley
+	x = 0.6552,
+	y = 0.4799,
+}
+data[50781] = { -- Mildenhall Meadery (Alliance)
+	mapID = 942, -- Stormsong Valley
+	x = 0.6854,
+	y = 0.6508,
+}
+data[50776] = { -- Deadwash (Alliance)
+	mapID = 942, -- Stormsong Valley
+	x = 0.4278,
+	y = 0.5739,
+}
+data[50778] = { -- Fort Daelin (Alliance)
+	mapID = 942, -- Stormsong Valley
+	x = 0.3428,
+	y = 0.4732,
+}
+data[50775] = { -- Brennadam (Alliance)
+	mapID = 942, -- Stormsong Valley
+	x = 0.5968,
+	y = 0.7049,
+}
+data[50782] = { -- Millstone Hamlet (Alliance)
+	mapID = 942, -- Stormsong Valley
+	x = 0.3081,
+	y = 0.6654,
+}
+data[50763] = { -- Castaway Point
 	mapID = 895, -- Tiragarde Sound
 	x = 0.8639,
 	y = 0.8091,
@@ -687,8 +718,42 @@ data[50774] = { -- Wolf's Den (Horde)
 	x = 0.6203,
 	y = 0.1353,
 }
--- TODO: Tiragarde Sound (Alliance)
-data[50698] = { -- Anyport (Horde)
+data[50765] = { -- Kennings Lodge (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.7663,
+	y = 0.6541,
+}
+data[50767] = { -- Outrigger Post (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.3557,
+	y = 0.2487,
+}
+data[50762] = { -- Bridgeport (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.7577,
+	y = 0.4865,
+}
+data[50764] = { -- Hatherford (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.6691,
+	y = 0.2312,
+}
+data[50766] = { -- Norwington Estate (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.5287,
+	y = 0.2876,
+}
+data[50771] = { -- Tradewinds Market (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.7358,
+	y = 0.2342,
+}
+data[50772] = { -- Vigil Hill (Alliance)
+	mapID = 895, -- Tiragarde Sound
+	x = 0.5770,
+	y = 0.6154,
+}
+data[50698] = { -- Anyport
 	mapID = 896, -- Drustvar
 	x = 0.1917,
 	y = 0.4331,
@@ -703,16 +768,53 @@ data[50705] = { -- Swiftwind Post (Horde)
 	x = 0.6641,
 	y = 0.5923,
 }
--- TODO: Drustvar (Alliance)
+data[50700] = { -- Falconhurst (Alliance)
+	mapID = 896, -- Drustvar
+	x = 0.2698,
+	y = 0.7232,
+}
+data[50702] = { -- Hangman's Point (Alliance)
+	mapID = 896, -- Drustvar
+	x = 0.7105,
+	y = 0.4082,
+}
+data[50706] = { -- Timbered Strand (Alliance)
+	-- aka "Fletcher's Hollow"
+	mapID = 896, -- Drustvar
+	x = 0.7017,
+	y = 0.6040,
+}
+data[50699] = { -- Arom's Stand (Alliance)
+	mapID = 896, -- Drustvar
+	x = 0.3815,
+	y = 0.5247,
+}
+data[50708] = { -- Watchman's Rise (Alliance)
+	mapID = 896, -- Drustvar
+	x = 0.3182,
+	y = 0.3044,
+}
+data[50707] = { -- Trader's Camp (Alliance)
+	-- aka "Barbthorn Ridge"
+	mapID = 896, -- Drustvar
+	x = 0.6263,
+	y = 0.2388,
+}
+
+data[50701] = { -- Fallhaven (Alliance)
+	mapID = 896, -- Drustvar
+	x = 0.5512,
+	y = 0.3479,
+}
 data[50669] = { -- Atal'Dazar (Horde)
 	mapID = 862, -- Zuldazar
 	x = 0.4612,
 	y = 0.3578,
 }
-data[50670] = { -- Atal'Gral (Horde)
+data[50670] = { -- Atal'Gral
 	mapID = 862, -- Zuldazar
-	x = 0.8004,
-	y = 0.4149,
+	x = FACTION == 'Horde' and 0.8004 or 0.7996,
+	y = FACTION == 'Horde' and 0.4149 or 0.4145,
 }
 data[50672] = { -- Garden of the Loa (Horde)
 	mapID = 862, -- Zuldazar
@@ -724,7 +826,7 @@ data[50673] = { -- Isle of Fangs (Horde)
 	x = 0.5442,
 	y = 0.8701,
 }
-data[50674] = { -- Nesingwary's Trek (Horde)
+data[50674] = { -- Nesingwary's Trek
 	-- aka "Nesingwary's Gameland"
 	mapID = 862, -- Zuldazar
 	x = 0.6623,
@@ -735,12 +837,12 @@ data[50675] = { -- Port of Zandalar (Horde)
 	x = 0.5866,
 	y = 0.5902,
 }
-data[50676] = { -- Scaletrader Post (Horde)
+data[50676] = { -- Scaletrader Post
 	mapID = 862, -- Zuldazar
 	x = 0.7078,
 	y = 0.2959,
 }
-data[50677] = { -- Seeker's Outpost (Horde)
+data[50677] = { -- Seeker's Outpost
 	mapID = 862, -- Zuldazar
 	x = 0.7044,
 	y = 0.6527,
@@ -775,7 +877,17 @@ data[50684] = { -- Zeb'ahari (Horde)
 	x = 0.7732,
 	y = 0.1536,
 }
--- TODO: Zuldazar (Alliance)
+data[50671] = { -- Castaway Encampment (Alliance)
+	mapID = 862, -- Zuldazar
+	x = 0.7765,
+	y = 0.5453,
+}
+
+data[50683] = { -- Xibala (Alliance)
+	mapID = 862, -- Zuldazar
+	x = 0.4483,
+	y = 0.7217,
+}
 data[50686] = { -- Gloom Hollow (Horde)
 	mapID = 863, -- Nazmir
 	x = 0.6712,
@@ -791,8 +903,17 @@ data[50689] = { -- Zul'jan Ruins (Horde)
 	x = 0.3893,
 	y = 0.7806,
 }
--- TODO: Nazmir (Alliance)
-data[50691] = { -- Sanctuary of the Devoted (Horde)
+data[50685] = { -- Fort Victory (Alliance)
+	mapID = 863, -- Nazmir
+	x = 0.6225,
+	y = 0.4133,
+}
+data[50687] = { -- Redfield's Watch (Alliance)
+	mapID = 863, -- Nazmir
+	x = 0.5086,
+	y = 0.2078,
+}
+data[50691] = { -- Sanctuary of the Devoted
 	mapID = 864, -- Vol'dun
 	x = 0.2763,
 	y = 0.5041,
@@ -807,7 +928,7 @@ data[50694] = { -- Temple of Akunda (Horde)
 	x = 0.5372,
 	y = 0.8924,
 }
-data[50695] = { -- Tortaka Refuge (Horde)
+data[50695] = { -- Tortaka Refuge
 	mapID = 864, -- Vol'dun
 	x = 0.6184,
 	y = 0.2167,
@@ -823,7 +944,7 @@ data[50697] = { -- Vulpera Hideout (Horde)
 	x = 0.5696,
 	y = 0.4937,
 }
--- TODO: Vol'dun (Alliance)
+
 
 -- Mole Machine
 -- this one is treated a little differently; the continents reference the destinations
