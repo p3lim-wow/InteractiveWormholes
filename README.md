@@ -34,13 +34,15 @@ Supported "wormholes":
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 - [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter)
 
-## Feedback
+## Translations
 
-If you have a question, please use the comments section on Curse/WoWInterface.  
-If you would like to report a bug, please follow [this link](https://github.com/p3lim-wow/InteractiveWormholes/issues?q=) to get started.
+If you want to help translate Interactive Wormholes, please use this form on GitHub:  
+[https://github.com/p3lim-wow/InteractiveWormholes/issues/new?template=translate.yaml](https://github.com/p3lim-wow/InteractiveWormholes/issues/new?assignees=p3lim&labels=enhancement%2Ctranslation&template=translate.yaml&title=Translation%3A+)
 
-If you'd like to contribute with translations, please open a pull request on GitHub.
-If you'd like to contribute a new module, please see the [wiki](https://github.com/p3lim-wow/InteractiveWormholes/wiki).
+## Feedback & issues
+
+If you would like to report a bug or contribute to the project, please visit GitHub:  
+<https://github.com/p3lim-wow/InteractiveWormholes/issues/new/choose>
 
 ## Legal
 
