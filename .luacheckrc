@@ -45,6 +45,7 @@ read_globals = {
 	'InCombatLockdown',
 	'IsShiftKeyDown',
 	'GetLocale',
+	'UnitFactionGroup',
 	'securecall',
 
 	-- external
