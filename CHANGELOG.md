@@ -1,3 +1,8 @@
+### Changes in 100100.36-Release:
+
+- Added: Silas' Stone of Transportation alliance locations
+- Changed: Update Interface version
+
 ### Changes in 100007.35-Release:
 
 - Added: Wyrmhole destination for The Forbidden REach
