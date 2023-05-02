@@ -3,6 +3,7 @@
 ## Version: @project-version@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when interacting with gossip windows that offer teleportation
+## IconTexture: Interface\Icons\inv_misc_shadowegg
 ## OptionalDeps: HereBeDragons
 
 ## X-Curse-Project-ID: 101522
