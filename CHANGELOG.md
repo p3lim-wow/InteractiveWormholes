@@ -1,3 +1,7 @@
+### Changes in 100100.37-Release:
+
+- Added: Zaralek Cavern location for Wyrmhole Generator
+
 ### Changes in 100100.36-Release:
 
 - Added: Silas' Stone of Transportation alliance locations
