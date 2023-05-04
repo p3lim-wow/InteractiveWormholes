@@ -1180,6 +1180,12 @@ data[47011] = { -- Blackrock Depths
 }
 
 -- Wyrmhole Generator
+data[63907] = { -- "Carelessly leap into the portal, you daredevil"
+	mapID = 1978,
+	x = 0.25,
+	y = 0.25,
+	-- tooltipMap = 1978,
+}
 data[63911] = { -- Waking Shores (random location)
 	mapID = 2022,
 	x = 0.56,
@@ -1210,11 +1216,20 @@ data[108016] = { -- Forbidden Reach (random location)
 	y = 0.47,
 	tooltipMap = 2151,
 }
-data[63907] = { -- "Carelessly leap into the portal, you daredevil"
-	mapID = 1978,
-	x = 0.25,
-	y = 0.25,
-	-- tooltipMap = 1978,
+data[109715] = { -- Zaralek Cavern (random location)
+	mapID = 2133,
+	x = 0.46,
+	y = 0.51,
+	tooltipMap = 2133,
+	displayExtra = {
+		{
+			-- HBD doesn't translate from ZC to Dragon Isles, so we'll have to do it manually
+			mapID = 1978, -- Dragon Isles
+			x = 0.8697,
+			y = 0.8124,
+			tooltipMap = 2133,
+		}
+	}
 }
 
 -- MISSING:
