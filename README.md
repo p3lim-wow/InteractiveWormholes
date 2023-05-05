@@ -16,13 +16,13 @@ Instead of that, *Interactive Wormholes* displays these destinations as clickabl
 
 Supported "wormholes":
 
+- [Wyrmhole Generator: Dragon Isles](https://www.wowhead.com/item=198156)
 - [Wormhole Generator: Shadowlands](https://www.wowhead.com/item=172924)
 - [Wormhole Generator: Northrend](https://www.wowhead.com/item=48933)
 	- Including the "secret" 6th destination!
 - [Wormhole Centrifuge](https://www.wowhead.com/item=112059)
 - [Reaves](https://www.wowhead.com/item=132523)' [Wormhole Generator module](https://www.wowhead.com/item=132524)
 - [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
-	- Including all 19 possible destinations!
 - [Vethir](https://www.wowhead.com/npc=108685) in Stormheim
 	- Including the [Cry More Thunder!](https://www.wowhead.com/quest=41950) world quest!
 - [Underbelly portal network](https://www.wowhead.com/item=138028)
@@ -33,6 +33,7 @@ Supported "wormholes":
 - [Animaflow Teleporter](https://www.wowhead.com/npc=172925) in The Maw
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 - [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter)
+- [Silas' Stone of Transportation](https://www.wowhead.com/item=156632)
 
 ## Translations
 
