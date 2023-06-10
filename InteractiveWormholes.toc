@@ -38,3 +38,4 @@ arrow.lua
 pin.lua
 addon.lua
 cosmic.lua
+dungeon.lua

@@ -1236,3 +1236,67 @@ data[109715] = { -- Zaralek Cavern (random location)
 -- - Darkshore/Arathi warfronts
 
 addon.data = data
+
+-- keystone teleports
+addon.data.dungeonTeleportSpells = {
+	-- Cataclysm Keystone
+	[68] = 410080, -- Path of Wind's Domain (The Vortex Pinnacle)
+
+	-- Pandaria Challenge Mode
+	[313] = 131204, -- Path of the Jade Serpent (Temple of the Jade Serpent)
+	[302] = 131205, -- Path of the Stout Brew (Stormstout Brewery)
+	[312] = 131206, -- Path of the Shado-Pan (Shado-Pan Monastery)
+	[321] = 131222, -- Path of the Mogu King (Mogu'shan Palace)
+	[303] = 131225, -- Path of the Setting Sun (Gate of the Setting Sun)
+	[324] = 131228, -- Path of the Black Ox (Siege of Niuzao Temple)
+	[316] = 131229, -- Path of the Scarlet Mitre (Scarlet Monastery)
+	[311] = 131231, -- Path of the Scarlet Blade (Scarlet Halls)
+	[246] = 131232, -- Path of the Necromancer (Scholomance)
+
+	-- Draenor Challenge Mode
+	[385] = 159895, -- Path of the Bloodmaul (Bloodmaul Slag Mines)
+	[558] = 159896, -- Path of the Iron Prow (Iron Docks)
+	[547] = 159897, -- Path of the Vigilant (Auchindoun)
+	[476] = 159898, -- Path of the Skies (Skyreach)
+	[537] = 159899, -- Path of the Crescent Moon (Shadowmoon Burial Grounds)
+	[536] = 159900, -- Path of the Dark Rail (Grimrail Depot)
+	[556] = 159901, -- Path of the Verdant (The Everbloom)
+	[559] = 159902, -- Path of the Burning Mountain (Upper Blackrock Spire)
+
+	-- Legion Keystone
+	[860] = 373262, -- Path of the Fallen Guardian (Karazhan)
+	[721] = 393764, -- Path of Proven Worth (Halls of Valor)
+	[800] = 393766, -- Path of the Grand Magistrix (Court of Stars)
+	[767] = 410078, -- Path of the Earth-Warder (Neltharion's Lair)
+
+	-- Battle for Azeroth Keystone
+	[1178] = 373274, -- Path of the Scrappy Prince (Mechagon)
+	[1001] = 410071, -- Path of the Freebooter (Freehold)
+	[1022] = 410074, -- Path of Festering Rot (The Underrot)
+
+	-- Shadowlands Keystone
+	[1182] = 354462, -- Path of the Courageous (The Necrotic Wake)
+	[1183] = 354463, -- Path of the Plagued (Plaguefall)
+	[1184] = 354464, -- Path of the Misty Forest (Mists of Tirna Scithe)
+	[1185] = 354465, -- Path of the Sinful Soul (Halls of Atonement)
+	[1186] = 354466, -- Path of the Ascendant (Spires of Ascension)
+	[1187] = 354467, -- Path of the Undefeated (Theater of Pain)
+	[1188] = 354468, -- Path of the Scheming Loa (De Other Side)
+	[1189] = 354469, -- Path of the Stone Warden (Sanguine Depths)
+	[1194] = 367416, -- Path of the Streetwise Merchant (Tazavesh, the Veiled Market)
+
+	-- Shadowlands Fated
+	[1190] = 373190, -- Path of the Sire (Castle Nathria)
+	[1193] = 373191, -- Path of the Tormented Soul (Sanctum of Domination)
+	[1195] = 373192, -- Path of the First Ones (Sepulcher of the First Ones)
+
+	-- Dragonflight Keystone
+	[1202] = 393256, -- Path of the Clutch Defender (Ruby Life Pools)
+	[1198] = 393262, -- Path of the Windswept Plains (The Nokhud Offensive)
+	[1201] = 393273, -- Path of the Draconic Diploma (Algeth'ar Academy)
+	[1203] = 393279, -- Path of the Arcane Secrets (The Azure Vault)
+	[1197] = 393222, -- Path of the Watcher's Legacy (Uldaman: Legacy of Tyr)
+	[1196] = 393267, -- Path of the Rotting Woods (Brackenhide Hollow)
+	[1199] = 393276, -- Path of the Obsidian Hoard (Neltharus)
+	[1204] = 393283, -- Path of the Titanic Reservoir (Halls of Infusion)
+}
