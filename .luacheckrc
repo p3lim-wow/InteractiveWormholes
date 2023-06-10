@@ -19,22 +19,25 @@ read_globals = {
 	table = {fields = {'wipe'}},
 
 	-- FrameXML objects
-	'WorldMapFrame',
+	'EncounterJournalInstanceSelect',
 	'GameTooltip',
 	'GossipFrame',
 	'GossipFrameSharedMixin',
 	'MapCanvasDataProviderMixin',
 	'MapCanvasPinMixin',
+	'UIParent',
+	'WorldMapFrame',
 
 	-- FrameXML functions
-	'tContains',
-	'Mixin',
 	'CreateFromMixins',
 	'CreateObjectPool',
 	'CreateVector2D',
 	'FramePool_Hide',
 	'FramePool_HideAndClearAnchors',
+	'GameTooltip_Hide',
+	'Mixin',
 	'QuestUtils_GetQuestName',
+	'tContains',
 
 	-- C namespaces
 	'C_GossipInfo',
@@ -42,10 +45,13 @@ read_globals = {
 
 	-- API
 	'CreateFrame',
+	'EJ_GetInstanceInfo',
+	'GetLocale',
 	'InCombatLockdown',
 	'IsShiftKeyDown',
-	'GetLocale',
+	'IsSpellKnown',
 	'UnitFactionGroup',
+	'hooksecurefunc',
 	'securecall',
 
 	-- external

@@ -53,7 +53,7 @@ local function onEnter(self)
 
 		if InCombatLockdown() then
 			GameTooltip:AddLine(' ')
-			GameTooltip:AddLine(ERR_NOT_IN_COMBAT, 1, 0, 0)
+			GameTooltip:AddLine(_G.ERR_NOT_IN_COMBAT, 1, 0, 0)
 			GameTooltip:Show()
 		else
 			currentSpell = spellID
