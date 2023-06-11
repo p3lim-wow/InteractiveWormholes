@@ -99,33 +99,35 @@ function addon:HandleGossip()
 			return
 		end
 
-		-- check if we support the option
-		local info = self.data[gossipInfo.gossipOptionID]
-		if info then
-			-- there is a supported option, we'll take over the gossip interaction
-			self.isActive = true
+		if gossipInfo.gossipOptionID and gossipInfo.gossipOptionID > 0 then
+			-- check if we support the option
+			local info = self.data[gossipInfo.gossipOptionID]
+			if info then
+				-- there is a supported option, we'll take over the gossip interaction
+				self.isActive = true
 
-			-- check if the option has known children (e.g. the sub-menus for Mole Machine), if so
-			-- we'll show them instead of this option
-			if info.children then
-				for _, childGossipOptionID in next, info.children do
-					local childInfo = self.data[childGossipOptionID]
-					if childInfo then
-						self:AddPin(childInfo, childGossipOptionID)
+				-- check if the option has known children (e.g. the sub-menus for Mole Machine), if so
+				-- we'll show them instead of this option
+				if info.children then
+					for _, childGossipOptionID in next, info.children do
+						local childInfo = self.data[childGossipOptionID]
+						if childInfo then
+							self:AddPin(childInfo, childGossipOptionID)
+						end
+					end
+				else
+					self:AddPin(info, gossipInfo.gossipOptionID, gossipInfo.name)
+				end
+
+				if info.displayExtra then
+					for _, extraInfo in next, info.displayExtra do
+						self:AddPin(extraInfo, gossipInfo.gossipOptionID, gossipInfo.name)
 					end
 				end
 			else
-				self:AddPin(info, gossipInfo.gossipOptionID, gossipInfo.name)
+				-- the option is not handled, track it
+				table.insert(unusedOptions, gossipInfo)
 			end
-
-			if info.displayExtra then
-				for _, extraInfo in next, info.displayExtra do
-					self:AddPin(extraInfo, gossipInfo.gossipOptionID, gossipInfo.name)
-				end
-			end
-		else
-			-- the option is not handled, track it
-			table.insert(unusedOptions, gossipInfo)
 		end
 	end
 
