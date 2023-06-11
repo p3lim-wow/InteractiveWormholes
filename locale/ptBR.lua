@@ -4,6 +4,7 @@ local L = select(2, ...).L('ptBR')
 --- general strings
 -- L['Click to travel'] = '' -- MISSING TRANSLATION
 L['You are here'] = _G.TAXINODEYOUAREHERE -- already available from globalstrings
+-- L['Shift+click to teleport'] = '' -- MISSING TRANSLATION
 
 -- tooltips
 L['Galebroken Path'] = 'Trilha Arrasavento' -- AreaTable.db2, id=7611

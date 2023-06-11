@@ -4,6 +4,7 @@ local L = select(2, ...).L('ruRU')
 --- general strings
 L['Click to travel'] = 'Нажмите, чтобы путешествовать'
 L['You are here'] = _G.TAXINODEYOUAREHERE -- already available from globalstrings
+-- L['Shift+click to teleport'] = '' -- MISSING TRANSLATION
 
 -- tooltips
 L['Galebroken Path'] = 'Разоренная бурей тропа' -- AreaTable.db2, id=7611

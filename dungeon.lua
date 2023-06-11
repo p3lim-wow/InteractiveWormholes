@@ -47,9 +47,9 @@ local function onEnter(self)
 	if spellID and IsSpellKnown(spellID) then
 		GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT')
 		GameTooltip:SetText((EJ_GetInstanceInfo(dungeonID)))
-		GameTooltip:AddLine(addon.L['Shift+%s to teleport']:format('|A:NPE_LeftClick:18:18|a'), 1, 1, 1)
-		-- want to use fancy texture for shift, but gotta make it ourselves
-		-- GameTooltip:AddLine('|A:newplayertutorial-icon-key:18:40|a|A:NPE_LeftClick:18:18|a to teleport', 1, 1, 1)
+		GameTooltip:AddLine(addon.L['Shift+click to teleport'], 1, 1, 1)
+		-- kinda want to use fancy texture for shift and click, but gotta make the shift texture to do so
+		-- GameTooltip:AddLine('|A:newplayertutorial-icon-key:18:40|a+|A:NPE_LeftClick:18:18|a to teleport', 1, 1, 1)
 
 		if InCombatLockdown() then
 			GameTooltip:AddLine(' ')
