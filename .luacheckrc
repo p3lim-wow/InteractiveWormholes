@@ -19,6 +19,7 @@ read_globals = {
 	table = {fields = {'wipe'}},
 
 	-- FrameXML objects
+	'EncounterJournal',
 	'EncounterJournalInstanceSelect',
 	'GameTooltip',
 	'GossipFrame',
