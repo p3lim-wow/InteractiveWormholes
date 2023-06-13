@@ -1,3 +1,8 @@
+### Changes in 100100.38-Release:
+
+- Added: challenge/keystone teleport spells interactivity (see updated description)
+- Fixed: Incompatibility with Immersive (hopefully)
+
 ### Changes in 100100.37-Release:
 
 - Added: Zaralek Cavern location for Wyrmhole Generator
