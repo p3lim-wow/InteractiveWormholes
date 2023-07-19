@@ -70,8 +70,8 @@ do
 			end
 		end
 
-		-- if it gets to here a map was not found
-		-- TODO: consider throwing an error
+		-- if it gets to here, the firstMapID was already the common map
+		return firstMapID, mapAncestries
 	end
 end
 
