@@ -1,7 +1,5 @@
 local _, addon = ...
 
-local HBD = LibStub('HereBeDragons-2.0')
-
 addon.activeMaps = {}
 addon.activeCosmicWorlds = {}
 
