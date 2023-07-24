@@ -574,6 +574,17 @@ data[48350] = { -- Tiragarde Sound
 	highlightAtlas = 'bfa-landingbutton-horde-diamondhighlight',
 	highlightAdd = true,
 }
+data[48352] = { -- Darkshore (campaign)
+	mapID = 62, -- Darkshore (it's really a phased version with mapID 1333)
+	x = 0.4751, -- actually 0.5452
+	y = 0.1973, -- actually 0.2081
+	atlas = 'bfa-landingbutton-alliance-up',
+	atlasSize = 40,
+	highlightAtlas = 'bfa-landingbutton-alliance-shieldhighlight',
+	highlightAdd = true,
+	isQuest = true,
+	tooltipMap = 62,
+}
 -- TODO: horde foothold campaign quests
 
 -- Warfront Footholds (Alliance)
