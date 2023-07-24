@@ -8,70 +8,86 @@ addon.activeCosmicWorlds = {}
 function addon:ShowMap()
 	if not WorldMapFrame:IsShown() and not InCombatLockdown() then
 		-- never attempt to toggle the map while in combat
-		securecall('ShowUIPanel', WorldMapFrame) -- SAFE
-		-- ToggleWorldMap() -- TAINT
+		securecall('ShowUIPanel', WorldMapFrame)
 	end
 
-	-- get the common parent map of all pins
-	local commonMapID, mapAncestries = self:GetCommonMap()
-
-	if mapAncestries then
-		-- we want to show hints on the cosmic map when there are destinations
-		-- available in worlds within, so we store the world map IDs for each one
-		for _, mapAncestry in next, mapAncestries do
-			if not tContains(self.activeCosmicWorlds, mapAncestry[2]) then
-				table.insert(self.activeCosmicWorlds, mapAncestry[2])
-			end
+	-- if there is a common parent map for all pins then change the map to it
+	local commonMapID, activeCosmicWorlds = self:GetCommonMap(self.activeMaps)
+	if commonMapID then
+		-- show arrows on active cosmic worlds (if any)
+		for mapID in next, activeCosmicWorlds or {} do
+			table.insert(self.activeCosmicWorlds, mapID)
 		end
-	end
 
-	-- change to a map
-	WorldMapFrame:SetMapID(commonMapID) -- TAINT, no alternative
-	-- securecall('OpenWorldMap', commonMapID) -- TAINT, but blames a different addon
+		-- change to a map
+		WorldMapFrame:SetMapID(commonMapID)
+	end
 end
 
 do
-	local function traverseMapAncestry(t, mapID, sourceMapID)
-		-- find the parent map
-		local parentMapID = HBD.mapData[mapID].parent
+	-- API cache
+	local MAP_PARENT = setmetatable({}, {
+		__index = function(self, mapID)
+			local mapInfo = C_Map.GetMapInfo(mapID)
+			if mapInfo and mapInfo.parentMapID and mapInfo.parentMapID ~= 0 then
+				rawset(self, mapID, mapInfo.parentMapID)
+				return mapInfo.parentMapID
+			end
+		end
+	})
+
+	local function getMapAncestry(mapID, ancestry)
+		-- recurse through parent maps and build a table from Cosmic inward of children
+		local parentMapID = MAP_PARENT[mapID]
 		if parentMapID then
-			-- parent map exists, prepend it to the table then recurse
-			table.insert(t[sourceMapID], 1, parentMapID)
-			traverseMapAncestry(t, parentMapID, sourceMapID)
+			return getMapAncestry(parentMapID, {
+				[parentMapID] = ancestry or {
+					[mapID] = {}
+				}
+			})
+		else
+			return ancestry
 		end
 	end
 
-	function addon:GetCommonMap()
-		-- if there is only one map then we don't need to do anything
-		if #self.activeMaps == 1 then
-			return self.activeMaps[1]
-		end
-
-		-- iterate through all active maps and traverse through their ancestry,
-		-- each map ancestry is sorted by closest to cosmos to furthest from
-		local mapAncestries = {}
-		for _, mapID in next, self.activeMaps do
-			mapAncestries[mapID] = {mapID}
-			traverseMapAncestry(mapAncestries, mapID, mapID)
-		end
-
-		-- get the first map of the traversed ancestries
-		local firstMapID, firstMapAncestry = next(mapAncestries)
-
-		-- traverse the first map ancestry
-		for index, mapID in next, firstMapAncestry do
-			-- traverse all the other map ancestries after the first one
-			for _, mapAncestry in next, mapAncestries, firstMapID do
-				-- check if the mapID at the same index as the first ancestry matches this one
-				if mapAncestry[index] ~= mapID then
-					-- if they don't match, the mapID with the previous index is the most common one
-					return mapAncestry[index - 1], mapAncestries
-				end
+	local function mergeTables(t1, t2)
+		-- recurse through tables and merge them
+		for k, v in next, t2 do
+			if type(t1[k] or false) == 'table' then
+				mergeTables(t1[k], t2[k])
+			else
+				t1[k] = v
 			end
 		end
+		return t1
+	end
 
-		-- if it gets to here a map was not found
-		-- TODO: consider throwing an error
+	function addon:GetCommonMap(maps)
+		-- returns the common parent map for the maps provided
+		-- this logic is a bit wasteful with tables, but it's never called in combat and takes less
+		-- than a frame to compute, so we're fine with that
+		if #maps == 1 then
+			-- there's only one map
+			return maps[1]
+		end
+
+		-- build a table of map ancestries, where the outermost table is the Cosmic map, and the
+		-- innermost table is each map in the provided table
+		local ancestry = {}
+		for _, mapID in next, maps do
+			-- merge this map ancestry with all others
+			ancestry = mergeTables(ancestry, getMapAncestry(mapID))
+		end
+
+		-- iterate through the full ancestry table until we find a parent map that has either
+		-- multiple or no children
+		local commonParentMapID
+		local parentAncestry = ancestry
+		repeat
+			commonParentMapID, parentAncestry = next(parentAncestry)
+		until addon:tsize(parentAncestry) ~= 1
+
+		return commonParentMapID, ancestry[946]
 	end
 end
 
@@ -160,7 +176,6 @@ function addon:Reset()
 	if not InCombatLockdown() and WorldMapFrame:IsShown() then
 		-- never attempt to toggle the map while in combat
 		securecall('HideUIPanel', WorldMapFrame)
-		-- ToggleWorldMap() -- TAINT
 	end
 
 	self.isActive = false
@@ -191,5 +206,3 @@ WorldMapFrame:HookScript('OnHide', function()
 		C_GossipInfo.CloseGossip()
 	end
 end)
-
--- TODO: map button in gossip
