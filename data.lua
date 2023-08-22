@@ -1164,6 +1164,7 @@ data[47007] = {
 	mapID = 11, -- Wailing Caverns
 	x = 0.2288,
 	y = 0.8242,
+	tooltipMap = 11, -- Wailing Caverns
 }
 data[47008] = { -- Deadmines
 	-- this one is offset so it doesn't collide with the dungeon pin
@@ -1173,9 +1174,10 @@ data[47008] = { -- Deadmines
 	tooltipMap = 291, -- Deadmines
 }
 data[47009] = {
-	mapID = 30, -- Gnomeregan
+	mapID = 30, -- New Tinkertown
 	x = 0.3193,
 	y = 0.7169,
+	tooltipMap = 226, -- Gnomeregan
 }
 data[47010] = { -- Stratholme (back entrance)
 	mapID = 23, -- Eastern Plaguelands
