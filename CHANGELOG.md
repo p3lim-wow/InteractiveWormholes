@@ -1,3 +1,8 @@
+### Changes in 100105.40-Release:
+
+- Fixed: Errors in Court of Stars
+- Fixed: Manapoof destination names
+
 ### Changes in 100105.39-Release:
 
 - Added: Darkshore campaign for alliance
