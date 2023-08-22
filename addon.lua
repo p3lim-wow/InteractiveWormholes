@@ -105,15 +105,15 @@ function addon:HandleGossip()
 
 	-- iterate through the options
 	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
-		-- if the option is part of the staging system (e.g. Mole Machine) then select the staged
-		-- option and bail out, also preventing the default gossip UI from activating
-		if self.stagedGossipOptionID == gossipInfo.gossipOptionID then
-			C_GossipInfo.SelectOption(self.stagedGossipOptionID)
-			self.stagedGossipOptionID = nil
-			return
-		end
-
 		if gossipInfo.gossipOptionID and gossipInfo.gossipOptionID > 0 then
+			if self.stagedGossipOptionID == gossipInfo.gossipOptionID then
+				-- if the option is part of the staging system (e.g. Mole Machine) then select the staged
+				-- option and bail out, also preventing the default gossip UI from activating
+				C_GossipInfo.SelectOption(self.stagedGossipOptionID)
+				self.stagedGossipOptionID = nil
+				return
+			end
+
 			-- check if we support the option
 			local info = self.data[gossipInfo.gossipOptionID]
 			if info then
