@@ -1,3 +1,8 @@
+### Changes in 100200.41-Release:
+
+- Added: Support for Emerald Dream Wyrmhole location
+- Changed: Update Interface version
+
 ### Changes in 100105.40-Release:
 
 - Fixed: Errors in Court of Stars
