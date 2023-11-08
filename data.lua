@@ -1244,6 +1244,21 @@ data[109715] = { -- Zaralek Cavern (random location)
 		}
 	}
 }
+data[114080] = { -- Emerald Dream (random location)
+	mapID = 2200,
+	x = 0.51,
+	y = 0.43,
+	tooltipMap = 2200,
+	displayExtra = {
+		{
+			-- HBD doesn't translate from ED to Dragon Isles, so we'll have to do it manually (ish)
+			mapID = 1978, -- Dragon Isles
+			x = 0.24,
+			y = 0.57,
+			tooltipMap = 2200,
+		}
+	}
+}
 
 -- MISSING:
 -- - Darkshore/Arathi warfronts
