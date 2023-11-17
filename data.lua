@@ -1269,6 +1269,7 @@ addon.data = data
 addon.data.dungeonTeleportSpells = {
 	-- Cataclysm Keystone
 	[68] = 410080, -- Path of Wind's Domain (The Vortex Pinnacle)
+	[65] = 424142, -- Path of the Tidehunter (Throne of the Tides)
 
 	-- Pandaria Challenge Mode
 	[313] = 131204, -- Path of the Jade Serpent (Temple of the Jade Serpent)
@@ -1296,11 +1297,15 @@ addon.data.dungeonTeleportSpells = {
 	[721] = 393764, -- Path of Proven Worth (Halls of Valor)
 	[800] = 393766, -- Path of the Grand Magistrix (Court of Stars)
 	[767] = 410078, -- Path of the Earth-Warder (Neltharion's Lair)
+	[1021] = 424167, -- Path of Heart's Bane (Waycrest Manor)
+	[762] = 424163, -- Path of the Nightmare Lord (Darkheart Thicket)
+	[740] = 424153, -- Path of Ancient Horrors (Black Rook Hold)
 
 	-- Battle for Azeroth Keystone
 	[1178] = 373274, -- Path of the Scrappy Prince (Mechagon)
 	[1001] = 410071, -- Path of the Freebooter (Freehold)
 	[1022] = 410074, -- Path of Festering Rot (The Underrot)
+	[968] = 424187, -- Path of the Golden Tomb (Atal'Dazar)
 
 	-- Shadowlands Keystone
 	[1182] = 354462, -- Path of the Courageous (The Necrotic Wake)
@@ -1327,4 +1332,5 @@ addon.data.dungeonTeleportSpells = {
 	[1196] = 393267, -- Path of the Rotting Woods (Brackenhide Hollow)
 	[1199] = 393276, -- Path of the Obsidian Hoard (Neltharus)
 	[1204] = 393283, -- Path of the Titanic Reservoir (Halls of Infusion)
+	[1209] = 424197, -- Path of Twisted Time (Dawn of the Infinite)
 }
