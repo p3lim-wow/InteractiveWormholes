@@ -1,3 +1,7 @@
+### Changes in 100200.42-Release:
+
+- Added: Support for 10.2 dungeon teleport spells
+
 ### Changes in 100200.41-Release:
 
 - Added: Support for Emerald Dream Wyrmhole location
