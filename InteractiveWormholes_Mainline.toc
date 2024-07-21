@@ -4,7 +4,7 @@
 ## Title: Interactive Wormholes
 ## Notes: Shows clickable locations on the World Map when interacting with gossip windows that offer teleportation
 ## IconTexture: Interface\Icons\inv_misc_shadowegg
-## OptionalDeps: HereBeDragons
+## SavedVariables: InteractiveWormholesDB
 
 ## X-Curse-Project-ID: 101522
 ## X-WoWI-ID: 24119
@@ -12,10 +12,6 @@
 
 #@non-debug@
 # libs\Dashi\embed.xml
-# libs\LibStub\LibStub.lua
-# libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
-# libs\HereBeDragons\HereBeDragons-2.0.lua
-# libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
 #@end-non-debug@
 #@debug@
 ..\Dashi\embed.xml
@@ -33,9 +29,26 @@ locale\zhCN.lua
 locale\zhTW.lua
 
 data.lua
-line.lua
-arrow.lua
-pin.lua
-addon.lua
-cosmic.lua
-dungeon.lua
+data\animaflow.lua
+data\footholds.lua
+data\getaway.lua
+data\manapoof.lua
+data\molemachine.lua
+data\rocketway.lua
+data\silas.lua
+data\stormflight.lua
+data\underbelly.lua
+data\vethir.lua
+data\warfront.lua
+data\wormholes.lua
+
+pools\line.lua
+pools\arrow.lua
+pools\pin.lua
+pools\provider.lua
+
+providers\gossip.lua
+providers\cosmic.lua
+
+utils.lua
+settings.lua

@@ -1,21 +1,13 @@
-if GetLocale() ~= 'itIT' then return end
 local L = select(2, ...).L('itIT')
 
---- general strings
--- L['Click to travel'] = '' -- MISSING TRANSLATION
-L['You are here'] = _G.TAXINODEYOUAREHERE -- already available from globalstrings
--- L['Shift+click to teleport'] = '' -- MISSING TRANSLATION
+--- settings
+-- L['Change maps'] = '' -- MISSING TRANSLATION
+-- L['Change to the most appropriate map.\n\n|cffff0000Warning:|r This will cause taint!'] = '' -- MISSING TRANSLATION
+-- L['Map pin scale'] = '' -- MISSING TRANSLATION
+-- L['The scale of pins on the map'] = '' -- MISSING TRANSLATION
+-- L['Pin size zoom factor'] = '' -- MISSING TRANSLATION
+-- L['How much extra scale to apply when map is zoomed'] = '' -- MISSING TRANSLATION
 
--- tooltips
-L['Galebroken Path'] = 'Percorso Tempestoso' -- AreaTable.db2, id=7611
-L['Thorignir Refuge'] = 'Rifugio dei Thorignir' -- AreaTable.db2, id=8267
-L['Thorim\'s Peak'] = 'Picco di Thorim' -- AreaTable.db2, id=7612
-
-L['Orgrimmar Rocketway Exchange'] = 'Scambio della Razzovia di Orgrimmar' -- AreaTable.db2, id=4830
--- L['Gallywix Rocketway Exchange'] = '' -- MISSING TRANSLATION
-L['Northern Rocketway Exchange'] = 'Scambio Settentrionale della Razzovia' -- AreaTable.db2, id=4825
--- L['Northern Rocketway Terminus'] = '' -- MISSING TRANSLATION
-L['Southern Rocketway Terminus'] = 'Terminale Sud della Razzovia' -- AreaTable.db2, id=4828
-
+--- tooltips
 L['The Masonary'] = 'Corridoio Oscuro' -- WMOAreaTable.db2, id=15548
 L['Shadowforge City'] = 'Forgiascura' -- WMOAreaTable.db2, id=26748

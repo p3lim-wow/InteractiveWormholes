@@ -15,47 +15,54 @@ ignore = {
 	'631', -- line is too long
 }
 
+globals = {
+	-- exposed globals
+	'InteractiveWormholes'
+}
+
 read_globals = {
 	table = {fields = {'wipe'}},
 
 	-- FrameXML objects
-	'EncounterJournal',
-	'EncounterJournalInstanceSelect',
+	'CustomGossipFrameManager',
+	'FlagsUtil',
 	'GameTooltip',
 	'GossipFrame',
 	'GossipFrameSharedMixin',
 	'MapCanvasDataProviderMixin',
 	'MapCanvasPinMixin',
-	'UIParent',
+	'UIErrorsFrame',
 	'WorldMapFrame',
+
+	-- FrameXML constants
+	'Enum',
+	'CUSTOM_GOSSIP_FRAME_EVENTS',
 
 	-- FrameXML functions
 	'CreateFromMixins',
-	'CreateObjectPool',
+	'CreateUnsecuredObjectPool',
 	'CreateVector2D',
-	'FramePool_Hide',
-	'FramePool_HideAndClearAnchors',
-	'GameTooltip_Hide',
+	'GenerateClosure',
+	'HideUIPanel',
+	'ShowUIPanel',
 	'Mixin',
-	'QuestUtils_GetQuestName',
 	'tContains',
 
-	-- C namespaces
+	-- GlobalStrings
+	'ERR_NOT_IN_COMBAT',
+	'PERCENTAGE_STRING',
+	'TUTORIAL_TITLE35',
+
+	-- namespaces
 	'C_GossipInfo',
 	'C_Map',
+	'C_PlayerInteractionManager',
+	'C_QuestLog',
 
 	-- API
 	'CreateFrame',
-	'EJ_GetInstanceInfo',
-	'GetLocale',
 	'InCombatLockdown',
 	'IsShiftKeyDown',
-	'IsSpellKnown',
 	'UnitFactionGroup',
-	'hooksecurefunc',
-	'securecall',
-
-	-- external
-	'LibStub',
-	'HBD_PINS_WORLDMAP_SHOW_WORLD',
+	'UnitIsGameObject',
 }

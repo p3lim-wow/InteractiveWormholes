@@ -34,16 +34,31 @@ body:
 # the rest is a list of strings to translate
   - type: input
     attributes:
-      label: '"Click to travel"'
-      description: This is the default tooltip string for destinations.
+      label: '"Change maps"'
+      description: This is used in the settings.
       placeholder: Translation here
   - type: input
     attributes:
-      label: '"Gallywix Rocketway Exchange"'
-      description: Please only provide a translation as it appears in the game.
+      label: '"Change to the most appropriate map.\n\n|cffff0000Warning:|r This may cause errors!"'
+      description: This is used in the settings. '\n', '|cffff0000' and '|r' is formatting.
       placeholder: Translation here
   - type: input
     attributes:
-      label: '"Northern Rocketway Exchange"'
-      description: Please only provide a translation as it appears in the game.
+      label: '"Map pin scale"'
+      description: This is used in the settings.
+      placeholder: Translation here
+  - type: input
+    attributes:
+      label: '"The scale of pins on the map"'
+      description: This is used in the settings.
+      placeholder: Translation here
+  - type: input
+    attributes:
+      label: '"Pin size zoom factor"'
+      description: This is used in the settings.
+      placeholder: Translation here
+  - type: input
+    attributes:
+      label: '"How much extra scale to apply when map is zoomed"'
+      description: This is used in the settings.
       placeholder: Translation here
