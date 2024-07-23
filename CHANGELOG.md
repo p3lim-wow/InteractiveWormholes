@@ -1,3 +1,13 @@
+### Changes in 110000.43-Release:
+
+- Added: Settings to change pin sizes
+- Added: Support for Khaz Algar Wormhole Generator
+- Added: Support for "Scenic Getaway Portal" during Love is in the Air world event
+- Added: All missing Warfront flight points
+- Changed: Update Interface version
+- Changed: Maps are no longer changed automatically to prevent taint, can still be enabled through settings
+- Removed: Dungeon teleportation
+
 ### Changes in 100200.42-Release:
 
 - Added: Support for 10.2 dungeon teleport spells
