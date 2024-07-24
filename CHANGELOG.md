@@ -1,3 +1,7 @@
+### Changes in 110000.44-Release:
+
+- Fixed: Settings not respecting being turned off
+
 ### Changes in 110000.43-Release:
 
 - Added: Settings to change pin sizes
