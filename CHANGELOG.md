@@ -1,3 +1,7 @@
+### Changes in 110000.45-Release:
+
+- Fixed: Error when using wormholes from far far away
+
 ### Changes in 110000.44-Release:
 
 - Fixed: Settings not respecting being turned off
