@@ -262,9 +262,34 @@ function gossipProvider:DisableBlizzard()
 	CustomGossipFrameManager:UnregisterAllEvents()
 end
 
-function gossipProvider:RestoreBlizzard()
+local function IsGossipHandledByOtherAddOns()
+	local addons = {
+		"DialogueUI",
+	}
+
+	for _, addonName in ipairs(addons) do
+		if C_AddOns.IsAddOnLoaded(addonName) then
+			return true
+		end
+	end
+	return false
+end
+
+local function RestoreBlizzard()
 	GossipFrame:SetScript('OnHide', GossipFrameSharedMixin.OnHide)
 	for _, event in next, CUSTOM_GOSSIP_FRAME_EVENTS do
 		CustomGossipFrameManager:RegisterEvent(event)
+	end
+end
+
+local function Nop()
+end
+
+function gossipProvider:RestoreBlizzard()
+	if IsGossipHandledByOtherAddOns() then
+		self.RestoreBlizzard = Nop
+	else
+		self.RestoreBlizzard = RestoreBlizzard
+		RestoreBlizzard()
 	end
 end
