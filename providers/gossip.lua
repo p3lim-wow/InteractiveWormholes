@@ -257,12 +257,24 @@ function gossipProvider:OnHide()
 	end
 end
 
+local function isHandledExternally()
+	return addon:IsAddOnEnabled('DialogueUI')
+end
+
 function gossipProvider:DisableBlizzard()
+	if isHandledExternally() then
+		return
+	end
+
 	GossipFrame:SetScript('OnHide', nil)
 	CustomGossipFrameManager:UnregisterAllEvents()
 end
 
 function gossipProvider:RestoreBlizzard()
+	if isHandledExternally() then
+		return
+	end
+
 	GossipFrame:SetScript('OnHide', GossipFrameSharedMixin.OnHide)
 	for _, event in next, CUSTOM_GOSSIP_FRAME_EVENTS do
 		CustomGossipFrameManager:RegisterEvent(event)
