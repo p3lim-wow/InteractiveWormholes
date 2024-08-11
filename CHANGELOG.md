@@ -1,3 +1,9 @@
+### Changes in 110000.46-Release:
+
+- Fixed: Errors when map changing is enabled
+- Fixed: Incompatibility with DialogueUI
+- Fixed: Compatibility with 11.0.2 patch
+
 ### Changes in 110000.45-Release:
 
 - Fixed: Error when using wormholes from far far away
