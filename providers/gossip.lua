@@ -151,13 +151,13 @@ function gossipProvider:AddPin(info, gossipInfo)
 	pin:SetID(gossipInfo.gossipOptionID)
 	pin.owner = self
 
+	-- flag the map for ancestry
+	addon:FlagMap(info.mapID)
+
 	if not pin:SetPosition(info.mapID, info.x, info.y) then
 		pin:Hide()
 		return
 	end
-
-	-- flag the map for ancestry
-	addon:FlagMap(info.mapID)
 
 	if info.isTaxi then
 		pin:SetSize(20, 20)
