@@ -1,3 +1,7 @@
+### Changes in 110000.47-Release:
+
+- Fixed: Settings colliding or not loading/saving properly
+
 ### Changes in 110000.46-Release:
 
 - Fixed: Errors when map changing is enabled
