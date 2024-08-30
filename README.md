@@ -35,7 +35,6 @@ Supported "wormholes":
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 - [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter)
 - [Silas' Stone of Transportation](https://www.wowhead.com/item=156632)
-- [challenge/keystone teleport spells](https://www.wowhead.com/spells/uncategorized/name:path+of?filter=109:28;252:3;0:10) (shift+click entrance on map or in dungeon journal)
 - [Taxi](https://warcraft.wiki.gg/wiki/Flight_path) (optional, enable in settings)
 
 ## Translations
