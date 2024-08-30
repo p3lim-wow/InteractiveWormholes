@@ -1,3 +1,8 @@
+### Changes in 110000.48-Release:
+
+- Added: Option to show taxi on the normal world map
+- Added: Slash commands to open settings
+
 ### Changes in 110000.47-Release:
 
 - Fixed: Settings colliding or not loading/saving properly
