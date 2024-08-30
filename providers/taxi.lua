@@ -232,13 +232,13 @@ addon:RegisterOptionCallback('taxi', function(value)
 
 	if enabled then
 		WorldMapFrame:AddDataProvider(taxiProvider)
+
+		-- WorldFlightMap does pretty much the same thing, but is outdated and broken, and the author is not
+		-- responding to my pull requests to fix it, so we disable it to prevent collisions
+		if C_AddOns.DoesAddOnExist('WorldFlightMap') and C_AddOns.IsAddOnLoadable('WorldFlightMap') then
+			C_AddOns.DisableAddOn('WorldFlightMap')
+		end
 	else
 		WorldMapFrame:RemoveDataProvider(taxiProvider)
 	end
 end)
-
--- WorldFlightMap does pretty much the same thing, but is outdated and broken, and the author is not
--- responding to my pull requests to fix it, so we disable it to prevent collisions
-if C_AddOns.DoesAddOnExist('WorldFlightMap') and C_AddOns.IsAddOnLoadable('WorldFlightMap') then
-	C_AddOns.DisableAddOn('WorldFlightMap')
-end
