@@ -42,5 +42,7 @@ addon:RegisterSettings('InteractiveWormholesDB', {
 		tooltip = L['Use the normal world map for taxi'],
 		default = false,
 		new = true,
-	}
+	},
 })
+
+addon:RegisterSettingsSlash('/interactivewormholes', '/iw')
