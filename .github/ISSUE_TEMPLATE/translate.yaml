@@ -62,3 +62,13 @@ body:
       label: '"How much extra scale to apply when map is zoomed"'
       description: This is used in the settings.
       placeholder: Translation here
+  - type: input
+    attributes:
+      label: '"Taxi world map"'
+      description: This is used in the settings.
+      placeholder: Translation here
+  - type: input
+    attributes:
+      label: '"Use the normal world map for taxi"'
+      description: This is used in the settings.
+      placeholder: Translation here

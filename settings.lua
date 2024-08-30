@@ -35,4 +35,12 @@ addon:RegisterSettings('InteractiveWormholesDB', {
 		valueStep = 0.01,
 		valueFormat = formatPercentage,
 	},
+	{
+		key = 'taxi',
+		type = 'toggle',
+		title = L['Taxi world map'],
+		tooltip = L['Use the normal world map for taxi'],
+		default = false,
+		new = true,
+	}
 })

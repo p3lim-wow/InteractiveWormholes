@@ -48,6 +48,7 @@ pools\pin.lua
 pools\provider.lua
 
 providers\gossip.lua
+providers\taxi.lua
 providers\cosmic.lua
 
 utils.lua

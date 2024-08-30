@@ -26,12 +26,16 @@ read_globals = {
 	-- FrameXML objects
 	'CustomGossipFrameManager',
 	'FlagsUtil',
+	'FlightMap_FlightPointPinMixin', -- taxi
+	'FlightMapFrame', -- taxi
 	'GameTooltip',
 	'GossipFrame',
 	'GossipFrameSharedMixin',
 	'MapCanvasDataProviderMixin',
 	'MapCanvasPinMixin',
+	'TaxiFrame', -- taxi
 	'UIErrorsFrame',
+	'UIParent', -- taxi
 	'WorldMapFrame',
 
 	-- FrameXML constants
@@ -54,15 +58,21 @@ read_globals = {
 	'TUTORIAL_TITLE35',
 
 	-- namespaces
+	'C_AddOns', -- taxi
 	'C_GossipInfo',
 	'C_Map',
 	'C_PlayerInteractionManager',
 	'C_QuestLog',
+	'C_TaxiMap', -- taxi
 
 	-- API
+	'CloseTaxiMap', -- taxi
 	'CreateFrame',
+	'GetNumRoutes', -- taxi
 	'InCombatLockdown',
+	'IsInInstance', -- taxi
 	'IsShiftKeyDown',
+	'TaxiGetNodeSlot', -- taxi
 	'UnitFactionGroup',
 	'UnitIsGameObject',
 }
