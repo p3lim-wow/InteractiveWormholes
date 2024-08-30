@@ -24,6 +24,7 @@ addon.data[45924] = { -- Inn Entrance, from Sewer Guard Station
 	x = 0.6735,
 	y = 0.6910,
 }
+addon.data[45912] = addon.data[45924] -- Inn Entrance, from Sewer Guard Station (duplicate?)
 addon.data[45918] = addon.data[45924] -- Inn Entrance, from Black Market
 addon.data[45930] = addon.data[45924] -- Inn Entrance, from Alchemists' Lair
 addon.data[45936] = addon.data[45924] -- Inn Entrance, from Abandoned Shack
