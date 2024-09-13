@@ -166,9 +166,9 @@ function taxiProvider:AddPin(info)
 		-- to fix their bounds, but only after UpdatePinSize has set it's own thing
 		local width, height = pin:GetSize()
 		pin:SetWidth(width / 2)
-		pin.icon:ClearAllPoints()
-		pin.icon:SetPoint('CENTER')
-		pin.icon:SetSize(width, height)
+		pin.Icon:ClearAllPoints()
+		pin.Icon:SetPoint('CENTER')
+		pin.Icon:SetSize(width, height)
 	elseif info.state ~= Enum.FlightPathState.Unreachable then
 		-- attach arrows to all reachable nodes
 		pin:AttachArrow()
