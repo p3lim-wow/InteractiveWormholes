@@ -1,3 +1,8 @@
+### Changes in 110000.49-Release:
+
+- Fixed: Missing node for Dalaran sewer network
+- Fixed: Errors when using Zereth Mortis locus shift network
+
 ### Changes in 110000.48-Release:
 
 - Added: Option to show taxi on the normal world map
