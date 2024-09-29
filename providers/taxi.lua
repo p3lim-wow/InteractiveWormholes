@@ -214,10 +214,9 @@ function taxiProvider:RemoveRouteToPin()
 end
 
 do
-	local ShouldMapShowTaxiNodes
+	local ShouldMapShowTaxiNodes = C_TaxiMap.ShouldMapShowTaxiNodes
 	function taxiProvider:DisableBlizzard()
 		-- TODO: I'd rather control the POI template, but it refreshes by itself
-		ShouldMapShowTaxiNodes = C_TaxiMap.ShouldMapShowTaxiNodes
 		C_TaxiMap.ShouldMapShowTaxiNodes = function() end
 	end
 
