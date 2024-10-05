@@ -10,7 +10,7 @@ It can be downloaded at one of the following sites:
 
 ## Description
 
-When using engineering wormholes such as [Wormhole Generator: Northrend](https://wowhead.com/item=48933) you'd normally get a list of (sometimes obfuscated) destinations.
+When using spells and toys such as [Wormhole Generator: Northrend](https://wowhead.com/item=48933) you'd normally get a boring list of (sometimes obfuscated) destinations.
 
 Instead of that, *Interactive Wormholes* displays these destinations as clickable portals on your world map.
 
@@ -24,6 +24,7 @@ Supported "wormholes":
 - [Wormhole Centrifuge](https://www.wowhead.com/item=112059)
 - [Reaves](https://www.wowhead.com/item=132523)' [Wormhole Generator module](https://www.wowhead.com/item=132524)
 - [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
+	- Including all 11 new locations in the 20th anniversary patch!
 - [Vethir](https://www.wowhead.com/npc=108685) in Stormheim
 	- Including the [Cry More Thunder!](https://www.wowhead.com/quest=41950) world quest!
 - [Underbelly portal network](https://www.wowhead.com/item=138028)
