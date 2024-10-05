@@ -94,12 +94,17 @@ function gossipProvider:OnRefresh()
 							gossipOptionID = childGossipOptionID,
 						})
 
-						isActive = true
+						if childData.displayExtra then
+							for _, extraData in next, childData.displayExtra do
+								self:AddPin(extraData, {
+									gossipOptionID = childGossipOptionID,
+								})
+							end
+						end
 					end
 				end
 			else
 				self:AddPin(data, gossipInfo)
-				isActive = true
 			end
 
 			if data.displayExtra then
@@ -147,9 +152,15 @@ function gossipProvider:OnRefresh()
 end
 
 function gossipProvider:AddPin(info, gossipInfo)
+	if info.requiredQuest and not C_QuestLog.IsQuestFlaggedCompleted(info.requiredQuest) then
+		return
+	end
+
 	local pin = self:AcquirePin()
 	pin:SetID(gossipInfo.gossipOptionID)
 	pin.owner = self
+
+	isActive = true
 
 	-- flag the map for ancestry
 	addon:FlagMap(info.mapID)
