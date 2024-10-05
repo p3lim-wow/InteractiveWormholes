@@ -52,6 +52,33 @@ addon.data[49328] = { -- Broken Isles
 		49350, -- Broken Shore
 	}
 }
+addon.data[49330] = { -- Zandalar
+	children = {
+		125453, -- Xibala Incursion (Zuldazar)
+		125454, -- Zalamar Invasion (Nazmir)
+	}
+}
+addon.data[49329] = { -- Kul Tiras
+	children = {
+		125456, -- Wailing Tideways (Tiragarde Sound)
+		125455, -- Tidebreak Summit (Stormsong Valley)
+	}
+}
+addon.data[125452] = { -- Shadowlands
+	children = {
+		125460, -- Valley of a Thousand Legs (Maldraxxus)
+		125459, -- Scorched Crypt (Revendreth)
+		125458, -- The Eternal Forge (Bastion)
+		125457, -- Soryn's Meadow (Ardenweald)
+	}
+}
+addon.data[125451] = { -- Dragon Isles
+	children = {
+		125463, -- The Slagmire (The Waking Shores)
+		125462, -- Vakthros Summit (The Azure Span)
+		125461, -- Obsidian Rest (Zaralek Caverns)
+	}
+}
 addon.data[49331] = { -- Ironforge
 	mapID = 27,
 	x = 0.6129,
@@ -209,4 +236,102 @@ addon.data[49350] = { -- Broken Shore
 	parent = 49328,
 	tooltipMap = 646,
 	requiredQuest = 53589,
+}
+addon.data[125454] = { -- Zalamar Invasion (Nazmir)
+	mapID = 863,
+	x = 0.3434,
+	y = 0.4515,
+	parent = 49330,
+	tooltipMap = 863,
+	requiredQuest = 80099,
+}
+addon.data[125453] = { -- Xibala Incursion (Zuldazar)
+	mapID = 862,
+	x = 0.3824,
+	y = 0.7238,
+	parent = 49330,
+	tooltipMap = 862,
+	requiredQuest = 80100,
+}
+addon.data[125456] = { -- Wailing Tideways (Tiragarde Sound)
+	mapID = 895,
+	x = 0.8822,
+	y = 0.7153,
+	parent = 49329,
+	tooltipMap = 895,
+	requiredQuest = 80101,
+}
+addon.data[125455] = { -- Tidebreak Summit (Stormsong Valley)
+	mapID = 942,
+	x = 0.6421,
+	y = 0.2944,
+	parent = 49329,
+	tooltipMap = 942,
+	requiredQuest = 80102,
+}
+
+addon.data[125460] = { -- Valley of a Thousand Legs (Maldraxxus)
+	mapID = 1536,
+	x = 0.5349,
+	y = 0.5979,
+	parent = 125452,
+	tooltipMap = 1536,
+	requiredQuest = 80103,
+}
+addon.data[125459] = { -- Scorched Crypt (Revendreth)
+	mapID = 1525,
+	x = 0.1993,
+	y = 0.3878,
+	parent = 125452,
+	tooltipMap = 1525,
+	requiredQuest = 80104,
+}
+addon.data[125458] = { -- The Eternal Forge (Bastion)
+	mapID = 1533,
+	x = 0.5175,
+	y = 0.1314,
+	parent = 125452,
+	tooltipMap = 1533,
+	requiredQuest = 80105,
+}
+addon.data[125457] = { -- Soryn's Meadow (Ardenweald)
+	mapID = 1565,
+	x = 0.6647,
+	y = 0.5055,
+	parent = 125452,
+	tooltipMap = 1565,
+	requiredQuest = 80106,
+}
+addon.data[125463] = { -- The Slagmire (The Waking Shores)
+	mapID = 2022,
+	x = 0.3236,
+	y = 0.5490,
+	parent = 125451,
+	tooltipMap = 2022,
+	requiredQuest = 80107,
+}
+addon.data[125462] = { -- Vakthros Summit (The Azure Span)
+	mapID = 2024,
+	x = 0.8009,
+	y = 0.3896,
+	parent = 125451,
+	tooltipMap = 2024,
+	requiredQuest = 80108,
+}
+addon.data[125461] = { -- Obsidian Rest (Zaralek Caverns)
+	mapID = 2133,
+	x = 0.5273,
+	y = 0.2767,
+	tooltipMap = 2133,
+	parent = 125451,
+	requiredQuest = 80109,
+	displayExtra = {
+		{
+			-- HBD doesn't translate from ZC to Dragon Isles, so we'll have to do it manually
+			mapID = 1978, -- Dragon Isles
+			x = 0.8796,
+			y = 0.7802,
+			tooltipMap = 2133,
+		}
+	}
 }
