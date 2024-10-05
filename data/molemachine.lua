@@ -90,8 +90,8 @@ addon.data[49335] = { -- The Masonary (Black Rock Mountains)
 addon.data[49336] = { -- Shadowforge City
 	-- this one is instanced, so we use a approximated location instead
 	mapID = 35, -- actual mapID: 1186
-	x = 0.5093, -- actual x: 0.6144
-	y = 0.1607, -- actual y: 0.2435
+	x = 0.7752, -- actual x: 0.6144
+	y = 0.4186, -- actual y: 0.2435
 	parent = 49322,
 	tooltip = addon.L['Shadowforge City'],
 }
