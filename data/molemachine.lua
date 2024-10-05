@@ -72,6 +72,7 @@ addon.data[49333] = { -- Nethergarde Keep (Blasted Lands)
 	y = 0.1280,
 	parent = 49322,
 	tooltipMap = 17,
+	requiredQuest = 53594,
 }
 addon.data[49334] = { -- Aerie Peak (The Hinterlands)
 	mapID = 26,
@@ -79,6 +80,7 @@ addon.data[49334] = { -- Aerie Peak (The Hinterlands)
 	y = 0.4680,
 	parent = 49322,
 	tooltipMap = 26,
+	requiredQuest = 53585,
 }
 addon.data[49335] = { -- The Masonary (Black Rock Mountains)
 	mapID = 35,
@@ -86,6 +88,7 @@ addon.data[49335] = { -- The Masonary (Black Rock Mountains)
 	y = 0.2480,
 	parent = 49322,
 	tooltipMap = 35,
+	requiredQuest = 53587,
 }
 addon.data[49336] = { -- Shadowforge City
 	-- this one is instanced, so we use a approximated location instead
@@ -101,6 +104,7 @@ addon.data[49337] = { -- Fire Plume Ridge (Un'Goro Crater)
 	y = 0.5576,
 	parent = 49323,
 	tooltipMap = 78,
+	requiredQuest = 53591,
 }
 addon.data[49338] = { -- Throne of Flame (Mount Hyjal)
 	mapID = 198,
@@ -108,6 +112,7 @@ addon.data[49338] = { -- Throne of Flame (Mount Hyjal)
 	y = 0.7711,
 	parent = 49323,
 	tooltipMap = 198,
+	requiredQuest = 53601,
 }
 addon.data[49339] = { -- The Great Divide (Southern Barrens)
 	mapID = 199,
@@ -115,6 +120,7 @@ addon.data[49339] = { -- The Great Divide (Southern Barrens)
 	y = 0.0930,
 	parent = 49323,
 	tooltipMap = 199,
+	requiredQuest = 53600,
 }
 addon.data[49340] = { -- Honor Hold (Hellfire Peninsula)
 	mapID = 100,
@@ -122,6 +128,7 @@ addon.data[49340] = { -- Honor Hold (Hellfire Peninsula)
 	y = 0.6487,
 	parent = 49324,
 	tooltipMap = 100,
+	requiredQuest = 53592,
 }
 addon.data[49341] = { -- Fel Pits (Shadowmoon Valley)
 	mapID = 104,
@@ -129,6 +136,7 @@ addon.data[49341] = { -- Fel Pits (Shadowmoon Valley)
 	y = 0.3530,
 	parent = 49324,
 	tooltipMap = 104,
+	requiredQuest = 53599,
 }
 addon.data[49342] = { -- Skald (Blade's Edge Mountains)
 	mapID = 105,
@@ -136,6 +144,7 @@ addon.data[49342] = { -- Skald (Blade's Edge Mountains)
 	y = 0.1764,
 	parent = 49324,
 	tooltipMap = 105,
+	requiredQuest = 53597,
 }
 addon.data[49343] = { -- Argent Tournament Grounds (Icecrown)
 	mapID = 118,
@@ -143,6 +152,7 @@ addon.data[49343] = { -- Argent Tournament Grounds (Icecrown)
 	y = 0.1866,
 	parent = 49325,
 	tooltipMap = 118,
+	requiredQuest = 53586,
 }
 addon.data[49344] = { -- Ruby Dragonshrine (Dragonblight)
 	mapID = 115,
@@ -150,6 +160,7 @@ addon.data[49344] = { -- Ruby Dragonshrine (Dragonblight)
 	y = 0.4992,
 	parent = 49325,
 	tooltipMap = 115,
+	requiredQuest = 53596,
 }
 addon.data[49345] = { -- One Keg (Kun-Lai Summit)
 	mapID = 379,
@@ -157,6 +168,7 @@ addon.data[49345] = { -- One Keg (Kun-Lai Summit)
 	y = 0.6281,
 	parent = 49326,
 	tooltipMap = 379,
+	requiredQuest = 53595,
 }
 addon.data[49346] = { -- Stormstout Brewery (Valley of the Four Winds)
 	mapID = 376,
@@ -164,6 +176,7 @@ addon.data[49346] = { -- Stormstout Brewery (Valley of the Four Winds)
 	y = 0.7359,
 	parent = 49326,
 	tooltipMap = 376,
+	requiredQuest = 53598,
 }
 addon.data[49347] = { -- Blackrock Foundry Overlook (Gorgrond)
 	mapID = 543,
@@ -171,6 +184,7 @@ addon.data[49347] = { -- Blackrock Foundry Overlook (Gorgrond)
 	y = 0.3876,
 	parent = 49327,
 	tooltipMap = 543,
+	requiredQuest = 53588,
 }
 addon.data[49348] = { -- Elemental Plateau (Nagrand)
 	mapID = 550,
@@ -178,6 +192,7 @@ addon.data[49348] = { -- Elemental Plateau (Nagrand)
 	y = 0.0825,
 	parent = 49327,
 	tooltipMap = 550,
+	requiredQuest = 53590,
 }
 addon.data[49349] = { -- Neltharion's Vault (Highmountain)
 	mapID = 650,
@@ -185,6 +200,7 @@ addon.data[49349] = { -- Neltharion's Vault (Highmountain)
 	y = 0.7290,
 	parent = 49328,
 	tooltipMap = 650,
+	requiredQuest = 53593,
 }
 addon.data[49350] = { -- Broken Shore
 	mapID = 646,
@@ -192,4 +208,5 @@ addon.data[49350] = { -- Broken Shore
 	y = 0.4799,
 	parent = 49328,
 	tooltipMap = 646,
+	requiredQuest = 53589,
 }
