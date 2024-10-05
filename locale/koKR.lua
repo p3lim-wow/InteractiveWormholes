@@ -11,5 +11,4 @@ local L = select(2, ...).L('koKR')
 -- L['Use the normal world map for taxi'] = '' -- MISSING TRANSLATION
 
 --- tooltips
-L['The Masonary'] = '석공 작업장' -- WMOAreaTable.db2, id=15548
 L['Shadowforge City'] = '어둠괴철로 도시' -- WMOAreaTable.db2, id=26748

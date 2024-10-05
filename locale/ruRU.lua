@@ -10,7 +10,5 @@ local L = select(2, ...).L('ruRU')
 -- L['Taxi world map'] = '' -- MISSING TRANSLATION
 -- L['Use the normal world map for taxi'] = '' -- MISSING TRANSLATION
 
---- general strings
 --- tooltips
-L['The Masonary'] = 'Каменоломня' -- WMOAreaTable.db2, id=15548
 L['Shadowforge City'] = 'Тенегорн' -- WMOAreaTable.db2, id=26748

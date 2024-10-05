@@ -11,5 +11,4 @@ local L = select(2, ...).L('zhTW')
 -- L['Use the normal world map for taxi'] = '' -- MISSING TRANSLATION
 
 --- tooltips
-L['The Masonary'] = '石匠區' -- WMOAreaTable.db2, id=15548
 L['Shadowforge City'] = '影爐城' -- WMOAreaTable.db2, id=26748
