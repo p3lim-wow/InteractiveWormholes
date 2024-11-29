@@ -5,7 +5,7 @@ local function formatPercentage(value)
 	return PERCENTAGE_STRING:format(math.floor((value * 100) + 0.5))
 end
 
-addon:RegisterSettings('InteractiveWormholesDB', {
+local settings = {
 	{
 		key = 'changeMap',
 		type = 'toggle',
@@ -42,6 +42,8 @@ addon:RegisterSettings('InteractiveWormholesDB', {
 		tooltip = L['Use the normal world map for taxi'],
 		default = false,
 	},
-})
+}
 
+addon:RegisterSettings('InteractiveWormholesDB', settings)
 addon:RegisterSettingsSlash('/interactivewormholes', '/iw')
+addon:RegisterMapSettings('InteractiveWormholesDB', settings)
