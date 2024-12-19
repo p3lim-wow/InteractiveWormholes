@@ -9,6 +9,3 @@ local L = select(2, ...).L('ptBR')
 -- L['How much extra scale to apply when map is zoomed'] = '' -- MISSING TRANSLATION
 -- L['Taxi world map'] = '' -- MISSING TRANSLATION
 -- L['Use the normal world map for taxi'] = '' -- MISSING TRANSLATION
-
---- tooltips
-L['Shadowforge City'] = 'Cidade de Umbraforja' -- WMOAreaTable.db2, id=26748

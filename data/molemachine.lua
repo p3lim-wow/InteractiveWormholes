@@ -123,7 +123,7 @@ addon.data[49336] = { -- Shadowforge City
 	x = 0.7752, -- actual x: 0.6144
 	y = 0.4186, -- actual y: 0.2435
 	parent = 49322,
-	tooltip = addon.L['Shadowforge City'],
+	tooltip = C_Map.GetMapGroupMembersInfo(455)[2].name,
 }
 addon.data[49337] = { -- Fire Plume Ridge (Un'Goro Crater)
 	mapID = 78,
