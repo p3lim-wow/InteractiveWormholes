@@ -10,7 +10,7 @@ local settings = {
 		key = 'changeMap',
 		type = 'toggle',
 		title = L['Change maps'],
-		tooltip = L['Change to the most appropriate map.\n\n|cffff0000Warning:|r This will cause taint!'],
+		tooltip = L['Change to the most appropriate map'] .. '\n\n|cffff0000' .. L['This will cause taint!'] .. '|r',
 		default = false,
 	},
 	{
