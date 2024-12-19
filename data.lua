@@ -1,5 +1,6 @@
 local _, addon = ...
 addon.data = {}
+addon.ignoreOption = {}
 
 --[[ data structure:
 

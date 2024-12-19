@@ -113,7 +113,9 @@ function gossipProvider:OnRefresh()
 				end
 			end
 		elseif not unknownWarned[gossipInfo.gossipOptionID] then
-			table.insert(unknownOptions, gossipInfo)
+			if not addon.ignoreOption[gossipInfo.gossipOptionID] then
+				table.insert(unknownOptions, gossipInfo)
+			end
 		end
 	end
 
