@@ -1,3 +1,9 @@
+### Changes in 110000.52-Release:
+
+- Added: Teleportation to/from Siren Isle to/from Dornogal & The Ringing Deeps
+- Changed: Update Interface version
+- Removed: Translations for Shadowforge City (Mole Machine)
+
 ### Changes in 110000.51-Release:
 
 - Added: Settings directly on the map
