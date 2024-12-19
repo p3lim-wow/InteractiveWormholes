@@ -36,6 +36,7 @@ Supported "wormholes":
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 - [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter)
 - [Silas' Stone of Transportation](https://www.wowhead.com/item=156632)
+- [Siren Isle](https://www.wowhead.com/zone=10416) teleportation
 - [Taxi](https://warcraft.wiki.gg/wiki/Flight_path) (optional, enable in settings)
 
 ## Translations
