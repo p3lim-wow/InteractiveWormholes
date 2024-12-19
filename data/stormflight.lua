@@ -47,28 +47,28 @@ addon.data[44742] = { -- Arms artifact quest
 	mapID = 18, -- Tirisfal Glades, Eastern Kingdom
 	x = 0.1764,
 	y = 0.6752,
-	isQuest = true, -- TODO: check if it has flags
+	isQuest = true,
 	tooltipQuest = 41105, -- "The Sword of Kings"
 }
 addon.data[44731] = { -- Fury artifact quest
 	mapID = 634, -- Stormheim
 	x = 0.6259,
 	y = 0.4644,
-	isQuest = true, -- TODO: check if it has flags
+	isQuest = true,
 	tooltipQuest = 40043, -- "The Hunter of Heroes"
 }
 addon.data[44732] = { -- campaign
 	mapID = 120, -- Storm Peaks
 	x = 0.4119,
 	y = 0.1034,
-	isQuest = true, -- TODO: check if it has flags
+	isQuest = true,
 	tooltipQuest = 43090, -- "Ulduar's Oath"
 }
 addon.data[44740] = { -- campaign
 	mapID = 649, -- Helheim (in Stormheim)
 	x = 0.3544,
 	y = 0.3067,
-	isQuest = true, -- TODO: check if it has flags
+	isQuest = true,
 	tooltipQuest = 44849, -- "Recruitment Drive"
 	displayExtra = {
 		{
@@ -85,6 +85,6 @@ addon.data[44741] = { -- campaign
 	mapID = 646, -- Broken Shore
 	x = 0.6963,
 	y = 0.3558,
-	isQuest = true, -- TODO: check if it has flags
+	isQuest = true,
 	tooltipQuest = 44889, -- "Resource Management"
 }

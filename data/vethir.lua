@@ -26,6 +26,6 @@ addon.data[45769] = { -- Hrydshal (during active world quest)
 	mapID = 634, -- Stormheim
 	x = 0.43,
 	y = 0.67,
-	isQuest = true, -- TODO: check if it has flags
+	isQuest = true,
 	tooltipQuest = 41451, -- "Assault on Hrydshal"
 }
