@@ -1,0 +1,25 @@
+name: Package and release
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - CHANGELOG.md
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone project
+        uses: actions/checkout@v4
+
+      - name: Get latest version from changelog header
+        run: echo "tag=$(grep -m 1 -oP '(?<=### Changes in )(\d{5,}.\d{1,}-\w+)(?=:)' CHANGELOG.md)" >> "$GITHUB_OUTPUT"
+        id: changelog
+
+      - name: Tag
+        uses: mathieudutour/github-tag-action@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          create_annotated_tag: true
+          custom_tag: ${{ steps.changelog.outputs.tag }}
