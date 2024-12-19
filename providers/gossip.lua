@@ -178,7 +178,7 @@ function gossipProvider:AddPin(info, gossipInfo)
 		pin:SetHighlightAtlas('Taxi_Frame_Yellow')
 
 		hasTaxiPins = true
-	elseif gossipInfo and gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend) then -- info.isQuest
+	elseif (gossipInfo and gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) or info.isQuest then
 		pin:SetSize(32, 32)
 		pin:SetIconAtlas('quest-campaign-available')
 		pin:SetHighlightAtlas('quest-campaign-available')
