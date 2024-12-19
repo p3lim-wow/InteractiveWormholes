@@ -1,3 +1,7 @@
+### Changes in 110000.53-Release:
+
+- Fixed: Quest icons not working
+
 ### Changes in 110000.52-Release:
 
 - Added: Teleportation to/from Siren Isle to/from Dornogal & The Ringing Deeps
