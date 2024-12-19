@@ -32,55 +32,55 @@ body:
         ---
   - type: input
     attributes:
-      label: '"Change maps"'
+      label: Change maps
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"Change to the most appropriate map"'
+      label: Change to the most appropriate map
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"How much extra scale to apply when map is zoomed"'
+      label: How much extra scale to apply when map is zoomed
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"Map pin scale"'
+      label: Map pin scale
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"Pin size zoom factor"'
+      label: Pin size zoom factor
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"Taxi world map"'
+      label: Taxi world map
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"The scale of pins on the map"'
+      label: The scale of pins on the map
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"This will cause taint!"'
+      label: This will cause taint!
       placeholder: Translation here
     validations:
       required: true
   - type: input
     attributes:
-      label: '"Use the normal world map for taxi"'
+      label: Use the normal world map for taxi
       placeholder: Translation here
     validations:
       required: true
