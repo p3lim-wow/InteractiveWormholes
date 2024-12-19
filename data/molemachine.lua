@@ -1,5 +1,7 @@
 local _, addon = ...
 
+local SHADOWFORGE_CITY = DUNGEON_FLOOR_BLACKROCKDEPTHS2 or C_Map.GetMapGroupMembersInfo(455)[2].name
+
 -- Mole Machine
 -- this one is treated a little differently; the continents reference the destinations
 -- in their sub-dialogs, and when they are clicked they will stage themselves and click the
@@ -123,7 +125,7 @@ addon.data[49336] = { -- Shadowforge City
 	x = 0.7752, -- actual x: 0.6144
 	y = 0.4186, -- actual y: 0.2435
 	parent = 49322,
-	tooltip = C_Map.GetMapGroupMembersInfo(455)[2].name,
+	tooltip = SHADOWFORGE_CITY,
 }
 addon.data[49337] = { -- Fire Plume Ridge (Un'Goro Crater)
 	mapID = 78,

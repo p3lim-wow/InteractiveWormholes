@@ -53,6 +53,7 @@ read_globals = {
 	'tContains',
 
 	-- GlobalStrings
+	'DUNGEON_FLOOR_BLACKROCKDEPTHS2',
 	'ERR_NOT_IN_COMBAT',
 	'PERCENTAGE_STRING',
 	'TUTORIAL_TITLE35',
