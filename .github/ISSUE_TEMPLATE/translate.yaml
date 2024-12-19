@@ -1,11 +1,11 @@
+# This file is auto-generated!
 name: Translation
 description: Provide a translation for in-game strings.
 title: 'Translation: '
 labels:
-  - enhancement
   - translation
 assignees:
-  - p3lim
+  - p3lim-wow
 body:
   - type: dropdown
     id: locale
@@ -28,47 +28,59 @@ body:
     attributes:
       value: |
         Please translate each sentence below into the fields next to them.  
-        It is not required to translate all of them.
 
         ---
-# the rest is a list of strings to translate
   - type: input
     attributes:
       label: '"Change maps"'
-      description: This is used in the settings.
       placeholder: Translation here
+    validations:
+      required: true
   - type: input
     attributes:
-      label: '"Change to the most appropriate map.\n\n|cffff0000Warning:|r This may cause errors!"'
-      description: This is used in the settings. '\n', '|cffff0000' and '|r' is formatting.
+      label: '"Change to the most appropriate map"'
       placeholder: Translation here
-  - type: input
-    attributes:
-      label: '"Map pin scale"'
-      description: This is used in the settings.
-      placeholder: Translation here
-  - type: input
-    attributes:
-      label: '"The scale of pins on the map"'
-      description: This is used in the settings.
-      placeholder: Translation here
-  - type: input
-    attributes:
-      label: '"Pin size zoom factor"'
-      description: This is used in the settings.
-      placeholder: Translation here
+    validations:
+      required: true
   - type: input
     attributes:
       label: '"How much extra scale to apply when map is zoomed"'
-      description: This is used in the settings.
       placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: '"Map pin scale"'
+      placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: '"Pin size zoom factor"'
+      placeholder: Translation here
+    validations:
+      required: true
   - type: input
     attributes:
       label: '"Taxi world map"'
-      description: This is used in the settings.
       placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: '"The scale of pins on the map"'
+      placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: '"This will cause taint!"'
+      placeholder: Translation here
+    validations:
+      required: true
   - type: input
     attributes:
       label: '"Use the normal world map for taxi"'
-      description: This is used in the settings.
       placeholder: Translation here
+    validations:
+      required: true
