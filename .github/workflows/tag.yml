@@ -19,8 +19,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get latest version from changelog header
-        run: echo "tag=$(grep -oPm 1 '(?<=### Changes in )(.*)(?=:)' CHANGELOG.md)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "tag=$(grep -oPm 1 '(?<=### Changes in )(.*)(?=:)' CHANGELOG.md)" >> "$GITHUB_OUTPUT"
         id: changelog
+
+      - name: Bail if tag exists
+        run: |
+          ! git show-ref -q --tags "${{ steps.changelog.outputs.tag }}" || {
+            echo "Tag ${{ steps.changelog.outputs.tag }} already exists"
+            exit 1
+          }
 
       - name: Setup Git
         run: |
