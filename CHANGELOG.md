@@ -1,3 +1,9 @@
+### Changes in 110000.54-Release:
+
+- Added: New destination to Hillsbrad Foothills during Feast of Winter Veil
+- Changed: Use available global string for Shadowforge City (Mole Machine)
+- Fixed: Quest icon not working
+
 ### Changes in 110000.53-Release:
 
 - Fixed: Quest icons not working
