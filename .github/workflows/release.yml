@@ -1,13 +1,13 @@
-name: Tag and release
+name: Package and release
+
 on:
   push:
-    branches:
-      - master
-    paths:
-      - CHANGELOG.md
+    tags:
+      - '**'
+  workflow_dispatch: # so we can trigger it from another workflow
 
 permissions:
-  contents: write # required to tag through API
+  contents: write # required to create a release
 
 jobs:
   release:
@@ -16,26 +16,25 @@ jobs:
       - name: Clone project
         uses: actions/checkout@v4
 
-      - name: Get latest version from changelog header
-        run: echo "tag=$(grep -m 1 -oP '(?<=### Changes in )(\d{5,}.\d{1,}-\w+)(?=:)' CHANGELOG.md)" >> "$GITHUB_OUTPUT"
-        id: changelog
-
-      - name: Tag
-        # honestly a crap action, find a better one
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # why tho, just read the env..
-          create_annotated_tag: true # lightweight by default
-          custom_tag: ${{ steps.changelog.outputs.tag }}
-          tag_prefix: '' # otherwise it'll prepend "v"
-
       - name: Trim changelog
         run: sed -ni '1p;2,/^###/{/^###/q;p;}' CHANGELOG.md
 
       - name: Package and release
         uses: BigWigsMods/packager@v2
-    env:
-      CF_API_KEY: ${{ secrets.CF_API_KEY }}
-      WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
-      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
-      WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+        if: github.ref_type == 'tag' # ensure no rogue triggers
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+          WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+
+      - name: Notify on failures
+        # when triggered by another workflow we won't get notifications from failures, this is a workaround
+        if: ${{ failure() }}
+        uses: appleboy/discord-action@v1.1.0
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: |
+            Workflow "${{ github.workflow }}" failed during job "${{ github.job }}"
+            <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>
