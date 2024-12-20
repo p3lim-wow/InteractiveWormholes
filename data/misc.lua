@@ -16,7 +16,6 @@ addon.data[125349] = {
 	y = 0.3364,
 	tooltipMap = 2339,
 }
-
 addon.ignoreOption[131547] = true
 addon.ignoreOption[131550] = true
 
@@ -33,3 +32,12 @@ addon.data[125351] = {
 	y = 0.3929,
 	tooltipMap = 2369,
 }
+
+-- Father Winter's Helper (during Feast of Winter Veil)
+addon.data[131324] = { -- alliance version
+	mapID = 25, -- Hillsbrad Foothills
+	x = 0.4584,
+	y = 0.4300,
+	tooltipMap = 25,
+}
+addon.data[131325] = addon.data[131324] -- horde version
