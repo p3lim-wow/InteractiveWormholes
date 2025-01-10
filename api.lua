@@ -1,3 +1,4 @@
+local _, addon = ...
 
 -- expose a namespace
 InteractiveWormholes = {}
