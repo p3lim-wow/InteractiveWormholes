@@ -52,5 +52,6 @@ providers\gossip.lua
 providers\taxi.lua
 providers\cosmic.lua
 
+api.lua
 utils.lua
 settings.lua
