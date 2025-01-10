@@ -2,10 +2,10 @@ local _, addon = ...
 
 local COSMIC_MAP_ID = 946
 
-local activeMaps = {}
+local activeMaps = addon:T()
 function addon:FlagMap(mapID)
-	if not tContains(activeMaps, mapID) then
-		table.insert(activeMaps, mapID)
+	if not activeMaps:contains(mapID) then
+		activeMaps:insert(mapID)
 	end
 end
 
@@ -35,18 +35,6 @@ do
 		end
 	end
 
-	local function mergeTables(t1, t2)
-		-- recurse through tables and merge them
-		for k, v in next, t2 do
-			if type(t1[k] or false) == 'table' then
-				mergeTables(t1[k], t2[k])
-			else
-				t1[k] = v
-			end
-		end
-		return t1
-	end
-
 	function addon:GetCommonMap()
 		-- returns the common parent map for the maps provided
 		-- this logic is a bit wasteful with tables, but it's never called in combat and takes less
@@ -58,10 +46,10 @@ do
 
 		-- build a table of map ancestries, where the outermost table is the Cosmic map, and the
 		-- innermost table is each map in the provided table
-		local ancestry = {}
+		local ancestry = addon:T()
 		for _, mapID in next, activeMaps do
 			-- merge this map ancestry with all others
-			ancestry = mergeTables(ancestry, getMapAncestry(mapID))
+			ancestry:merge(getMapAncestry(mapID))
 		end
 
 		-- iterate through the full ancestry table until we find a parent map that has either
@@ -74,7 +62,7 @@ do
 
 		if ancestry[COSMIC_MAP_ID] and addon.activeCosmicWorlds then
 			for mapID in next, ancestry[COSMIC_MAP_ID] do
-				table.insert(addon.activeCosmicWorlds, mapID)
+				addon.activeCosmicWorlds:insert(mapID)
 			end
 		end
 
@@ -83,9 +71,9 @@ do
 end
 
 WorldMapFrame:HookScript('OnHide', function()
-	table.wipe(activeMaps)
+	activeMaps:wipe()
 
 	if addon.activeCosmicWorlds then
-		table.wipe(addon.activeCosmicWorlds)
+		addon.activeCosmicWorlds:wipe()
 	end
 end)

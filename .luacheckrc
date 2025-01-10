@@ -50,7 +50,6 @@ read_globals = {
 	'HideUIPanel',
 	'ShowUIPanel',
 	'Mixin',
-	'tContains',
 
 	-- GlobalStrings
 	'DUNGEON_FLOOR_BLACKROCKDEPTHS2',

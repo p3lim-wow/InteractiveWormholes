@@ -16,7 +16,7 @@ function cosmicArrowsProvider:OnAdded(...)
 	MapCanvasDataProviderMixin.OnAdded(self, ...) -- super
 
 	-- create buffer
-	addon.activeCosmicWorlds = {}
+	addon.activeCosmicWorlds = addon:T()
 end
 
 function cosmicArrowsProvider:OnRelease(hadPins)
