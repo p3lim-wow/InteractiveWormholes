@@ -6,6 +6,14 @@ addon.data[125352] = {
 	x = 0.5974,
 	y = 0.5338,
 	tooltipMap = 2369,
+	displayExtra = {
+		{
+			mapID = 2248, -- Isle of Dorn
+			x = 0.1762,
+			y = 0.1890,
+			tooltipMap = 2369,
+		}
+	}
 }
 addon.data[125349] = {
 	-- mapID = 2339, -- Dornogal
