@@ -44,6 +44,12 @@ body:
       required: true
   - type: input
     attributes:
+      label: Hold this button to prevent the map from opening automatically
+      placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
       label: How much extra scale to apply when map is zoomed
       placeholder: Translation here
     validations:
@@ -56,7 +62,19 @@ body:
       required: true
   - type: input
     attributes:
+      label: Modifier
+      placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
       label: Pin size zoom factor
+      placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Reverse modifier
       placeholder: Translation here
     validations:
       required: true
@@ -80,7 +98,13 @@ body:
       required: true
   - type: input
     attributes:
-      label: Use the normal world map for taxi
+      label: This will not open the map unless the button is held
+      placeholder: Translation here
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Use the normal world map for taxi.\nThis ignores the modifier option.
       placeholder: Translation here
     validations:
       required: true
