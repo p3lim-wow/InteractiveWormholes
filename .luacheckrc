@@ -56,6 +56,9 @@ read_globals = {
 	'ERR_NOT_IN_COMBAT',
 	'PERCENTAGE_STRING',
 	'TUTORIAL_TITLE35',
+	'ALT_KEY',
+	'CTRL_KEY',
+	'SHIFT_KEY',
 
 	-- namespaces
 	'C_AddOns', -- taxi
@@ -71,7 +74,6 @@ read_globals = {
 	'GetNumRoutes', -- taxi
 	'InCombatLockdown',
 	'IsInInstance', -- taxi
-	'IsShiftKeyDown',
 	'TaxiGetNodeSlot', -- taxi
 	'UnitFactionGroup',
 	'UnitIsGameObject',
