@@ -52,7 +52,7 @@ end
 
 local gossipProvider = addon:CreateProvider('gossip', gossipPinMixin)
 function addon:GOSSIP_SHOW()
-	if IsShiftKeyDown() or C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
+	if C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
 		return
 	end
 
@@ -63,7 +63,7 @@ function addon:GOSSIP_SHOW()
 
 		C_GossipInfo.SelectOption(addon.stagedGossipOptionID)
 		addon.stagedGossipOptionID = nil
-	else
+	elseif addon:ShouldShowMap() then
 		gossipProvider:RefreshAllData()
 	end
 end
@@ -78,7 +78,9 @@ function addon:GOSSIP_CLOSED()
 	gossipProvider:RestoreBlizzard()
 	gossipProvider:RemoveAllData()
 
-	HideUIPanel(WorldMapFrame)
+	if WorldMapFrame:IsShown() then
+		HideUIPanel(WorldMapFrame)
+	end
 end
 
 function gossipProvider:OnRefresh()

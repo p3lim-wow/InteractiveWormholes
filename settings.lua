@@ -14,6 +14,26 @@ local settings = {
 		default = false,
 	},
 	{
+		key = 'modifier',
+		type = 'menu',
+		title = L['Modifier'],
+		tooltip = L['Hold this button to prevent the map from opening automatically'],
+		default = 'SHIFT',
+		options = {
+			{value='ALT', label=ALT_KEY},
+			{value='CTRL', label=CTRL_KEY},
+			{value='SHIFT', label=SHIFT_KEY},
+		},
+	},
+	{
+		key = 'modifierReverse',
+		type = 'toggle',
+		title = L['Reverse modifier'],
+		tooltip = L['This will not open the map unless the button is held'],
+		default = false,
+		parent = 'modifier',
+	},
+	{
 		key = 'mapScale',
 		type = 'slider',
 		title = L['Map pin scale'],
@@ -39,7 +59,7 @@ local settings = {
 		key = 'taxi',
 		type = 'toggle',
 		title = L['Taxi world map'],
-		tooltip = L['Use the normal world map for taxi'],
+		tooltip = L['Use the normal world map for taxi.\nThis ignores the modifier option.'],
 		default = false,
 	},
 }
