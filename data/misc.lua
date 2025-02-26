@@ -49,3 +49,49 @@ addon.data[131324] = { -- alliance version
 	tooltipMap = 25,
 }
 addon.data[131325] = addon.data[131324] -- horde version
+
+-- Undermine <-> The Ringing Deeps
+addon.data[125433] = {
+	mapID = 2214, -- The Ringing Deeps
+	x = 0.7277,
+	y = 0.7324,
+	tooltipMap = 2214,
+}
+addon.data[125434] = {
+	mapID = 2346, -- Undermine
+	x = 0.1758,
+	y = 0.5097,
+	tooltipMap = 2346,
+	displayExtra = {
+		{
+			mapID = 2274, -- Khaz Algar
+			x = 0.7609,
+			y = 0.7575,
+			tooltipMap = 2346,
+		}
+	}
+}
+
+-- Undermine <-> Zuldazar
+addon.data[125409] = {
+	mapID = 862, -- Zuldazar
+	x = 0.2248,
+	y = 0.5416,
+	tooltipMap = 862, -- TODO: change for "Kaja'Coast" area name
+}
+addon.data[125410] = addon.data[125409]
+
+addon.data[125429] = {
+	mapID = 2346, -- Undermine
+	x = 0.1893,
+	y = 0.5178,
+	tooltipMap = 2346,
+	displayExtra = {
+		{
+			mapID = 2274, -- Khaz Algar
+			x = 0.7609,
+			y = 0.7575,
+			tooltipMap = 2346,
+		}
+	}
+}
