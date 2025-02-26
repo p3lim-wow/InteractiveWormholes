@@ -1,3 +1,14 @@
+### Changes in 110100.55-Release:
+
+- Added: AI translations (please contribute!)
+- Added: Option to change modifier
+- Added: Extra info for Isle of Dorn pin
+- Added: Undermine destinations
+- Changed: Update Interface version
+- Fixed: Scenic Getaway Portal tooltips
+- Fixed: Taxi nodes sometimes getting stuck
+- Fixed: API not working correctly
+
 ### Changes in 110000.54-Release:
 
 - Added: New destination to Hillsbrad Foothills during Feast of Winter Veil
