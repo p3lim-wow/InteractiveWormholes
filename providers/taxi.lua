@@ -101,6 +101,10 @@ function taxiProvider:OnRemoved(...)
 end
 
 function taxiProvider:OnRefresh()
+	if not C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
+		return
+	end
+
 	if not WorldMapFrame:IsShown() then
 		ShowUIPanel(WorldMapFrame)
 	end
