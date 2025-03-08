@@ -143,7 +143,7 @@ function gossipProvider:OnRefresh()
 
 		if not WorldMapFrame:IsShown() then
 			if addon:HasBuild(59571) then
-				C_Map.OpenWorldMap(commonMapID)
+				C_Map.OpenWorldMap()
 			else
 				ShowUIPanel(WorldMapFrame) -- TODO: remove
 			end
