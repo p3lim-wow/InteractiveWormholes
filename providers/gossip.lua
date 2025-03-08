@@ -142,13 +142,18 @@ function gossipProvider:OnRefresh()
 		end
 
 		if not WorldMapFrame:IsShown() then
-			ShowUIPanel(WorldMapFrame)
+			if addon:HasBuild(59571) then
+				C_Map.OpenWorldMap(commonMapID)
+			else
+				ShowUIPanel(WorldMapFrame) -- TODO: remove
+			end
 		end
 
-		-- we want to show the "common" map among the options, but this will taint the UI,
-		-- so we'll add it as an option users can choose to enable
 		local commonMapID = addon:GetCommonMap()
-		if addon:GetOption('changeMap') and not hasChanged then
+		if addon:HasBuild(59571) and not hasChanged then
+			C_Map.OpenWorldMap(commonMapID)
+			hasChanged = true
+		elseif addon:GetOption('changeMap') and not hasChanged then -- TODO: remove
 			WorldMapFrame:SetMapID(commonMapID)
 			hasChanged = true
 		end

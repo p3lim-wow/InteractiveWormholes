@@ -7,7 +7,7 @@ end
 
 local settings = {
 	{
-		key = 'changeMap',
+		key = 'changeMap', -- TODO: remove
 		type = 'toggle',
 		title = L['Change maps'],
 		tooltip = L['Change to the most appropriate map'] .. '\n\n|cffff0000' .. L['This will cause taint!'] .. '|r',
