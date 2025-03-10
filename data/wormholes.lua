@@ -253,6 +253,21 @@ addon.data[122361] = { -- Isle of Dorn
 	y = 0.5470,
 	tooltipMap = 2248,
 }
+addon.data[131563] = { -- Undermine
+	mapID = 2346,
+	x = 0.5218,
+	y = 0.5082,
+	tooltipMap = 2346,
+	displayExtra = {
+		{
+			-- translate from Undermine to to Khaz Algar
+			mapID = 2274, -- Dragon Isles
+			x = 0.8183,
+			y = 0.7522,
+			tooltipMap = 2346,
+		}
+	}
+}
 addon.data[122362] = { -- "Carelessly leap into the portal, you daredevil"
 	mapID = 2274, -- Khaz Algar
 	x = 0.7465,
