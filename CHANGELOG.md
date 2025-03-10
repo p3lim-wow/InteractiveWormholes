@@ -1,3 +1,8 @@
+### Changes in 110100.56-Release:
+
+- Added: Undermine destination
+- Fixed: Map can now safely open correct zone without taints (11.1.5 only (PTR))
+
 ### Changes in 110100.55-Release:
 
 - Added: AI translations (please contribute!)
