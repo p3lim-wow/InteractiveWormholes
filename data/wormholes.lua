@@ -149,7 +149,7 @@ addon.data[51942] = { -- Zereth Mortis, Enlightened Haven
 	tooltipMap = 1970,
 	displayExtra = {
 		{
-			-- HBD doesn't translate from ZM to Shadowlands, so we'll have to do it manually
+			-- translate from Zereth Mortis to Shadowlands
 			mapID = 1550, -- Shadowlands
 			x = 0.8565,
 			y = 0.8016,
@@ -204,7 +204,7 @@ addon.data[109715] = { -- Zaralek Cavern (random location)
 	tooltipMap = 2133,
 	displayExtra = {
 		{
-			-- translate from ZC to Dragon Isles, so we'll have to do it manually
+			-- translate from Zaralek Cavern to Dragon Isles
 			mapID = 1978, -- Dragon Isles
 			x = 0.8697,
 			y = 0.8124,
@@ -219,7 +219,7 @@ addon.data[114080] = { -- Emerald Dream (random location)
 	tooltipMap = 2200,
 	displayExtra = {
 		{
-			-- translate from ED to Dragon Isles, so we'll have to do it manually (ish)
+			-- translate from Emerald Dream to Dragon Isles
 			mapID = 1978, -- Dragon Isles
 			x = 0.24,
 			y = 0.57,
@@ -229,31 +229,31 @@ addon.data[114080] = { -- Emerald Dream (random location)
 }
 
 -- Wormhole Generator: Khaz Algar
-addon.data[122358] = { -- Azj-Kahet
+addon.data[122358] = { -- Azj-Kahet (random location)
 	mapID = 2255,
 	x = 0.5074,
 	y = 0.5387,
 	tooltipMap = 2255,
 }
-addon.data[122359] = { -- Hallowfall
+addon.data[122359] = { -- Hallowfall (random location)
 	mapID = 2215,
 	x = 0.5636,
 	y = 0.4770,
 	tooltipMap = 2215,
 }
-addon.data[122360] = { -- Ringing Deeps
+addon.data[122360] = { -- Ringing Deeps (random location)
 	mapID = 2214,
 	x = 0.5010,
 	y = 0.4491,
 	tooltipMap = 2214,
 }
-addon.data[122361] = { -- Isle of Dorn
+addon.data[122361] = { -- Isle of Dorn (random location)
 	mapID = 2248,
 	x = 0.5170,
 	y = 0.5470,
 	tooltipMap = 2248,
 }
-addon.data[131563] = { -- Undermine
+addon.data[131563] = { -- Undermine (random location)
 	mapID = 2346,
 	x = 0.5218,
 	y = 0.5082,
