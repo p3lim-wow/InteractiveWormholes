@@ -23,8 +23,39 @@ function pinMixin:SetPosition(srcMapID, x, y) -- override
 	end
 end
 
-function pinMixin:SetPassThroughButtons()
+do
+	-- workaround for SetPassThroughButtons being restricted in combat
 	-- https://github.com/Stanzilla/WoWUIBugs/issues/453
+	local dummy = CreateFrame('Frame')
+	dummy:SetScript('OnEvent', function(self, event)
+		if self.queue and self.queue:size() > 0 then
+			for object, button in next, self.queue do
+				addon:AddPassthroughButtons(object, button)
+			end
+			self.queue:wipe()
+			self:UnregisterEvent(event)
+		end
+	end)
+
+	local function addPassthroughButtons(object, button)
+		if InCombatLockdown() then
+			if not dummy.queue then
+				dummy.queue = addon.T{}
+			end
+
+			dummy.queue[object] = button
+
+			if not dummy:IsEventRegistered('PLAYER_REGEN_ENABLED') then
+				dummy:RegisterEvent('PLAYER_REGEN_ENABLED')
+			end
+		elseif object then
+			dummy.SetPassThroughButtons(object, button)
+		end
+	end
+
+	function pinMixin:SetPassThroughButtons() -- override
+		addPassthroughButtons(self, 'RightButton')
+	end
 end
 
 function pinMixin:SetIconAtlas(atlas)
