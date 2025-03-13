@@ -106,7 +106,7 @@ function taxiProvider:OnRefresh()
 	end
 
 	if not WorldMapFrame:IsShown() then
-		if addon:HasBuild(59571) then
+		if addon:HasVersion(110105) then
 			C_Map.OpenWorldMap()
 		else
 			ShowUIPanel(WorldMapFrame) -- TODO: remove
@@ -127,7 +127,7 @@ function taxiProvider:OnRefresh()
 	addon:SyncArrows()
 
 	local commonMapID = addon:GetCommonMap()
-	if addon:HasBuild(59571) and not hasChanged then
+	if addon:HasVersion(110105) and not hasChanged then
 		C_Map.OpenWorldMap(commonMapID)
 		hasChanged = true
 	elseif addon:GetOption('changeMap') and not hasChanged then -- TODO: remove
