@@ -1,3 +1,7 @@
+### Changes in 110100.57-Release:
+
+- Fixed: Errors from not checking game version correctly
+
 ### Changes in 110100.56-Release:
 
 - Added: Undermine destination
