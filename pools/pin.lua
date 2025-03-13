@@ -1,7 +1,7 @@
-local _, addon = ...
+local addonName, addon = ...
 
 local pinMixin = CreateFromMixins(MapCanvasPinMixin)
-function pinMixin:SetPosition(srcMapID, x, y)
+function pinMixin:SetPosition(srcMapID, x, y) -- override
 	local scale = addon:GetOption('mapScale')
 	self:SetScalingLimits(1, scale, scale + addon:GetOption('zoomFactor'))
 
@@ -79,6 +79,10 @@ local function releasePin(_, pin)
 	end
 end
 
-function addon:CreatePinPool(mixin)
-	return CreateUnsecuredObjectPool(GenerateClosure(createPin, mixin), releasePin)
+function addon:CreatePinPool(name, mixin)
+	local templateName = addonName .. name:gsub('^%l', string.upper) .. 'PinTemplate'
+	local pool = CreateUnsecuredRegionPoolInstance(templateName)
+	pool.createFunc = GenerateClosure(createPin, mixin)
+	pool.resetFunc = releasePin
+	return templateName, pool
 end

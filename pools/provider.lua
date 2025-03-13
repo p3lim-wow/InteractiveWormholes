@@ -6,7 +6,7 @@ function providerMixin:GetPinTemplate()
 end
 
 function providerMixin:SetPinTemplate(pinTemplate)
-	self.pinTemplate = addonName .. '_' .. pinTemplate
+	self.pinTemplate = pinTemplate
 end
 
 function providerMixin:AcquirePin()
@@ -46,10 +46,11 @@ end
 
 function addon:CreateProvider(kind, mixin)
 	local provider = CreateFromMixins(MapCanvasDataProviderMixin, providerMixin)
-	provider:SetPinTemplate(kind)
+	local pinTemplate, pinPool = addon:CreatePinPool(kind, mixin)
+	provider:SetPinTemplate(pinTemplate)
 
+	WorldMapFrame.pinPools[pinTemplate] = pinPool
 	WorldMapFrame:AddDataProvider(provider)
-	WorldMapFrame.pinPools[provider:GetPinTemplate()] = addon:CreatePinPool(mixin)
 
 	return provider
 end
