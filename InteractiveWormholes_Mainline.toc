@@ -46,7 +46,6 @@ data\misc.lua
 pools\line.lua
 pools\arrow.lua
 pools\pin.lua
-pools\provider.lua
 
 providers\gossip.lua
 providers\taxi.lua

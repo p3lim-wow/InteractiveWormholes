@@ -4,7 +4,11 @@ local hasTaxiPins, isActive, hasChanged
 local unknownWarned = {}
 
 local gossipPinMixin = {}
-function gossipPinMixin:OnClick()
+function gossipPinMixin:OnMouseUpAction(button, upInside)
+	if button ~= 'LeftButton' or not upInside then
+		return
+	end
+
 	if self.info.parent then
 		addon.stagedGossipOptionID = self:GetID()
 		C_GossipInfo.SelectOption(self.info.parent)
@@ -50,40 +54,50 @@ function gossipPinMixin:OnMouseLeave()
 	addon:ReleaseLines()
 end
 
-local gossipProvider = addon:CreateProvider('gossip', gossipPinMixin)
-function addon:GOSSIP_SHOW()
-	if C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
-		return
-	end
+local gossipProviderMixin = {}
+function gossipProviderMixin:OnAdded()
+	self:RegisterEvent('GOSSIP_SHOW')
+	self:RegisterEvent('GOSSIP_CLOSED')
+end
 
-	if addon.stagedGossipOptionID then
-		if not InCombatLockdown() then
-			HideUIPanel(WorldMapFrame) -- hide the map early for smoothness
+function gossipProviderMixin:OnRemoved()
+	self:UnregisterEvent('GOSSIP_SHOW')
+	self:UnregisterEvent('GOSSIP_CLOSED')
+end
+
+function gossipProviderMixin:OnEvent(event)
+	if event == 'GOSSIP_SHOW' then
+		if C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
+			return
 		end
 
-		C_GossipInfo.SelectOption(addon.stagedGossipOptionID)
-		addon.stagedGossipOptionID = nil
-	elseif addon:ShouldShowMap() then
-		gossipProvider:RefreshAllData()
+		if addon.stagedGossipOptionID then
+			if not InCombatLockdown() then
+				HideUIPanel(WorldMapFrame) -- hide the map early for smoothness
+			end
+
+			C_GossipInfo.SelectOption(addon.stagedGossipOptionID)
+			addon.stagedGossipOptionID = nil
+		elseif addon:ShouldShowMap() then
+			self:RefreshAllData()
+		end
+	elseif event == 'GOSSIP_CLOSED' then
+		if not isActive then
+			return
+		end
+		isActive = false
+		hasChanged = false
+
+		self:RestoreBlizzard()
+		self:RemoveAllData()
+
+		if WorldMapFrame:IsShown() then
+			HideUIPanel(WorldMapFrame)
+		end
 	end
 end
 
-function addon:GOSSIP_CLOSED()
-	if not isActive then
-		return
-	end
-	isActive = false
-	hasChanged = false
-
-	gossipProvider:RestoreBlizzard()
-	gossipProvider:RemoveAllData()
-
-	if WorldMapFrame:IsShown() then
-		HideUIPanel(WorldMapFrame)
-	end
-end
-
-function gossipProvider:OnRefresh()
+function gossipProviderMixin:OnRefresh()
 	local unknownOptions = {}
 	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
 		local data = addon.data[gossipInfo.gossipOptionID]
@@ -142,25 +156,18 @@ function gossipProvider:OnRefresh()
 		end
 
 		if not WorldMapFrame:IsShown() then
-			if addon:HasVersion(110105) then
-				C_Map.OpenWorldMap()
-			else
-				ShowUIPanel(WorldMapFrame) -- TODO: remove
-			end
+			C_Map.OpenWorldMap()
 		end
 
 		local commonMapID = addon:GetCommonMap()
-		if addon:HasVersion(110105) and not hasChanged then
+		if commonMapID and not hasChanged then
 			C_Map.OpenWorldMap(commonMapID)
-			hasChanged = true
-		elseif addon:GetOption('changeMap') and not hasChanged then -- TODO: remove
-			WorldMapFrame:SetMapID(commonMapID)
 			hasChanged = true
 		end
 	end
 end
 
-function gossipProvider:AddPin(info, gossipInfo)
+function gossipProviderMixin:AddPin(info, gossipInfo)
 	if info.requiredQuest and not C_QuestLog.IsQuestFlaggedCompleted(info.requiredQuest) then
 		return
 	end
@@ -204,7 +211,7 @@ function gossipProvider:AddPin(info, gossipInfo)
 	end
 end
 
-function gossipProvider:AddSourcePin()
+function gossipProviderMixin:AddSourcePin()
 	if not hasTaxiPins then
 		return
 	end
@@ -221,7 +228,7 @@ function gossipProvider:AddSourcePin()
 	})
 end
 
-function gossipProvider:HighlightRouteToPin(pin)
+function gossipProviderMixin:HighlightRouteToPin(pin)
 	local thickness = 1 / self:GetMap():GetCanvasScale() * 35
 	if pin.info.taxiSourceIndex then
 		-- enumerate all pins and sort them by their taxi index
@@ -263,7 +270,7 @@ function gossipProvider:HighlightRouteToPin(pin)
 	end
 end
 
-function gossipProvider:OnRelease(hadPins)
+function gossipProviderMixin:OnRelease(hadPins)
 	if hadPins then
 		addon:ReleaseArrows()
 		addon:ReleaseLines()
@@ -271,7 +278,7 @@ function gossipProvider:OnRelease(hadPins)
 	end
 end
 
-function gossipProvider:OnHide()
+function gossipProviderMixin:OnHide()
 	if isActive and not addon.stagedGossipOptionID then
 		C_GossipInfo.CloseGossip()
 	end
@@ -281,7 +288,7 @@ local function isHandledExternally()
 	return addon:IsAddOnEnabled('DialogueUI')
 end
 
-function gossipProvider:DisableBlizzard()
+function gossipProviderMixin:DisableBlizzard()
 	if isHandledExternally() then
 		return
 	end
@@ -290,7 +297,7 @@ function gossipProvider:DisableBlizzard()
 	CustomGossipFrameManager:UnregisterAllEvents()
 end
 
-function gossipProvider:RestoreBlizzard()
+function gossipProviderMixin:RestoreBlizzard()
 	if isHandledExternally() then
 		return
 	end
@@ -300,3 +307,5 @@ function gossipProvider:RestoreBlizzard()
 		CustomGossipFrameManager:RegisterEvent(event)
 	end
 end
+
+addon:CreateProvider('gossip', gossipProviderMixin, gossipPinMixin)

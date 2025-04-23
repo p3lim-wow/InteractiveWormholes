@@ -1,6 +1,22 @@
-local addonName, addon = ...
+local _, addon = ...
 
-local pinMixin = CreateFromMixins(MapCanvasPinMixin)
+local pinMixin = {}
+function pinMixin:OnLoad()
+	self:UseFrameLevelType('PIN_FRAME_LEVEL_TOPMOST')
+
+	local NormalTexture = self:CreateTexture(nil, 'BACKGROUND')
+	NormalTexture:SetAllPoints()
+	self:SetNormalTexture(NormalTexture)
+
+	local HighlightTexture = self:CreateTexture(nil, 'OVERLAY')
+	HighlightTexture:SetAllPoints()
+	HighlightTexture:SetBlendMode('ADD')
+	self:SetHighlightTexture(HighlightTexture)
+
+	local QuestIcon = self:CreateTexture(nil, 'OVERLAY')
+	QuestIcon:SetPoint('LEFT')
+end
+
 function pinMixin:SetPosition(srcMapID, x, y) -- override
 	local scale = addon:GetOption('mapScale')
 	self:SetScalingLimits(1, scale, scale + addon:GetOption('zoomFactor'))
@@ -23,97 +39,49 @@ function pinMixin:SetPosition(srcMapID, x, y) -- override
 	end
 end
 
-do
-	-- workaround for SetPassThroughButtons being restricted in combat
-	-- https://github.com/Stanzilla/WoWUIBugs/issues/453
-	local dummy = CreateFrame('Frame')
-	dummy:SetScript('OnEvent', function(self, event)
-		if self.queue and self.queue:size() > 0 then
-			for object, button in next, self.queue do
-				addon:AddPassthroughButtons(object, button)
-			end
-			self.queue:wipe()
-			self:UnregisterEvent(event)
-		end
-	end)
-
-	local function addPassthroughButtons(object, button)
-		if InCombatLockdown() then
-			if not dummy.queue then
-				dummy.queue = addon.T{}
-			end
-
-			dummy.queue[object] = button
-
-			if not dummy:IsEventRegistered('PLAYER_REGEN_ENABLED') then
-				dummy:RegisterEvent('PLAYER_REGEN_ENABLED')
-			end
-		elseif object then
-			dummy.SetPassThroughButtons(object, button)
-		end
-	end
-
-	function pinMixin:SetPassThroughButtons() -- override
-		addPassthroughButtons(self, 'RightButton')
-	end
-end
-
 function pinMixin:SetIconAtlas(atlas)
-	self.Icon:SetAtlas(atlas)
+	self:GetNormalTexture():SetAtlas(atlas)
 end
 
 function pinMixin:SetHighlightAtlas(atlas)
-	self.IconHighlight:SetAtlas(atlas)
+	self:GetHighlightTexture():SetAtlas(atlas)
 end
 
 function pinMixin:SetHighlightBlendMode(mode)
-	self.IconHighlight:SetBlendMode(mode)
+	self:GetHighlightTexture():SetBlendMode(mode)
 end
 
 function pinMixin:AttachArrow()
 	self.arrow = addon:AttachArrow(self)
 end
 
-local function createPin(mixin)
-	local pin = Mixin(CreateFrame('Button', nil, WorldMapFrame:GetCanvas()), pinMixin)
-	pin:UseFrameLevelType('PIN_FRAME_LEVEL_TOPMOST')
-
-	local Icon = pin:CreateTexture(nil, 'BACKGROUND')
-	Icon:SetAllPoints()
-	pin.Icon = Icon
-
-	local IconHighlight = pin:CreateTexture(nil, 'HIGHLIGHT')
-	IconHighlight:SetAllPoints()
-	IconHighlight:SetBlendMode('ADD')
-	pin.IconHighlight = IconHighlight
-
-	local QuestIcon = pin:CreateTexture(nil, 'OVERLAY')
-	QuestIcon:SetPoint('LEFT')
-
-	if mixin then
-		Mixin(pin, mixin)
-	end
-
-	return pin
+function pinMixin:OnRelease()
+	self:GetNormalTexture():SetAllPoints()
+	self:GetHighlightTexture():SetAllPoints()
+	self:GetHighlightTexture():SetBlendMode('ADD')
 end
 
-local function releasePin(_, pin)
-	pin:ClearAllPoints()
-	pin:Hide()
 
-	pin.Icon:SetAllPoints()
-	pin.IconHighlight:SetAllPoints()
-	pin.IconHighlight:SetBlendMode('ADD')
+local providerMixin = {}
+function providerMixin:RefreshAllData(...)
+	self:RemoveAllData()
 
-	if pin.OnRelease then
-		pin:OnRelease()
+	if self.OnRefresh then
+		self:OnRefresh(...)
 	end
 end
 
-function addon:CreatePinPool(name, mixin)
-	local templateName = addonName .. name:gsub('^%l', string.upper) .. 'PinTemplate'
-	local pool = CreateUnsecuredRegionPoolInstance(templateName)
-	pool.createFunc = GenerateClosure(createPin, mixin)
-	pool.resetFunc = releasePin
-	return templateName, pool
+function providerMixin:RemoveAllData()
+	local numPins = self:GetNumPins()
+	self:RemoveAllPins()
+
+	if self.OnRelease then
+		self:OnRelease(numPins and numPins > 0)
+	end
+end
+
+function addon:CreateProvider(kind, providerMix, pinMix)
+	providerMix = CreateFromMixins(providerMixin, providerMix or {})
+	pinMix = CreateFromMixins(pinMixin, pinMix or {})
+	return addon:AddMapPinProvider(kind:gsub('^%l', string.upper), providerMix, pinMix)
 end

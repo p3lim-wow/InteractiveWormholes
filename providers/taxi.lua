@@ -8,70 +8,135 @@ local hasChanged
 local enabled
 
 local taxiPinMixin = {} -- fork FlightMap_FlightPointPinMixin for methods we need
-function taxiPinMixin:OnClick(...)
-	FlightMap_FlightPointPinMixin.OnClick(self, ...)
+function taxiPinMixin:OnMouseUpAction(button, upInside)
+	if button ~= 'LeftButton' or not upInside then
+		return
+	end
+
+	if not self.isMapLayerTransition then
+		TakeTaxiNode(self.taxiNodeData.slotIndex)
+	end
 end
 
 function taxiPinMixin:OnMouseEnter()
-	FlightMap_FlightPointPinMixin.OnMouseEnter(self)
+	-- ripped from FlightMap_FlightPointPinMixin.OnMouseEnter
+	GameTooltip:SetOwner(self, 'ANCHOR_PRESERVE')
+	GameTooltip:ClearAllPoints()
+	GameTooltip:SetPoint('BOTTOMLEFT', self, 'TOPRIGHT', 0, 0)
+
+	GameTooltip_AddNormalLine(GameTooltip, self.taxiNodeData.name, true)
+
+	if self.taxiNodeData.state == Enum.FlightPathState.Current then
+		GameTooltip_AddHighlightLine(GameTooltip, TAXINODEYOUAREHERE, true)
+	elseif self.taxiNodeData.state == Enum.FlightPathState.Reachable then
+		local cost = TaxiNodeCost(self.taxiNodeData.slotIndex)
+		if cost > 0 then
+			SetTooltipMoney(GameTooltip, cost)
+		elseif self.taxiNodeData.specialIconCostString then
+			if self.taxiNodeData.useSpecialIcon then
+				GameTooltip_AddHighlightLine(GameTooltip, self.taxiNodeData.specialIconCostString, true)
+			else
+				GameTooltip_AddErrorLine(GameTooltip, self.taxiNodeData.specialIconCostString, true)
+			end
+		end
+
+		-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Yellow'))
+		self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Yellow'))
+		self.owner:HighlightRouteToPin(self)
+	elseif self.taxiNodeData.state == Enum.FlightPathState.Unreachable and not self.isMapLayerTransition then
+		GameTooltip_AddErrorLine(GameTooltip, TAXI_PATH_UNREACHABLE, true)
+	end
+
+	GameTooltip:Show()
 end
 
 function taxiPinMixin:OnMouseLeave()
-	FlightMap_FlightPointPinMixin.OnMouseLeave(self)
+	-- ripped from FlightMap_FlightPointPinMixin.OnMouseLeave
+	if self.taxiNodeData.state == Enum.FlightPathState.Reachable then
+		if self.useSpecialReachableIcon then
+			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
+			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
+		else
+			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		end
+		self.owner:RemoveRouteToPin(self)
+	end
+	GameTooltip_Hide()
 end
 
-function taxiPinMixin:UpdatePinSize(...)
+function taxiPinMixin:UpdatePinSize(pinType)
+	-- ripped (mostly) from FlightMap_FlightPointPinMixin.UpdatePinSize
 	if self.textureKit == 'FlightMaster_Cave' then
+		-- Zereth Mortis cave flight system,
 		-- they are just in the way, and there are existing POIs for them
 		self:SetSize(1, 1)
-	else
-		FlightMap_FlightPointPinMixin.UpdatePinSize(self, ...)
+	elseif self.textureKit == 'FlightMaster_VindicaarArgus' or self.textureKit == 'FlightMaster_VindicaarStygianWake' or self.textureKit == 'FlightMaster_VindicaarMacAree' then
+		self:SetSize(39, 42)
+	elseif self.textureKit == 'FlightMaster_Argus' then
+		self:SetSize(34, 28)
+	elseif self.textureKit == 'FlightMaster_Bastion' then
+		if pinType == Enum.FlightPathState.Current then
+			self:SetSize(26, 26)
+		elseif pinType == Enum.FlightPathState.Reachable or pinType == Enum.FlightPathState.Unreachable then
+			self:SetSize(24, 24)
+		end
+	elseif self.textureKit == 'FlightMaster_Ferry' then
+		if pinType == Enum.FlightPathState.Current then
+			self:SetSize(36, 24)
+		elseif pinType == Enum.FlightPathState.Reachable or pinType == Enum.FlightPathState.Unreachable then
+			self:SetSize(28, 19)
+		end
+	elseif self.isMapLayerTransition then
+		self:SetSize(20, 20)
+	elseif pinType == Enum.FlightPathState.Current then
+		self:SetSize(28, 28)
+	elseif pinType == Enum.FlightPathState.Reachable then
+		self:SetSize(20, 20)
+	elseif pinType == Enum.FlightPathState.Unreachable then
+		self:SetSize(14, 14)
 	end
 end
 
-function taxiPinMixin:SetFlightPathStyle(...)
-	FlightMap_FlightPointPinMixin.SetFlightPathStyle(self, ...)
-end
+function taxiPinMixin:SetFlightPathStyle(taxiNodeType)
+	-- ripped (mostly) from FlightMap_FlightPointPinMixin.SetFlightPathStyle
+	if self.textureKit then
+		self.atlasFormat = self.textureKit .. '-%s'
+	else
+		self.atlasFormat = '%s'
+	end
 
-function taxiPinMixin:SetNudgeSourceRadius()
-end
-
-function taxiPinMixin:SetNudgeSourceMagnitude()
+	if self.isMapLayerTransition then
+		-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+	elseif taxiNodeType == Enum.FlightPathState.Current then
+		-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Green'))
+		self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Green'))
+		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+	elseif taxiNodeType == Enum.FlightPathState.Unreachable then
+		-- self.Icon:SetAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
+		self:SetIconAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
+		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
+		self:SetHighlightAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
+	elseif taxiNodeType == Enum.FlightPathState.Reachable then
+		if self.useSpecialReachableIcon then
+			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
+			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
+		else
+			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		end
+		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+	end
 end
 
 -- local taxiProvider = CreateFromMixins(MapCanvasDataProviderMixin)
-local taxiProvider = addon:CreateProvider('taxi', taxiPinMixin)
-function addon:TAXIMAP_OPENED()
-	if not enabled then
-		return
-	end
-
-	if InCombatLockdown() then
-		-- player can't take a flight in combat anyways, so we bail here to avoid taints
-		-- https://github.com/Stanzilla/WoWUIBugs/issues/440
-		UIErrorsFrame:AddExternalErrorMessage(ERR_NOT_IN_COMBAT)
-		CloseTaxiMap()
-	elseif IsInInstance() and not INSTANCE_USE_WORLD_MAP[C_Map.GetBestMapForUnit('player') or 0] then
-		-- use stock flight map in dungeons unless specifically handled
-		ShowUIPanel(FlightMapFrame)
-	else
-		taxiProvider:RefreshAllData()
-	end
-end
-
-function addon:TAXIMAP_CLOSED()
-	if not enabled then
-		return
-	end
-
-	HideUIPanel(FlightMapFrame)
-	HideUIPanel(WorldMapFrame)
-	hasChanged = false
-end
-
-function taxiProvider:OnAdded(...)
-	MapCanvasDataProviderMixin.OnAdded(self, ...) -- super
-
+local taxiProviderMixin = {}
+function taxiProviderMixin:OnAdded()
 	-- table to hold pin/index association for route lines
 	self.taxiIndexPin = {}
 
@@ -83,11 +148,13 @@ function taxiProvider:OnAdded(...)
 	UIParent:UnregisterEvent('TAXIMAP_OPENED')
 	TaxiFrame:UnregisterAllEvents()
 	FlightMapFrame:UnregisterAllEvents() -- won't need to do this if we don't use FlightMap addon
+
+	-- register our events
+	self:RegisterEvent('TAXIMAP_OPENED')
+	self:RegisterEvent('TAXIMAP_CLOSED')
 end
 
-function taxiProvider:OnRemoved(...)
-	MapCanvasDataProviderMixin.OnRemoved(self, ...) -- super
-
+function taxiProviderMixin:OnRemoved()
 	-- register default events
 	UIParent:RegisterEvent('TAXIMAP_OPENED')
 
@@ -98,19 +165,47 @@ function taxiProvider:OnRemoved(...)
 	if FlightMapFrame then
 		FlightMapFrame:RegisterEvent('TAXIMAP_CLOSED')
 	end
+
+	-- unregister our events
+	self:UnregisterEvent('TAXIMAP_OPENED')
+	self:UnregisterEvent('TAXIMAP_CLOSED')
 end
 
-function taxiProvider:OnRefresh()
+function taxiProviderMixin:OnEvent(event)
+	if not enabled then
+		return
+	end
+
+	if event == 'TAXIMAP_OPENED' then
+		if not enabled then
+			return
+		end
+
+		if InCombatLockdown() then
+			-- player can't take a flight in combat anyways, so we bail here to avoid taints
+			-- https://github.com/Stanzilla/WoWUIBugs/issues/440
+			UIErrorsFrame:AddExternalErrorMessage(ERR_NOT_IN_COMBAT)
+			CloseTaxiMap()
+		elseif IsInInstance() and not INSTANCE_USE_WORLD_MAP[C_Map.GetBestMapForUnit('player') or 0] then
+			-- use stock flight map in dungeons unless specifically handled
+			ShowUIPanel(FlightMapFrame)
+		else
+			self:RefreshAllData()
+		end
+	elseif event == 'TAXIMAP_CLOSED' then
+		HideUIPanel(FlightMapFrame)
+		HideUIPanel(WorldMapFrame)
+		hasChanged = false
+	end
+end
+
+function taxiProviderMixin:OnRefresh()
 	if not C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
 		return
 	end
 
 	if not WorldMapFrame:IsShown() then
-		if addon:HasVersion(110105) then
-			C_Map.OpenWorldMap()
-		else
-			ShowUIPanel(WorldMapFrame) -- TODO: remove
-		end
+		C_Map.OpenWorldMap()
 	end
 
 	local taxiNodes = C_TaxiMap.GetAllTaxiNodes(self:GetMap():GetMapID())
@@ -127,16 +222,13 @@ function taxiProvider:OnRefresh()
 	addon:SyncArrows()
 
 	local commonMapID = addon:GetCommonMap()
-	if addon:HasVersion(110105) and not hasChanged then
+	if commonMapID and not hasChanged then
 		C_Map.OpenWorldMap(commonMapID)
-		hasChanged = true
-	elseif addon:GetOption('changeMap') and not hasChanged then -- TODO: remove
-		WorldMapFrame:SetMapID(commonMapID)
 		hasChanged = true
 	end
 end
 
-function taxiProvider:OnHide()
+function taxiProviderMixin:OnHide()
 	if C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
 		CloseTaxiMap()
 		self:RestoreBlizzard()
@@ -144,7 +236,7 @@ function taxiProvider:OnHide()
 	end
 end
 
-function taxiProvider:OnRelease(hadPins)
+function taxiProviderMixin:OnRelease(hadPins)
 	if hadPins then
 		addon:ReleaseArrows()
 		addon:ReleaseLines()
@@ -152,7 +244,7 @@ function taxiProvider:OnRelease(hadPins)
 	end
 end
 
-function taxiProvider:AddPin(info)
+function taxiProviderMixin:AddPin(info)
 	local pin = self:AcquirePin()
 
 	-- set variables used by FlightMap_FlightPointPinTemplate
@@ -197,9 +289,8 @@ function taxiProvider:AddPin(info)
 	self.taxiIndexPin[info.slotIndex] = pin
 end
 
-function taxiProvider:HighlightRouteToPin(pin)
-	-- pretty much copy/pasted from FlightMap_FlightPathDataProviderMixin.HighlightRouteToPin,
-	-- except using our own line pool and line thickness logic
+function taxiProviderMixin:HighlightRouteToPin(pin)
+	-- ripped (mostly) from FlightMap_FlightPathDataProviderMixin.HighlightRouteToPin
 	local thickness = 1 / self:GetMap():GetCanvasScale() * 35
 	local slotIndex = pin.taxiNodeData.slotIndex
 	for routeIndex = 1, GetNumRoutes(slotIndex) do
@@ -215,7 +306,7 @@ function taxiProvider:HighlightRouteToPin(pin)
 	end
 end
 
-function taxiProvider:RemoveRouteToPin()
+function taxiProviderMixin:RemoveRouteToPin()
 	addon:ReleaseLines()
 
 	-- reset pin state
@@ -226,29 +317,34 @@ end
 
 do
 	local ShouldMapShowTaxiNodes = C_TaxiMap.ShouldMapShowTaxiNodes
-	function taxiProvider:DisableBlizzard()
+	function taxiProviderMixin:DisableBlizzard()
 		-- TODO: I'd rather control the POI template, but it refreshes by itself
 		C_TaxiMap.ShouldMapShowTaxiNodes = function() end
 	end
 
-	function taxiProvider:RestoreBlizzard()
+	function taxiProviderMixin:RestoreBlizzard()
 		-- restore API
 		C_TaxiMap.ShouldMapShowTaxiNodes = ShouldMapShowTaxiNodes
 	end
 end
 
+local provider
 addon:RegisterOptionCallback('taxi', function(value)
 	enabled = value
 
 	if enabled then
-		WorldMapFrame:AddDataProvider(taxiProvider)
+		if not provider then
+			provider = addon:CreateProvider('taxi', taxiProviderMixin, taxiPinMixin)
+		else
+			WorldMapFrame:AddDataProvider(provider)
+		end
 
 		-- WorldFlightMap does pretty much the same thing, but is outdated and broken, and the author is not
 		-- responding to my pull requests to fix it, so we disable it to prevent collisions
 		if C_AddOns.DoesAddOnExist('WorldFlightMap') and C_AddOns.IsAddOnLoadable('WorldFlightMap') then
 			C_AddOns.DisableAddOn('WorldFlightMap')
 		end
-	else
-		WorldMapFrame:RemoveDataProvider(taxiProvider)
+	elseif provider then
+		WorldMapFrame:RemoveDataProvider(provider)
 	end
 end)

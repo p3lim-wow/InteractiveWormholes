@@ -11,21 +11,19 @@ local COSMIC_ARROW_COORDINATES = {
 	[1550] = CreateVector2D(0.1796, 0.0837), -- Shadowlands
 }
 
-local cosmicArrowsProvider = addon:CreateProvider('cosmic')
-function cosmicArrowsProvider:OnAdded(...)
-	MapCanvasDataProviderMixin.OnAdded(self, ...) -- super
-
+local cosmicArrowsProviderMixin = {}
+function cosmicArrowsProviderMixin:OnAdded()
 	-- create buffer
 	addon.activeCosmicWorlds = addon:T()
 end
 
-function cosmicArrowsProvider:OnRelease(hadPins)
+function cosmicArrowsProviderMixin:OnRelease(hadPins)
 	if hadPins then
 		addon:ReleaseArrows()
 	end
 end
 
-function cosmicArrowsProvider:OnRefresh()
+function cosmicArrowsProviderMixin:OnRefresh()
 	local mapID = self:GetMap():GetMapID()
 	if mapID == COSMIC_MAP_ID then
 		-- iterate through the already defined worlds where destinations exist
@@ -40,4 +38,4 @@ function cosmicArrowsProvider:OnRefresh()
 	addon:SyncArrows()
 end
 
-WorldMapFrame:AddDataProvider(cosmicArrowsProvider)
+addon:CreateProvider('cosmic', cosmicArrowsProviderMixin)
