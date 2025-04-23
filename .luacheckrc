@@ -26,16 +26,15 @@ read_globals = {
 	-- FrameXML objects
 	'CustomGossipFrameManager',
 	'FlagsUtil',
-	'FlightMap_FlightPointPinMixin', -- taxi
-	'FlightMapFrame', -- taxi
+	'FlightMapFrame',
 	'GameTooltip',
 	'GossipFrame',
 	'GossipFrameSharedMixin',
 	'MapCanvasDataProviderMixin',
 	'MapCanvasPinMixin',
-	'TaxiFrame', -- taxi
+	'TaxiFrame',
 	'UIErrorsFrame',
-	'UIParent', -- taxi
+	'UIParent',
 	'WorldMapFrame',
 
 	-- FrameXML constants
@@ -46,35 +45,44 @@ read_globals = {
 	'CreateFromMixins',
 	'CreateUnsecuredObjectPool',
 	'CreateVector2D',
+	'GameTooltip_AddErrorLine',
+	'GameTooltip_AddHighlightLine',
+	'GameTooltip_AddNormalLine',
+	'GameTooltip_Hide',
 	'GenerateClosure',
 	'HideUIPanel',
+	'SetTooltipMoney',
 	'ShowUIPanel',
 	'Mixin',
 
 	-- GlobalStrings
+	'ALT_KEY',
+	'CTRL_KEY',
 	'DUNGEON_FLOOR_BLACKROCKDEPTHS2',
 	'ERR_NOT_IN_COMBAT',
 	'PERCENTAGE_STRING',
-	'TUTORIAL_TITLE35',
-	'ALT_KEY',
-	'CTRL_KEY',
 	'SHIFT_KEY',
+	'TAXINODEYOUAREHERE',
+	'TAXI_PATH_UNREACHABLE',
+	'TUTORIAL_TITLE35',
 
 	-- namespaces
-	'C_AddOns', -- taxi
+	'C_AddOns',
 	'C_GossipInfo',
 	'C_Map',
 	'C_PlayerInteractionManager',
 	'C_QuestLog',
-	'C_TaxiMap', -- taxi
+	'C_TaxiMap',
 
 	-- API
-	'CloseTaxiMap', -- taxi
+	'CloseTaxiMap',
 	'CreateFrame',
-	'GetNumRoutes', -- taxi
+	'GetNumRoutes',
 	'InCombatLockdown',
-	'IsInInstance', -- taxi
-	'TaxiGetNodeSlot', -- taxi
+	'IsInInstance',
+	'TakeTaxiNode',
+	'TaxiGetNodeSlot',
+	'TaxiNodeCost',
 	'UnitFactionGroup',
 	'UnitIsGameObject',
 }
