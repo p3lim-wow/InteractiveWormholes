@@ -1,3 +1,9 @@
+### Changes in 110100.58-Release:
+
+- Changed: Update Interface version
+- Fixed: Misc taint issues
+- Fixed: Unable to log out
+
 ### Changes in 110100.57-Release:
 
 - Fixed: Errors from not checking game version correctly
