@@ -1,3 +1,7 @@
+### Changes in 110100.59-Release:
+
+- Changed: Update Interface version
+
 ### Changes in 110100.58-Release:
 
 - Changed: Update Interface version
