@@ -75,6 +75,8 @@ read_globals = {
 	'C_TaxiMap',
 
 	-- API
+	'CanCancelScene',
+	'CancelScene',
 	'CloseTaxiMap',
 	'CreateFrame',
 	'GetNumRoutes',

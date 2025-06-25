@@ -151,7 +151,7 @@ function gossipProviderMixin:OnRefresh()
 	end
 
 	if numOptions == 1 and addon:GetOption('selectSingle') then
-		for pin in self:EnumeratePins() do
+		for pin in self:EnumeratePins() do -- luacheck: ignore 512
 			if pin.info.skipCinematic and addon:GetOption('skipCinematic') then
 				addon:RegisterEvent('CINEMATIC_START', skipCinematic)
 			end
