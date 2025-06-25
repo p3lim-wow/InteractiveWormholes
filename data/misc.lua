@@ -56,12 +56,14 @@ addon.data[125433] = {
 	x = 0.7277,
 	y = 0.7324,
 	tooltipMap = 2214,
+	skipCinematic = true,
 }
 addon.data[125434] = {
 	mapID = 2346, -- Undermine
 	x = 0.1758,
 	y = 0.5097,
 	tooltipMap = 2346,
+	skipCinematic = true,
 	displayExtra = {
 		{
 			mapID = 2274, -- Khaz Algar
@@ -78,6 +80,7 @@ addon.data[125409] = {
 	x = 0.2248,
 	y = 0.5416,
 	tooltipMap = 862, -- TODO: change for "Kaja'Coast" area name
+	skipCinematic = true,
 }
 addon.data[125410] = addon.data[125409]
 
@@ -86,6 +89,7 @@ addon.data[125429] = {
 	x = 0.1893,
 	y = 0.5178,
 	tooltipMap = 2346,
+	skipCinematic = true,
 	displayExtra = {
 		{
 			mapID = 2274, -- Khaz Algar

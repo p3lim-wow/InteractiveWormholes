@@ -3,6 +3,14 @@ local _, addon = ...
 local hasTaxiPins, isActive, hasChanged
 local unknownWarned = {}
 
+local function skipCinematic()
+	if CanCancelScene() then
+		CancelScene()
+	end
+
+	return true
+end
+
 local gossipPinMixin = {}
 function gossipPinMixin:OnMouseUpAction(button, upInside)
 	if button ~= 'LeftButton' or not upInside then
@@ -13,6 +21,10 @@ function gossipPinMixin:OnMouseUpAction(button, upInside)
 		addon.stagedGossipOptionID = self:GetID()
 		C_GossipInfo.SelectOption(self.info.parent)
 	elseif self:GetID() and self:GetID() > 0 then
+		if self.info.skipCinematic and addon:GetOption('skipCinematic') then
+			addon:RegisterEvent('CINEMATIC_START', skipCinematic)
+		end
+
 		C_GossipInfo.SelectOption(self:GetID())
 	end
 end
@@ -140,6 +152,10 @@ function gossipProviderMixin:OnRefresh()
 
 	if numOptions == 1 and addon:GetOption('selectSingle') then
 		for pin in self:EnumeratePins() do
+			if pin.info.skipCinematic and addon:GetOption('skipCinematic') then
+				addon:RegisterEvent('CINEMATIC_START', skipCinematic)
+			end
+
 			C_GossipInfo.SelectOption(pin:GetID())
 			return
 		end

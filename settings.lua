@@ -62,6 +62,12 @@ local settings = {
 		tooltip = L['If there\'s just one destination, always select it.'],
 		default = false,
 	},
+	{
+		key = 'skipCinematic',
+		type = 'toggle',
+		title = L['Skip cinematic'],
+		default = false,
+	},
 }
 
 addon:RegisterSettings('InteractiveWormholesDB', settings)
