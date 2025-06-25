@@ -55,6 +55,13 @@ local settings = {
 		tooltip = L['Use the normal world map for taxi.\nThis ignores the modifier option.'],
 		default = false,
 	},
+	{
+		key = 'selectSingle',
+		type = 'toggle',
+		title = L['Single destination'],
+		tooltip = L['If there\'s just one destination, always select it.'],
+		default = false,
+	},
 }
 
 addon:RegisterSettings('InteractiveWormholesDB', settings)

@@ -98,6 +98,7 @@ function gossipProviderMixin:OnEvent(event)
 end
 
 function gossipProviderMixin:OnRefresh()
+	local numOptions = 0
 	local unknownOptions = {}
 	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
 		local data = addon.data[gossipInfo.gossipOptionID]
@@ -109,6 +110,7 @@ function gossipProviderMixin:OnRefresh()
 						self:AddPin(childData, {
 							gossipOptionID = childGossipOptionID,
 						})
+						numOptions = numOptions + 1
 
 						if childData.displayExtra then
 							for _, extraData in next, childData.displayExtra do
@@ -121,6 +123,7 @@ function gossipProviderMixin:OnRefresh()
 				end
 			else
 				self:AddPin(data, gossipInfo)
+				numOptions = numOptions + 1
 			end
 
 			if data.displayExtra then
@@ -132,6 +135,13 @@ function gossipProviderMixin:OnRefresh()
 			if not addon.ignoreOption[gossipInfo.gossipOptionID] then
 				table.insert(unknownOptions, gossipInfo)
 			end
+		end
+	end
+
+	if numOptions == 1 and addon:GetOption('selectSingle') then
+		for pin in self:EnumeratePins() do
+			C_GossipInfo.SelectOption(pin:GetID())
+			return
 		end
 	end
 
@@ -175,6 +185,8 @@ function gossipProviderMixin:AddPin(info, gossipInfo)
 	local pin = self:AcquirePin()
 	pin:SetID(gossipInfo.gossipOptionID)
 	pin.owner = self
+	pin.info = info
+	pin.info.gossipName = gossipInfo.name -- used as tooltip fallback
 
 	isActive = true
 
@@ -202,9 +214,6 @@ function gossipProviderMixin:AddPin(info, gossipInfo)
 		pin:SetHighlightAtlas(info.highlightAtlas or info.atlas or 'MagePortalHorde')
 		pin:SetHighlightBlendMode(info.highlightAdd and 'ADD' or 'BLEND')
 	end
-
-	pin.info = info
-	pin.info.gossipName = gossipInfo.name -- used as tooltip fallback
 
 	if not info.noArrow then
 		pin:AttachArrow()
