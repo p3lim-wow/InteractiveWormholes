@@ -43,6 +43,7 @@ data\warfront.lua
 data\wormholes.lua
 data\misc.lua
 data\phaseport.lua
+data\dungeons.lua
 
 pools\line.lua
 pools\arrow.lua
@@ -51,6 +52,7 @@ pools\pin.lua
 providers\gossip.lua
 providers\taxi.lua
 providers\cosmic.lua
+providers\dungeon.lua
 
 api.lua
 utils.lua
