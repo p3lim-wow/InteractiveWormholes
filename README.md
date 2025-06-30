@@ -8,6 +8,8 @@ It can be downloaded at one of the following sites:
 - [Wago](https://addons.wago.io/addons/interactivewormholes)
 - [GitHub](https://github.com/p3lim-wow/InteractiveWormholes/releases)
 
+[![](https://shields.io/badge/paypal-support_development-red?logo=paypal&style=for-the-badge)](https://www.paypal.me/p3lim)
+
 ## Description
 
 When using spells and toys such as [Wormhole Generator: Northrend](https://wowhead.com/item=48933) you'd normally get a boring list of (sometimes obfuscated) destinations.
