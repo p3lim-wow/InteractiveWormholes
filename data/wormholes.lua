@@ -261,7 +261,7 @@ addon.data[131563] = { -- Undermine (random location)
 	displayExtra = {
 		{
 			-- translate from Undermine to to Khaz Algar
-			mapID = 2274, -- Dragon Isles
+			mapID = 2274, -- Khaz Algar
 			x = 0.8183,
 			y = 0.7522,
 			tooltipMap = 2346,
