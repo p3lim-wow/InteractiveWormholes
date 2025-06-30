@@ -207,7 +207,7 @@ function gossipProviderMixin:AddPin(info, gossipInfo)
 	isActive = true
 
 	-- flag the map for ancestry
-	addon:FlagMap(info.mapID)
+	addon:FlagMap(info.forceMapID or info.mapID)
 
 	if not pin:SetPosition(info.mapID, info.x, info.y) then
 		pin:Hide()

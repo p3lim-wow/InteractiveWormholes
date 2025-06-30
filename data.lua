@@ -24,6 +24,7 @@ optional:
 - parent (used to reference parent data object, will be selected before the child, see special.children)
 - displayExtra (exactly the same as all of the above, sans parent, for displaying the option on additional maps/locations)
 - noArrow (don't display bouncing arrow above pin)
+- forceMapID (overrides the mapID the pin will open the map for)
 
 special:
 - children (exclusive with everything else, will iterate through objects in the data structure instead of itself)
