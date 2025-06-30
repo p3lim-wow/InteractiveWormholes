@@ -1,7 +1,6 @@
+-- this file is auto-generated
 local _, addon = ...
-
 local HORDE_PLAYER = UnitFactionGroup('player') == 'Horde'
-
 addon.dungeons = {
 	[65] = 424142, -- Path of the Tidehunter (Throne of the Tides)
 	[68] = 410080, -- Path of Wind's Domain (The Vortex Pinnacle)
