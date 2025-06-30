@@ -19,6 +19,6 @@ jobs:
     uses: ./.github/workflows/scrape.yaml
     with:
       flavor: retail
-      dbc: wow_ptr_latest
+      dbc: wow_latest
       files: |
         dungeons: data/dungeons
