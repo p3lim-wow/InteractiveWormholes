@@ -17,9 +17,22 @@ function pinMixin:OnLoad()
 	QuestIcon:SetPoint('LEFT')
 end
 
+local mapScale, zoomFactor
+addon:RegisterOptionCallback('mapScale', function(value)
+	mapScale = value
+end)
+addon:RegisterOptionCallback('zoomFactor', function(value)
+	zoomFactor = value
+end)
+
+function pinMixin:RefreshVisuals()
+	if not self.info.ignoreScale then
+		self:SetScalingLimits(1, mapScale, mapScale + zoomFactor)
+	end
+end
+
 function pinMixin:SetPosition(srcMapID, x, y) -- override
-	local scale = addon:GetOption('mapScale')
-	self:SetScalingLimits(1, scale, scale + addon:GetOption('zoomFactor'))
+	self:RefreshVisuals()
 
 	-- translate position if it's on a different map than the current one
 	local dstMapID = self:GetMap():GetMapID()
@@ -80,8 +93,29 @@ function providerMixin:RemoveAllData()
 	end
 end
 
+local pinProviders = {}
 function addon:CreateProvider(kind, providerMix, pinMix)
 	providerMix = CreateFromMixins(providerMixin, providerMix or {})
 	pinMix = CreateFromMixins(pinMixin, pinMix or {})
-	return addon:AddMapPinProvider(kind:gsub('^%l', string.upper), providerMix, pinMix)
+
+	local provider = addon:AddMapPinProvider(kind:gsub('^%l', string.upper), providerMix, pinMix)
+	table.insert(pinProviders, provider)
+	return provider
 end
+
+local function updateVisuals()
+	-- update pins on changes
+	if WorldMapFrame:IsShown() then
+		for _, provider in next, pinProviders do
+			provider:RefreshAllData()
+
+			for pin in provider:EnumeratePins() do
+				pin:RefreshVisuals()
+				pin:ApplyCurrentScale()
+			end
+		end
+	end
+end
+
+addon:RegisterOptionCallback('mapScale', updateVisuals)
+addon:RegisterOptionCallback('zoomFactor', updateVisuals)
