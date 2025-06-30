@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import csv
+import urllib.request
 
 from types import SimpleNamespace
 class CSVReader(csv.DictReader):
@@ -14,7 +15,8 @@ class CSVReader(csv.DictReader):
     return SimpleNamespace(**row)
 
 def dbc(file):
-  return CSVReader(open(f'dbc/{file}.csv', 'r'))
+  urllib.request.urlretrieve(f'https://wago.tools/db2/{file}/csv', f'{file}.csv')
+  return CSVReader(open(f'{file}.csv', 'r'))
 
 template = '''
 -- this file is auto-generated

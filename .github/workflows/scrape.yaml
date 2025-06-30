@@ -1,17 +1,17 @@
 name: Scrape
 
 on:
-  workflow_call:
-    inputs:
-      dbc:
-        required: true
-        type: string
-      files:
-        required: true
-        type: string
-      flavor:
-        required: true
-        type: string
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '**'
+    paths:
+      - 'scripts/**.py'
+      - '.github/workflows/scrape.yaml'
+  schedule:
+    - cron: '0 8 * * *' # every morning
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -20,26 +20,15 @@ jobs:
       - name: Clone
         uses: actions/checkout@v4
 
-      - name: Clone DBC archive
-        uses: actions/checkout@v4
-        with:
-          repository: Vladinator/wow-dbc-archive
-          ref: release/${{ inputs.dbc }}
-          path: dbc
-          fetch-depth: 1
-        id: checkout
-
-      - name: Store build version
-        run: echo "dbc_build=$(git -C dbc log -1 --pretty=%B | grep -Eow '[0-9.]+')" >> "$GITHUB_ENV"
-
-      - name: Fetch external ItemSparse
-        # Vladinator can't seem to get this sorted
+      - name: Get build version
         run: |
+          cd "$RUNNER_TEMP"
           set -e
-          curl -sfL "https://wago.tools/db2/ItemSparse/csv?build=${{ env.dbc_build }}" -o dbc/itemsparse.csv
-        if: inputs.flavor == 'classic_era'
+          filename="$(curl -sLJOw '%{filename_effective}' 'https://wago.tools/db2/resistances/csv')"
+          filename="${filename%.*}"
+          echo "wow_build=${filename#*.}" >> "$GITHUB_ENV"
 
-      - name: Scrape DBC
+      - name: Run scripts
         run: |
           set -e
           pids=()
@@ -53,6 +42,9 @@ jobs:
           for pid in "${pids[@]}"; do
             wait "$pid" || exit
           done
+        with:
+          files: |
+            dungeons: data/dungeons
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
