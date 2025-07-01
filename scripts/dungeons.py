@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from utils import *
-
-spell = dbc('spell')
-spellName = dbc('spellname')
-journalInstance = dbc('journalinstance')
+import util
 
 SPELL_FACTION = {
   # SpellMisc should contain this data, but it's flaky, so we gotta do this shit
@@ -19,7 +15,7 @@ spellNames = {}
 dungeonSpells = {}
 
 # the SpellCategory 1407 ("Challenger's Path") covers all challenge mode and m+ spells, but not raid ones
-for row in spell:
+for row in util.dbc('spell'):
   if len(str(row.NameSubtext_lang)) > 0 and str(row.Description_lang).startswith('Teleport to the entrance'):
     spellNames[row.ID] = False
 
@@ -27,12 +23,12 @@ for row in spell:
       dungeonSpells[row.NameSubtext_lang] = []
     dungeonSpells[row.NameSubtext_lang].append(row.ID)
 
-for row in spellName:
+for row in util.dbc('spellname'):
   if row.ID in spellNames:
     spellNames[row.ID] = row.Name_lang
 
 dungeons = {}
-for row in journalInstance:
+for row in util.dbc('journalinstance'):
   if row.Name_lang in dungeonSpells:
 
     dungeons[row.ID] = {}

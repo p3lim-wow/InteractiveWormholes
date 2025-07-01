@@ -8,7 +8,6 @@ on:
       - '**'
     paths:
       - 'scripts/**.py'
-      - '.github/workflows/scrape.yaml'
   schedule:
     - cron: '0 8 * * *' # every morning
   workflow_dispatch:
@@ -20,38 +19,21 @@ jobs:
       - name: Clone
         uses: actions/checkout@v4
 
-      - name: Get build version
-        run: |
-          cd "$RUNNER_TEMP"
-          set -e
-          filename="$(curl -sLJOw '%{filename_effective}' 'https://wago.tools/db2/resistances/csv')"
-          filename="${filename%.*}"
-          echo "wow_build=${filename#*.}" >> "$GITHUB_ENV"
-
-      - name: Run scripts
-        run: |
-          set -e
-          pids=()
-          while IFS= read -r files; do
-            script="scripts/$(cut -d: -f1 <<< "$files").py"
-            output="$(cut -d: -f2 <<< "$files" | xargs).lua"
-            echo "Running '$script' > '$output'"
-            python3 "$script" > "$output" &
-            pids+=($!)
-          done < <(sed '/^$/d' <<< "${{ inputs.files }}")
-          for pid in "${pids[@]}"; do
-            wait "$pid" || exit
-          done
+      - name: Scrape
+        uses: p3lim/dbc-helper@master
+        id: scraper
         with:
+          beta: true
+          ptr: true
           files: |
-            dungeons: data/dungeons
+            scripts/dungeons: data/dungeons
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
         # requires permissions, see https://github.com/peter-evans/create-pull-request#workflow-permissions
         with:
-          title: Update ${{ inputs.flavor }} data to ${{ env.dbc_build }}
-          commit-message: Update ${{ inputs.flavor }} data to ${{ env.dbc_build }}
-          body: 'Full diff: https://github.com/Vladinator/wow-dbc-archive/commit/${{ steps.checkout.outputs.commit }}'
-          branch: update-data-${{ inputs.flavor }}
+          title: Update ${{ steps.scraper.outputs.flavor }} data to ${{ steps.scraper.outputs.version }}
+          commit-message: Update ${{ steps.scraper.outputs.flavor }} data to ${{ steps.scraper.outputs.version }}
+          body: ''
+          branch: update-data-${{ steps.scraper.outputs.flavor }}
           delete-branch: true
