@@ -10,3 +10,4 @@ manual-changelog:
 
 ignore:
   - README.md
+  - scripts
