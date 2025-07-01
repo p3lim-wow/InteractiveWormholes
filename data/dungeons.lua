@@ -69,4 +69,5 @@ addon.dungeons = {
 	[1274] = 445416, -- Path of Nerubian Ascension (City of Threads)
 	[1296] = 1226482, -- Path of the Full House (Liberation of Undermine)
 	[1298] = 1216786, -- Path of the Circuit Breaker (Operation: Floodgate)
+	[1302] = 1239155, -- Path of the All-Devouring (Manaforge Omega)
 }
