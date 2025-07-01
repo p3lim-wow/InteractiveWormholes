@@ -1,6 +1,6 @@
 -- this file is auto-generated
 local _, addon = ...
-local HORDE_PLAYER = UnitFactionGroup('player') == 'Horde'
+local H = UnitFactionGroup('player') == 'Horde'
 addon.dungeons = {
 	[65] = 424142, -- Path of the Tidehunter (Throne of the Tides)
 	[68] = 410080, -- Path of Wind's Domain (The Vortex Pinnacle)
@@ -30,10 +30,10 @@ addon.dungeons = {
 	[800] = 393766, -- Path of the Grand Magistrix (Court of Stars)
 	[968] = 424187, -- Path of the Golden Tomb (Atal'Dazar)
 	[1001] = 410071, -- Path of the Freebooter (Freehold)
-	[1012] = HORDE_PLAYER and 467555 or 467553, -- Path of the Azerite Refinery (The MOTHERLODE!!)
+	[1012] = H and 467555 or 467553, -- Path of the Azerite Refinery (The MOTHERLODE!!)
 	[1021] = 424167, -- Path of Heart's Bane (Waycrest Manor)
 	[1022] = 410074, -- Path of Festering Rot (The Underrot)
-	[1023] = HORDE_PLAYER and 464256 or 445418, -- Path of the Besieged Harbor (Siege of Boralus)
+	[1023] = H and 464256 or 445418, -- Path of the Besieged Harbor (Siege of Boralus)
 	[1178] = 373274, -- Path of the Scrappy Prince (Operation: Mechagon)
 	[1182] = 354462, -- Path of the Courageous (The Necrotic Wake)
 	[1183] = 354463, -- Path of the Plagued (Plaguefall)

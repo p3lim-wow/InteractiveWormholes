@@ -34,32 +34,36 @@ for row in util.dbc('journalinstance'):
     dungeons[row.ID] = {}
     dungeons[row.ID]['dungeonID'] = row.ID
     dungeons[row.ID]['dungeonName'] = row.Name_lang
-    dungeons[row.ID]['spellIDs'] = dungeonSpells[row.Name_lang]
 
-    for spellID in dungeonSpells[row.Name_lang]:
+    spells = dungeonSpells[row.Name_lang]
+    if len(spells) > 1:
+      # this ugly mess because Blizzard gave faction-specific spells to both factions
+      factionSpells = []
+      for spellID in spells:
+        if SPELL_FACTION[spellID] == 'Horde':
+          factionSpells.insert(0, spellID)
+        elif SPELL_FACTION[spellID] == 'Alliance':
+          factionSpells.insert(1, spellID)
+      dungeons[row.ID]['spellID'] = f'H and {factionSpells[0]} or {factionSpells[1]}'
+    else:
+      dungeons[row.ID]['spellID'] = spells[0]
+
+    for spellID in spells:
       if 'spellName' not in dungeons[row.ID]:
         dungeons[row.ID]['spellName'] = spellNames[spellID]
       elif spellNames[spellID] != dungeons[row.ID]['spellName']:
-        print(f'\033[93mWARNING: dungeonID {row.ID} has multiple spells with mismatching names!\033[0m', file=sys.stderr)
+        print(f'\033[93mERROR: dungeonID {row.ID} has multiple spells with mismatching names!\033[0m', file=sys.stderr)
+        sys.exit(1)
 
+# this logic is not great, it will be messed up for pandas picking a faction
+prefix = '''
+local _, addon = ...
+local H = UnitFactionGroup('player') == 'Horde'
+'''
 
-print('-- this file is auto-generated')
-print('local _, addon = ...')
-print('local HORDE_PLAYER = UnitFactionGroup(\'player\') == \'Horde\'')
-print('addon.dungeons = {')
-
-for dungeonID, data in dungeons.items():
-  if len(data["spellIDs"]) > 1:
-    # this ugly mess because Blizzard gave faction-specific spells to both factions
-    orderedSpells = []
-    for spellID in data['spellIDs']:
-      if SPELL_FACTION[spellID] == 'Horde':
-        orderedSpells.insert(0, spellID)
-      elif SPELL_FACTION[spellID] == 'Alliance':
-        orderedSpells.insert(1, spellID)
-
-    print(f'\t[{dungeonID}] = HORDE_PLAYER and {orderedSpells[0]} or {orderedSpells[1]}, -- {data["spellName"]} ({data["dungeonName"]})')
-  else:
-    print(f'\t[{dungeonID}] = {data["spellIDs"][0]}, -- {data["spellName"]} ({data["dungeonName"]})')
-
-print('}')
+util.templateLuaTable(
+  prefix.strip(),
+  'addon.dungeons',
+  '\t[{dungeonID}] = {spellID}, -- {spellName} ({dungeonName})',
+  dungeons
+)
