@@ -26,7 +26,7 @@ jobs:
           beta: true
           ptr: true
           files: |
-            scripts/dungeons: data/dungeons
+            scripts/dungeons: data/dungeons.lua
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
