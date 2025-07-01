@@ -63,7 +63,7 @@ local function onEnter(pin)
 		if inCombat or cooldownRemaining > 0 then
 			GameTooltip:AddLine(addon.L['<Shift Click to Teleport>'], 0.5, 0.5, 0.5)
 		else
-			GameTooltip:AddLine(addon.L['<Shift Click to Teleport>'], 1, 0.1, 0.1)
+			GameTooltip:AddLine(addon.L['<Shift Click to Teleport>'], 0.1, 1, 0.1)
 		end
 
 		local spellInfo = C_Spell.GetSpellInfo(spellID)
