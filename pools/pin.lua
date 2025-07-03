@@ -26,7 +26,7 @@ addon:RegisterOptionCallback('zoomFactor', function(value)
 end)
 
 function pinMixin:RefreshVisuals()
-	if not self.info.ignoreScale then
+	if self.info and not self.info.ignoreScale then
 		self:SetScalingLimits(1, mapScale, mapScale + zoomFactor)
 	end
 end
