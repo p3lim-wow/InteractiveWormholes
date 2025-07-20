@@ -26,9 +26,11 @@ addon:RegisterOptionCallback('zoomFactor', function(value)
 end)
 
 function pinMixin:RefreshVisuals()
-	if self.info and not self.info.ignoreScale then
-		self:SetScalingLimits(1, mapScale, mapScale + zoomFactor)
+	if self.info and self.info.ignoreScale then
+		return
 	end
+
+	self:SetScalingLimits(1, mapScale, mapScale + zoomFactor)
 end
 
 function pinMixin:SetPosition(srcMapID, x, y) -- override
