@@ -1,3 +1,12 @@
+### Changes in 110200.60-Release:
+
+- Added: Support for "phase porting" in K'aresh
+- Added: Support for shift-clicking dungeon entrances to teleport to them (e.g. M+ teleport spells)
+- Added: Option to skip cinematics (e.g. for Undermine rocket)
+- Added: Option to automatically select single destinations (e.g. for Undermine rocket, Siren Isle)
+- Changed: Update Interface version
+- Fixed: Changing options on the map not updating "live"
+
 ### Changes in 110100.59-Release:
 
 - Changed: Update Interface version
