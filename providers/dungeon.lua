@@ -56,7 +56,7 @@ local function onEnter(pin)
 	local inCombat = InCombatLockdown()
 
 	local spellID = addon.dungeons[pin.journalInstanceID or 0]
-	if spellID and IsPlayerSpell(spellID) then
+	if spellID and C_SpellBook.IsSpellKnown(spellID) then
 		local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
 		local cooldownRemaining = cooldownInfo and cooldownInfo.duration > 0 and (cooldownInfo.duration - (GetTime() - cooldownInfo.startTime)) or 0
 
