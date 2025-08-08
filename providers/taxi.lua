@@ -1,4 +1,4 @@
-local _, addon = ...
+local addonName, addon = ...
 
 local INSTANCE_USE_WORLD_MAP = {
 	[2093] = true, -- The Nokhud Offensive
@@ -171,6 +171,10 @@ function taxiProviderMixin:OnRemoved()
 	self:UnregisterEvent('TAXIMAP_CLOSED')
 end
 
+local function shouldUseInstanceMap()
+	return IsInInstance() and not INSTANCE_USE_WORLD_MAP[C_Map.GetBestMapForUnit('player') or 0]
+end
+
 function taxiProviderMixin:OnEvent(event)
 	if not enabled then
 		return
@@ -186,7 +190,7 @@ function taxiProviderMixin:OnEvent(event)
 			-- https://github.com/Stanzilla/WoWUIBugs/issues/440
 			UIErrorsFrame:AddExternalErrorMessage(ERR_NOT_IN_COMBAT)
 			CloseTaxiMap()
-		elseif IsInInstance() and not INSTANCE_USE_WORLD_MAP[C_Map.GetBestMapForUnit('player') or 0] then
+		elseif shouldUseInstanceMap() then
 			-- use stock flight map in dungeons unless specifically handled
 			ShowUIPanel(FlightMapFrame)
 		else
@@ -347,4 +351,40 @@ addon:RegisterOptionCallback('taxi', function(value)
 	elseif provider then
 		WorldMapFrame:RemoveDataProvider(provider)
 	end
+end)
+
+-- onboarding
+addon:HookAddOn('Blizzard_FlightMap', function()
+	if InteractiveWormholesDB.taxiPrompted then
+		return
+	end
+
+	FlightMapFrame:HookScript('OnShow', function()
+		if not InteractiveWormholesDB.taxiPrompted and not shouldUseInstanceMap() then
+			InteractiveWormholesDB.taxiPrompted = true
+
+			StaticPopupDialogs[addonName] = {
+				text = addon.L['Would you like to use the World Map instead for Taxi services?'],
+				button1 = YES,
+				button2 = NO,
+				OnAccept = function()
+					addon:SetOption('taxi', true)
+
+					if not provider then
+						provider = addon:CreateProvider('taxi', taxiProviderMixin, taxiPinMixin)
+					else
+						WorldMapFrame:AddDataProvider(provider)
+					end
+
+					FlightMapFrame:SetScript('OnHide', nil) -- prevent the taxi interaction from ending
+					provider:RefreshAllData()
+					FlightMapFrame:SetScript('OnHide', FlightMapMixin.OnHide)
+				end,
+				hideOnEscape = true,
+				timeout = 0,
+			}
+
+			StaticPopup_Show(addonName)
+		end
+	end)
 end)
