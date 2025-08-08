@@ -12,8 +12,8 @@ local function skipCinematic()
 end
 
 local gossipPinMixin = {}
-function gossipPinMixin:OnPinClick(button, upInside)
-	if button ~= 'LeftButton' or not upInside then
+function gossipPinMixin:OnPinClick(button)
+	if button ~= 'LeftButton' then
 		return
 	end
 
