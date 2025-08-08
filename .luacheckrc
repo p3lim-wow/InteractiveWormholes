@@ -17,7 +17,11 @@ ignore = {
 
 globals = {
 	-- exposed globals
-	'InteractiveWormholes'
+	'InteractiveWormholes',
+
+	-- mutating globals
+	'InteractiveWormholesDB',
+	'StaticPopupDialogs',
 }
 
 read_globals = {
@@ -27,6 +31,7 @@ read_globals = {
 	'CustomGossipFrameManager',
 	'FlagsUtil',
 	'FlightMapFrame',
+	'FlightMapMixin',
 	'GameTooltip',
 	'GossipFrame',
 	'GossipFrameSharedMixin',
@@ -54,6 +59,7 @@ read_globals = {
 	'RegisterAttributeDriver',
 	'SetTooltipMoney',
 	'ShowUIPanel',
+	'StaticPopup_Show',
 	'Mixin',
 
 	-- GlobalStrings
@@ -71,6 +77,8 @@ read_globals = {
 	'TAXINODEYOUAREHERE',
 	'TAXI_PATH_UNREACHABLE',
 	'TUTORIAL_TITLE35',
+	'YES',
+	'NO',
 
 	-- namespaces
 	'C_AddOns',
@@ -79,6 +87,7 @@ read_globals = {
 	'C_PlayerInteractionManager',
 	'C_QuestLog',
 	'C_Spell',
+	'C_SpellBook',
 	'C_TaxiMap',
 
 	-- API

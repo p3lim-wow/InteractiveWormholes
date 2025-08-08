@@ -8,7 +8,7 @@ local hasChanged
 local enabled
 
 local taxiPinMixin = {} -- fork FlightMap_FlightPointPinMixin for methods we need
-function taxiPinMixin:OnPinClick(button, upInside)
+function taxiPinMixin:OnPinClick(button)
 	if button ~= 'LeftButton' then
 		return
 	end
