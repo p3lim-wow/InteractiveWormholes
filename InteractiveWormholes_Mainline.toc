@@ -33,7 +33,6 @@ data\vethir.lua
 data\warfront.lua
 data\wormholes.lua
 data\misc.lua
-data\phaseport.lua
 data\dungeons.lua
 
 pools\line.lua
