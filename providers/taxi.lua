@@ -8,8 +8,8 @@ local hasChanged
 local enabled
 
 local taxiPinMixin = {} -- fork FlightMap_FlightPointPinMixin for methods we need
-function taxiPinMixin:OnMouseUpAction(button, upInside)
-	if button ~= 'LeftButton' or not upInside then
+function taxiPinMixin:OnPinClick(button, upInside)
+	if button ~= 'LeftButton' then
 		return
 	end
 
@@ -18,7 +18,7 @@ function taxiPinMixin:OnMouseUpAction(button, upInside)
 	end
 end
 
-function taxiPinMixin:OnMouseEnter()
+function taxiPinMixin:OnPinEnter()
 	-- ripped from FlightMap_FlightPointPinMixin.OnMouseEnter
 	GameTooltip:SetOwner(self, 'ANCHOR_PRESERVE')
 	GameTooltip:ClearAllPoints()
@@ -50,7 +50,7 @@ function taxiPinMixin:OnMouseEnter()
 	GameTooltip:Show()
 end
 
-function taxiPinMixin:OnMouseLeave()
+function taxiPinMixin:OnPinLeave()
 	-- ripped from FlightMap_FlightPointPinMixin.OnMouseLeave
 	if self.taxiNodeData.state == Enum.FlightPathState.Reachable then
 		if self.useSpecialReachableIcon then

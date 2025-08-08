@@ -12,7 +12,7 @@ local function skipCinematic()
 end
 
 local gossipPinMixin = {}
-function gossipPinMixin:OnMouseUpAction(button, upInside)
+function gossipPinMixin:OnPinClick(button, upInside)
 	if button ~= 'LeftButton' or not upInside then
 		return
 	end
@@ -29,7 +29,7 @@ function gossipPinMixin:OnMouseUpAction(button, upInside)
 	end
 end
 
-function gossipPinMixin:OnMouseEnter()
+function gossipPinMixin:OnPinEnter()
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 
 	if self.info.tooltipQuest then
@@ -61,7 +61,7 @@ function gossipPinMixin:OnMouseEnter()
 	end
 end
 
-function gossipPinMixin:OnMouseLeave()
+function gossipPinMixin:OnPinLeave()
 	GameTooltip:Hide()
 	addon:ReleaseLines()
 end
