@@ -16,6 +16,8 @@ When using spells and toys such as [Wormhole Generator: Northrend](https://wowhe
 
 Instead of that, *Interactive Wormholes* displays these destinations as clickable portals on your world map.
 
+![](https://i.imgur.com/olsCLvK.png)
+
 Supported wormholes:
 
 - [Wormhole Generator: Khaz Algar](https://www.wowhead.com/item=221966)
@@ -29,20 +31,22 @@ Supported wormholes:
 Other spells and transportation methods:
 
 - [Taxi](https://warcraft.wiki.gg/wiki/Flight_path) (optional, enable in settings)
-- [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
 - [Hero's Path](https://www.wowhead.com/spells/uncategorized/name:path+of?filter=28;3;10)
 	- Shift-click dungeon entrances on the map to teleport
-- [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter in Dalaran)
-- [Azshara Rocketway](https://www.wowhead.com/npc=43217)
-- [Underbelly portal network](https://www.wowhead.com/item=138028) in Dalaran (Legion)
-- [Vethir](https://www.wowhead.com/npc=108685) (Stormheim)
-- [Stormflight](https://www.wowhead.com/npc=96679) (Warrior order hall)
-- War Campaign footholds (Battle for Azeroth)
-- Warfront Flightmasters (Arathi + Darkshore)
-- [Silas' Stone of Transportation](https://www.wowhead.com/item=156632) (Battle for Azeroth)
-- [Animaflow Teleporter](https://www.wowhead.com/npc=172925) (The Maw)
-- [Siren Isle](https://www.wowhead.com/zone=10416)
+- [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
 - [Phase Diving](https://www.wowhead.com/guide/the-war-within/phase-diving-unlock-rewards) (K'aresh)
+    - Requires enabling Taxi option
+- [Undermine](https://www.wowhead.com/guide/the-war-within/patch-11-1-undermine-zone-guide) Rocketway
+- [Siren Isle](https://www.wowhead.com/zone=10416)
+- [Animaflow Teleporter](https://www.wowhead.com/npc=172925) (The Maw)
+- [War Campaign](https://warcraft.wiki.gg/wiki/War_Campaign) footholds (Battle for Azeroth)
+- [Warfront](https://www.wowhead.com/guide/warfronts-in-battle-for-azeroth-5982) Flightmasters (Arathi + Darkshore)
+- [Silas' Stone of Transportation](https://www.wowhead.com/item=156632) (Battle for Azeroth)
+- [Stormflight](https://www.wowhead.com/npc=96679) (Warrior order hall)
+- [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter in Dalaran)
+- [Vethir](https://www.wowhead.com/npc=108685) (Stormheim)
+- [Underbelly portal network](https://www.wowhead.com/item=138028) in Dalaran (Legion)
+- [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 
 ## Translations
 
