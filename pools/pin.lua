@@ -4,15 +4,6 @@ local pinMixin = {}
 function pinMixin:OnLoad()
 	self:UseFrameLevelType('PIN_FRAME_LEVEL_TOPMOST')
 
-	local NormalTexture = self:CreateTexture(nil, 'BACKGROUND')
-	NormalTexture:SetAllPoints()
-	self:SetNormalTexture(NormalTexture)
-
-	local HighlightTexture = self:CreateTexture(nil, 'OVERLAY')
-	HighlightTexture:SetAllPoints()
-	HighlightTexture:SetBlendMode('ADD')
-	self:SetHighlightTexture(HighlightTexture)
-
 	local QuestIcon = self:CreateTexture(nil, 'OVERLAY')
 	QuestIcon:SetPoint('LEFT')
 end
@@ -52,18 +43,6 @@ function pinMixin:SetPosition(srcMapID, x, y) -- override
 		MapCanvasPinMixin.SetPosition(self, x, y) -- super
 		return true
 	end
-end
-
-function pinMixin:SetIconAtlas(atlas)
-	self:GetNormalTexture():SetAtlas(atlas)
-end
-
-function pinMixin:SetHighlightAtlas(atlas)
-	self:GetHighlightTexture():SetAtlas(atlas)
-end
-
-function pinMixin:SetHighlightBlendMode(mode)
-	self:GetHighlightTexture():SetBlendMode(mode)
 end
 
 function pinMixin:AttachArrow()

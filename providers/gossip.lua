@@ -216,19 +216,18 @@ function gossipProviderMixin:AddPin(info, gossipInfo)
 
 	if info.isTaxi then
 		pin:SetSize(20, 20)
-		pin:SetIconAtlas('Taxi_Frame_Gray')
+		pin:SetNormalAtlas('Taxi_Frame_Gray')
 		pin:SetHighlightAtlas('Taxi_Frame_Yellow')
 
 		hasTaxiPins = true
 	elseif (gossipInfo and gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) or info.isQuest then
 		pin:SetSize(32, 32)
-		pin:SetIconAtlas('quest-campaign-available')
+		pin:SetNormalAtlas('quest-campaign-available')
 		pin:SetHighlightAtlas('quest-campaign-available')
 	else
 		pin:SetSize(info.atlasWidth or info.atlasSize or 24, info.atlasHeight or info.atlasSize or 24)
-		pin:SetIconAtlas(info.atlas or 'MagePortalAlliance')
-		pin:SetHighlightAtlas(info.highlightAtlas or info.atlas or 'MagePortalHorde')
-		pin:SetHighlightBlendMode(info.highlightAdd and 'ADD' or 'BLEND')
+		pin:SetNormalAtlas(info.atlas or 'MagePortalAlliance')
+		pin:SetHighlightAtlas(info.highlightAtlas or info.atlas or 'MagePortalHorde', info.highlightAdd and 'ADD' or 'BLEND')
 	end
 
 	if not info.noArrow then

@@ -40,8 +40,7 @@ function taxiPinMixin:OnPinEnter()
 			end
 		end
 
-		-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Yellow'))
-		self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Yellow'))
+		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Yellow'))
 		self.owner:HighlightRouteToPin(self)
 	elseif self.taxiNodeData.state == Enum.FlightPathState.Unreachable and not self.isMapLayerTransition then
 		GameTooltip_AddErrorLine(GameTooltip, TAXI_PATH_UNREACHABLE, true)
@@ -54,11 +53,9 @@ function taxiPinMixin:OnPinLeave()
 	-- ripped from FlightMap_FlightPointPinMixin.OnMouseLeave
 	if self.taxiNodeData.state == Enum.FlightPathState.Reachable then
 		if self.useSpecialReachableIcon then
-			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
-			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
+			self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
 		else
-			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
-			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+			self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 		end
 		self.owner:RemoveRouteToPin(self)
 	end
@@ -106,30 +103,23 @@ function taxiPinMixin:SetFlightPathStyle(taxiNodeType)
 		self.atlasFormat = '%s'
 	end
 
-	if self.isMapLayerTransition then
-		-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
-		self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
-		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+	if self.textureKit == 'FlightMaster_ProgenitorObelisk' then
+		self:SetNormalAtlas(self.atlasFormat:format())
+	elseif self.isMapLayerTransition then
+		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 	elseif taxiNodeType == Enum.FlightPathState.Current then
-		-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Green'))
-		self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Green'))
-		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Green'))
 		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 	elseif taxiNodeType == Enum.FlightPathState.Unreachable then
-		-- self.Icon:SetAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
-		self:SetIconAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
-		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
+		self:SetNormalAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
 		self:SetHighlightAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
 	elseif taxiNodeType == Enum.FlightPathState.Reachable then
 		if self.useSpecialReachableIcon then
-			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
-			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
+			self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
 		else
-			-- self.Icon:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
-			self:SetIconAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+			self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 		end
-		-- self.IconHighlight:SetAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 	end
 end
