@@ -1,3 +1,8 @@
+### Changes in 110200.61-Release:
+
+- Added: Taxi onboarding
+- Fixed: Last remaining taint errors
+
 ### Changes in 110200.60-Release:
 
 - Added: Support for "phase porting" in K'aresh
