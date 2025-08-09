@@ -86,12 +86,19 @@ function taxiPinMixin:UpdatePinSize(pinType)
 		end
 	elseif self.isMapLayerTransition then
 		self:SetSize(20, 20)
-	elseif pinType == Enum.FlightPathState.Current then
-		self:SetSize(28, 28)
-	elseif pinType == Enum.FlightPathState.Reachable then
-		self:SetSize(20, 20)
-	elseif pinType == Enum.FlightPathState.Unreachable then
-		self:SetSize(14, 14)
+	else
+		local widthMultiplier = 1
+		if self.textureKit == 'FlightMaster_ProgenitorObelisk' then
+			widthMultiplier = 0.5
+		end
+
+		if pinType == Enum.FlightPathState.Current then
+			self:SetSize(28 * widthMultiplier, 28)
+		elseif pinType == Enum.FlightPathState.Reachable then
+			self:SetSize(20 * widthMultiplier, 20)
+		elseif pinType == Enum.FlightPathState.Unreachable then
+			self:SetSize(14 * widthMultiplier, 14)
+		end
 	end
 end
 
@@ -263,16 +270,8 @@ function taxiProviderMixin:AddPin(info)
 	pin:SetFlightPathStyle(info.state)
 	pin:UpdatePinSize(info.state)
 
-	if info.textureKit == 'FlightMaster_ProgenitorObelisk' then
-		-- these nodes' textures are thin and tall so halve the pin width and adjust icon position
-		-- to fix their bounds, but only after UpdatePinSize has set it's own thing
-		local width, height = pin:GetSize()
-		pin:SetWidth(width / 2)
-		pin.Icon:ClearAllPoints()
-		pin.Icon:SetPoint('CENTER')
-		pin.Icon:SetSize(width, height)
-	elseif info.state ~= Enum.FlightPathState.Unreachable then
-		-- attach arrows to all reachable nodes
+	if info.state ~= Enum.FlightPathState.Unreachable and info.textureKit ~= 'FlightMaster_ProgenitorObelisk' then
+		-- attach arrows to reachable nodes
 		pin:AttachArrow()
 	end
 
