@@ -26,6 +26,7 @@ optional:
 - noArrow (don't display bouncing arrow above pin)
 - forceMapID (overrides the mapID the pin will open the map for)
 - ignoreScale (don't scale with options)
+- skippableCinematic (tell the handler that this option has a skippable cinematic tied to it)
 
 special:
 - children (exclusive with everything else, will iterate through objects in the data structure instead of itself)
