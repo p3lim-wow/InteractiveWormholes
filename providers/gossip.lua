@@ -75,6 +75,10 @@ end
 function gossipProviderMixin:OnRemoved()
 	self:UnregisterEvent('GOSSIP_SHOW')
 	self:UnregisterEvent('GOSSIP_CLOSED')
+
+	if addon:IsEventRegistered('CINEMATIC_START', skipCinematic) then
+		addon:UnregisterEvent('CINEMATIC_START', skipCinematic)
+	end
 end
 
 function gossipProviderMixin:OnEvent(event)
@@ -105,6 +109,10 @@ function gossipProviderMixin:OnEvent(event)
 
 		if WorldMapFrame:IsShown() then
 			HideUIPanel(WorldMapFrame)
+		end
+
+		if addon:IsEventRegistered('CINEMATIC_START', skipCinematic) then
+			addon:UnregisterEvent('CINEMATIC_START', skipCinematic)
 		end
 	end
 end
