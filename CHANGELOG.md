@@ -1,3 +1,7 @@
+### Changes in 110200.62-Release:
+
+- Fixed: Race condition with the cinematic skip option
+
 ### Changes in 110200.61-Release:
 
 - Added: Taxi onboarding
