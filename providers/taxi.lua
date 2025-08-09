@@ -239,6 +239,11 @@ function taxiProviderMixin:OnRelease(hadPins)
 end
 
 function taxiProviderMixin:AddPin(info)
+	if info.state == Enum.FlightPathState.Unreachable then
+		-- ignore unreachable pins
+		return
+	end
+
 	local pin = self:AcquirePin()
 
 	-- set variables used by FlightMap_FlightPointPinTemplate
@@ -275,9 +280,6 @@ function taxiProviderMixin:AddPin(info)
 		-- don't overlap destinations with source in case they're close
 		pin:SetFrameLevel(pin:GetFrameLevel() - 1)
 	end
-
-	-- show pin unless it's unreachable
-	pin:SetShown(info.state ~= Enum.FlightPathState.Unreachable)
 
 	-- map pin index for routes
 	self.taxiIndexPin[info.slotIndex] = pin
