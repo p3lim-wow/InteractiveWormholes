@@ -114,20 +114,20 @@ function taxiPinMixin:SetFlightPathStyle(taxiNodeType)
 		self:SetNormalAtlas(self.atlasFormat:format())
 	elseif self.isMapLayerTransition then
 		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
-		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	elseif taxiNodeType == Enum.FlightPathState.Current then
 		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Green'))
-		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	elseif taxiNodeType == Enum.FlightPathState.Unreachable then
 		self:SetNormalAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
-		self:SetHighlightAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'))
+		self:SetHighlightAtlas(self.atlasFormat:format('UI-Taxi-Icon-Nub'), 'ADD')
 	elseif taxiNodeType == Enum.FlightPathState.Reachable then
 		if self.useSpecialReachableIcon then
 			self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Special'))
 		else
 			self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 		end
-		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
+		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	end
 end
 
