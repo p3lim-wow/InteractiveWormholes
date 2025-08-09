@@ -110,9 +110,7 @@ function taxiPinMixin:SetFlightPathStyle(taxiNodeType)
 		self.atlasFormat = '%s'
 	end
 
-	if self.textureKit == 'FlightMaster_ProgenitorObelisk' then
-		self:SetNormalAtlas(self.atlasFormat:format())
-	elseif self.isMapLayerTransition then
+	if self.isMapLayerTransition then
 		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Gray'))
 		self:SetHighlightAtlas(self.atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	elseif taxiNodeType == Enum.FlightPathState.Current then
