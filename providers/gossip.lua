@@ -21,7 +21,7 @@ function gossipPinMixin:OnPinClick(button)
 		addon.stagedGossipOptionID = self:GetID()
 		C_GossipInfo.SelectOption(self.info.parent)
 	elseif self:GetID() and self:GetID() > 0 then
-		if self.info.skipCinematic and addon:GetOption('skipCinematic') then
+		if self.info.skippableCinematic and addon:GetOption('skipCinematic') then
 			addon:RegisterEvent('CINEMATIC_START', skipCinematic)
 		end
 
@@ -110,7 +110,22 @@ function gossipProviderMixin:OnEvent(event)
 end
 
 function gossipProviderMixin:OnRefresh()
-	local numOptions = 0
+	local gossipOptions = C_GossipInfo.GetOptions()
+	if #gossipOptions == 1 and addon:GetOption('selectSingle') then
+		local gossipOptionID = gossipOptions[1].gossipOptionID
+		if gossipOptionID then
+			local info = addon.data[gossipOptionID]
+			if info then
+				if info.skippableCinematic and addon:GetOption('skipCinematic') then
+					addon:RegisterEvent('CINEMATIC_START', skipCinematic)
+				end
+
+				C_GossipInfo.SelectOption(gossipOptionID)
+				return
+			end
+		end
+	end
+
 	local unknownOptions = {}
 	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
 		local data = addon.data[gossipInfo.gossipOptionID]
@@ -122,7 +137,6 @@ function gossipProviderMixin:OnRefresh()
 						self:AddPin(childData, {
 							gossipOptionID = childGossipOptionID,
 						})
-						numOptions = numOptions + 1
 
 						if childData.displayExtra then
 							for _, extraData in next, childData.displayExtra do
@@ -135,7 +149,6 @@ function gossipProviderMixin:OnRefresh()
 				end
 			else
 				self:AddPin(data, gossipInfo)
-				numOptions = numOptions + 1
 			end
 
 			if data.displayExtra then
@@ -147,17 +160,6 @@ function gossipProviderMixin:OnRefresh()
 			if not addon.ignoreOption[gossipInfo.gossipOptionID] then
 				table.insert(unknownOptions, gossipInfo)
 			end
-		end
-	end
-
-	if numOptions == 1 and addon:GetOption('selectSingle') then
-		for pin in self:EnumeratePins() do -- luacheck: ignore 512
-			if pin.info.skipCinematic and addon:GetOption('skipCinematic') then
-				addon:RegisterEvent('CINEMATIC_START', skipCinematic)
-			end
-
-			C_GossipInfo.SelectOption(pin:GetID())
-			return
 		end
 	end
 
