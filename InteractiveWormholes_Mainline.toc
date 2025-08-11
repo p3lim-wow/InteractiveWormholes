@@ -17,7 +17,7 @@
 ..\Dashi\embed.xml
 #@end-debug@
 
-locale\[TextLocale].lua
+locale\[TextLocale].lua [AllowLoadTextLocale deDE, esES, esMX, frFR, itIT, koKR, ptBR, ruRU, zhCN, zhTW]
 
 data.lua
 data\animaflow.lua
