@@ -117,27 +117,37 @@ function gossipProviderMixin:OnEvent(event)
 	end
 end
 
+local destinations, extras = addon.T{}, addon.T{}
 function gossipProviderMixin:OnRefresh()
-	local gossipOptions = C_GossipInfo.GetOptions()
-	if #gossipOptions == 1 and addon:GetOption('selectSingle') then
-		local gossipOptionID = gossipOptions[1].gossipOptionID
-		if gossipOptionID then
-			local info = addon.data[gossipOptionID]
-			if info then
-				if info.skippableCinematic and addon:GetOption('skipCinematic') then
-					addon:RegisterEvent('CINEMATIC_START', skipCinematic)
-				end
+	destinations:wipe()
+	extras:wipe()
 
-				C_GossipInfo.SelectOption(gossipOptionID)
-				return
+	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
+		local optionID = gossipInfo.gossipOptionID
+		if optionID then
+			if addon.data[optionID] then
+				destinations:insert(gossipInfo)
+			elseif not addon.ignoreOption[optionID] and not unknownWarned[optionID] then
+				extras:insert(gossipInfo)
 			end
 		end
 	end
 
-	local unknownOptions = {}
-	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
-		local data = addon.data[gossipInfo.gossipOptionID]
-		if data then
+	if #destinations == 0 then
+		return
+	elseif #destinations == 1 and addon:GetOption('selectSingle') then
+		local optionID = destinations[1].gossipOptionID
+		local data = addon.data[optionID]
+
+		if data.skippableCinematic and addon:GetOption('skipCinematic') then
+			addon:RegisterEvent('CINEMATIC_START', skipCinematic)
+		end
+
+		C_GossipInfo.SelectOption(optionID)
+		return
+	else
+		for _, gossipInfo in next, destinations do
+			local data = addon.data[gossipInfo.gossipOptionID]
 			if data.children then
 				for _, childGossipOptionID in next, data.children do
 					local childData = addon.data[childGossipOptionID]
@@ -164,10 +174,6 @@ function gossipProviderMixin:OnRefresh()
 					self:AddPin(extraData, gossipInfo)
 				end
 			end
-		elseif not unknownWarned[gossipInfo.gossipOptionID] then
-			if not addon.ignoreOption[gossipInfo.gossipOptionID] then
-				table.insert(unknownOptions, gossipInfo)
-			end
 		end
 	end
 
@@ -181,9 +187,9 @@ function gossipProviderMixin:OnRefresh()
 		addon:SyncArrows()
 		self:AddSourcePin()
 
-		if #unknownOptions > 0 then
+		if #extras > 0 then
 			addon:Print('There are more options not shown on the map:')
-			for _, gossipInfo in next, unknownOptions do
+			for _, gossipInfo in next, extras do
 				unknownWarned[gossipInfo.gossipOptionID] = true
 				addon:Printf('- %d, "%s"', gossipInfo.gossipOptionID, gossipInfo.name)
 			end
