@@ -166,6 +166,7 @@ addon.data[63907] = { -- "Carelessly leap into the portal, you daredevil"
 	-- tooltipMap = 1978,
 	atlas = 'lootroll-toast-icon-need-up',
 	highlightAtlas = 'lootroll-toast-icon-need-highlight',
+	forceMapID = 1978, -- Dragon Isles
 }
 addon.data[63911] = { -- Waking Shores (random location)
 	mapID = 2022,
@@ -274,4 +275,5 @@ addon.data[122362] = { -- "Carelessly leap into the portal, you daredevil"
 	y = 0.4993,
 	atlas = 'lootroll-toast-icon-need-up',
 	highlightAtlas = 'lootroll-toast-icon-need-highlight',
+	forceMapID = 2274, -- Khaz Algar
 }
