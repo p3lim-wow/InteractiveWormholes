@@ -24,7 +24,7 @@ for row in util.dbc('spell'):
       # data is broken
       dungeonName = "Eco-Dome Al'dani"
 
-    if not row.NameSubtext_lang in dungeonSpells:
+    if not dungeonName in dungeonSpells:
       dungeonSpells[dungeonName] = []
     dungeonSpells[dungeonName].append(row.ID)
 
