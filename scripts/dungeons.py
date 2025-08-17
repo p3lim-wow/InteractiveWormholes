@@ -19,9 +19,14 @@ for row in util.dbc('spell'):
   if len(str(row.NameSubtext_lang)) > 0 and str(row.Description_lang).startswith('Teleport to the entrance'):
     spellNames[row.ID] = False
 
+    dungeonName = row.NameSubtext_lang
+    if row.ID == 1237215:
+      # data is broken
+      dungeonName = "Eco-Dome Al'dani"
+
     if not row.NameSubtext_lang in dungeonSpells:
-      dungeonSpells[row.NameSubtext_lang] = []
-    dungeonSpells[row.NameSubtext_lang].append(row.ID)
+      dungeonSpells[dungeonName] = []
+    dungeonSpells[dungeonName].append(row.ID)
 
 for row in util.dbc('spellname'):
   if row.ID in spellNames:
