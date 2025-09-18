@@ -8,7 +8,7 @@ It can be downloaded at one of the following sites:
 - [Wago](https://addons.wago.io/addons/interactivewormholes)
 - [GitHub](https://github.com/p3lim-wow/InteractiveWormholes/releases)
 
-[![](https://shields.io/badge/paypal-support_development-red?logo=paypal&style=for-the-badge)](https://www.paypal.me/p3lim)
+[![](https://shields.io/badge/github_sponsors-support_development-red?logo=github&style=for-the-badge)](https://github.com/sponsors/p3lim)
 
 ## Description
 
