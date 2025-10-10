@@ -1,3 +1,7 @@
+### Changes in 110205.63-Release:
+
+- Fixed: Accidental pollution of the global table library
+
 ### Changes in 110200.62-Release:
 
 - Fixed: Race condition with the cinematic skip option
