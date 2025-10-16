@@ -45,10 +45,11 @@ for row in util.dbc('journalinstance'):
       # this ugly mess because Blizzard gave faction-specific spells to both factions
       factionSpells = []
       for spellID in spells:
-        if SPELL_FACTION[spellID] == 'Horde':
-          factionSpells.insert(0, spellID)
-        elif SPELL_FACTION[spellID] == 'Alliance':
-          factionSpells.insert(1, spellID)
+        if spellID in SPELL_FACTION:
+          if SPELL_FACTION[spellID] == 'Horde':
+            factionSpells.insert(0, spellID)
+          elif SPELL_FACTION[spellID] == 'Alliance':
+            factionSpells.insert(1, spellID)
       dungeons[row.ID]['spellID'] = f'H and {factionSpells[0]} or {factionSpells[1]}'
     else:
       dungeons[row.ID]['spellID'] = spells[0]
