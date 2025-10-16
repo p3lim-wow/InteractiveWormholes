@@ -23,7 +23,7 @@ jobs:
         uses: p3lim/dbc-helper@master
         id: scraper
         with:
-          beta: true
+          # beta: true
           ptr: true
           files: |
             scripts/dungeons: data/dungeons.lua
