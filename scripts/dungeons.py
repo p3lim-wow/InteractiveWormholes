@@ -53,8 +53,8 @@ for row in util.dbc('journalinstance'):
       if len(factionSpells) > 0:
         dungeons[row.ID]['spellID'] = f'H and {factionSpells[0]} or {factionSpells[1]}'
       else:
-        print('there are more than 1 spell in the data set without a faction:')
-        print(spells)
+        print('ERROR: there are more than 1 spell in the data set without a faction:', file=sys.stderr)
+        print(spells, file=sys.stderr)
         sys.exit(1)
     else:
       dungeons[row.ID]['spellID'] = spells[0]
