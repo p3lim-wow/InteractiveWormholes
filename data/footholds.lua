@@ -39,6 +39,26 @@ addon.data[48352] = { -- Darkshore (campaign)
 	tooltipMap = 62,
 }
 -- TODO: horde foothold campaign quests
+addon.data[48346] = { -- some campaign quest
+	mapID = 895, -- Tiragarde Sound
+	x = 0.8820, -- unsure if correct for the quest
+	y = 0.5116, -- unsure if correct for the quest
+	atlas = 'quest-campaign-available',
+	atlasSize = 32,
+	highlightAtlas = 'bfa-landingbutton-horde-diamondhighlight',
+	highlightAdd = true,
+	-- tooltipQuest = TODO,
+}
+addon.data[48353] = { -- some campaign quest
+	mapID = 895, -- Tiragarde Sound
+	x = 0.8820, -- unsure if correct for the quest
+	y = 0.5116, -- unsure if correct for the quest
+	atlas = 'quest-campaign-available',
+	atlasSize = 32,
+	highlightAtlas = 'bfa-landingbutton-horde-diamondhighlight',
+	highlightAdd = true,
+	-- tooltipQuest = TODO,
+}
 
 -- Warfront Footholds (Alliance)
 addon.data[48171] = { -- Zuldazar
