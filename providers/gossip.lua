@@ -180,7 +180,7 @@ function gossipProviderMixin:OnRefresh()
 									if extraData.disabledOnQuests then
 										for _, questID in next, extraData.disabledOnQuests do
 											if C_QuestLog.IsOnQuest(questID) then
-												shouldShow = false
+												shouldShowExtra = false
 												break
 											end
 										end
