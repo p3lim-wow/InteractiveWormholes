@@ -17,6 +17,7 @@ optional:
 - tooltip (custom tooltip text)
 - tooltipMap (uses map name by mapID)
 - tooltipQuest (uses quest name by questID)
+- tooltipQuests (uses quest name by questID, list alternative to the above)
 - isTaxi (will use a pre-defined atlas, and render lines between pin and source)
 - taxiIndex (used to define order of taxi routes for lines)
 - taxiSourceIndex (index of the source pin instead of defaulting to the player)
@@ -27,6 +28,7 @@ optional:
 - forceMapID (overrides the mapID the pin will open the map for)
 - ignoreScale (don't scale with options)
 - skippableCinematic (tell the handler that this option has a skippable cinematic tied to it)
+- disabledOnQuests (don't render the destination if one of these quests are active)
 
 special:
 - children (exclusive with everything else, will iterate through objects in the data structure instead of itself)

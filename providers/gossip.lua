@@ -32,7 +32,15 @@ end
 function gossipPinMixin:OnPinEnter()
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 
-	if self.info.tooltipQuest then
+	if self.info.tooltipQuests then
+		for _, questID in next, self.info.tooltipQuests do
+			if C_QuestLog.IsOnQuest(questID) then
+				C_QuestLog.RequestLoadQuestByID(questID) -- trigger cache
+				GameTooltip:AddLine(C_QuestLog.GetTitleForQuestID(questID))
+				break
+			end
+		end
+	elseif self.info.tooltipQuest then
 		C_QuestLog.RequestLoadQuestByID(self.info.tooltipQuest) -- trigger cache
 		GameTooltip:AddLine(C_QuestLog.GetTitleForQuestID(self.info.tooltipQuest))
 	elseif self.info.tooltipArea then
@@ -152,21 +160,54 @@ function gossipProviderMixin:OnRefresh()
 				for _, childGossipOptionID in next, data.children do
 					local childData = addon.data[childGossipOptionID]
 					if childData then
-						self:AddPin(childData, {
-							gossipOptionID = childGossipOptionID,
-						})
+						local shouldShow = true
+						if childData.disabledOnQuests then
+							for _, questID in next, childData.disabledOnQuests do
+								if C_QuestLog.IsOnQuest(questID) then
+									shouldShow = false
+									break
+								end
+							end
+						end
+						if shouldShow then
+							self:AddPin(childData, {
+								gossipOptionID = childGossipOptionID,
+							})
 
-						if childData.displayExtra then
-							for _, extraData in next, childData.displayExtra do
-								self:AddPin(extraData, {
-									gossipOptionID = childGossipOptionID,
-								})
+							if childData.displayExtra then
+								for _, extraData in next, childData.displayExtra do
+									local shouldShowExtra = true
+									if extraData.disabledOnQuests then
+										for _, questID in next, extraData.disabledOnQuests do
+											if C_QuestLog.IsOnQuest(questID) then
+												shouldShow = false
+												break
+											end
+										end
+									end
+									if shouldShowExtra then
+										self:AddPin(extraData, {
+											gossipOptionID = childGossipOptionID,
+										})
+									end
+								end
 							end
 						end
 					end
 				end
 			else
-				self:AddPin(data, gossipInfo)
+				local shouldShow = true
+				if data.disabledOnQuests then
+					for _, questID in next, data.disabledOnQuests do
+						if C_QuestLog.IsOnQuest(questID) then
+							shouldShow = false
+							break
+						end
+					end
+				end
+				if shouldShow then
+					self:AddPin(data, gossipInfo)
+				end
 			end
 
 			if data.displayExtra then
