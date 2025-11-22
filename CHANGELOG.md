@@ -1,3 +1,8 @@
+### Changes in 110205.64-Release:
+
+- Added: Remaining missing BfA Campaign/Warfront support
+- Changed: Update Interface version
+
 ### Changes in 110205.63-Release:
 
 - Fixed: Accidental pollution of the global table library
