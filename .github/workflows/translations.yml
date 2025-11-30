@@ -9,8 +9,10 @@ on:
     paths:
       - '**.toc'
       - '**.lua'
-      - '**.xml'
-      - '.github/workflows/update-translations.yml'
+      - '.github/workflows/translations.yml'
+      - '!data/'
+      - '!locale/'
+  workflow_dispatch:
 
 jobs:
   upload:
@@ -20,7 +22,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Upload localizations
-        uses: p3lim/curseforge-localizations@v1
+        uses: p3lim/curseforge-localizations@v2
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           HANDLE_MISSING: DeletePhrase
