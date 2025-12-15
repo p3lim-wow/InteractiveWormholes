@@ -30,7 +30,7 @@ jobs:
             scripts/dungeons: data/dungeons.lua
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         # requires permissions, see https://github.com/peter-evans/create-pull-request#workflow-permissions
         with:
           title: Update ${{ steps.scraper.outputs.flavor }} data to ${{ steps.scraper.outputs.version }}
