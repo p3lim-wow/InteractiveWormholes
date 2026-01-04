@@ -135,14 +135,11 @@ function taxiProviderMixin:OnAdded()
 	-- table to hold pin/index association for route lines
 	self.taxiIndexPin = {}
 
-	-- force load FlightMap addon so we can use its template and mixins
-	-- TODO: don't do this if we can get around it
-	C_AddOns.LoadAddOn('Blizzard_FlightMap')
-
 	-- disable default taxi maps becau
 	UIParent:UnregisterEvent('TAXIMAP_OPENED')
-	TaxiFrame:UnregisterAllEvents()
-	FlightMapFrame:UnregisterAllEvents() -- won't need to do this if we don't use FlightMap addon
+	if TaxiFrame then
+		TaxiFrame:UnregisterAllEvents()
+	end
 
 	-- register our events
 	self:RegisterEvent('TAXIMAP_OPENED')
@@ -155,10 +152,6 @@ function taxiProviderMixin:OnRemoved()
 
 	if TaxiFrame then
 		TaxiFrame:RegisterEvent('TAXIMAP_CLOSED')
-	end
-
-	if FlightMapFrame then
-		FlightMapFrame:RegisterEvent('TAXIMAP_CLOSED')
 	end
 
 	-- unregister our events
@@ -190,13 +183,17 @@ function taxiProviderMixin:OnEvent(event)
 			CloseTaxiMap()
 		elseif shouldUseInstanceMap() then
 			-- use stock flight map in dungeons unless specifically handled
-			ShowUIPanel(FlightMapFrame)
+			if C_AddOns.LoadAddOn('Blizzard_FlightMap') and FlightMapFrame then
+				ShowUIPanel(FlightMapFrame)
+			end
 		else
 			self:RefreshAllData()
 		end
 	elseif event == 'TAXIMAP_CLOSED' then
-		HideUIPanel(FlightMapFrame)
-		HideUIPanel(WorldMapFrame)
+		if WorldMapFrame:IsShown() then
+			HideUIPanel(WorldMapFrame)
+		end
+
 		hasChanged = false
 	end
 end
