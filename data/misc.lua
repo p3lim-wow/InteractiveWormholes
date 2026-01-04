@@ -99,3 +99,17 @@ addon.data[125429] = {
 		}
 	}
 }
+
+-- Dazar'alor <-> Mechagon for Horde
+addon.data[50479] = {
+	mapID = 1462, -- Mechagon
+	x = 0.7573,
+	y = 0.2132,
+	tooltipMap = 1462,
+}
+addon.data[50481] = {
+	mapID = 1165, -- Dazar'alor
+	x = 0.4175,
+	y = 0.8743,
+	tooltipMap = 1165,
+}
