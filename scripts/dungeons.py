@@ -3,70 +3,92 @@
 import sys
 import util
 
-SPELL_FACTION = {
-  # SpellMisc should contain this data, but it's flaky, so we gotta do this shit
-  467555: 'Horde',
-  467553: 'Alliance',
-  464256: 'Horde',
-  445418: 'Alliance',
+# BUG: blizzard forgets they already have spells for dungeons and adds new ones
+DUPLICATES = {
+  'Skyreach': [
+    159898, # the original spell added in WoD
+    1254557, # new spell added in Midnight
+  ]
 }
 
+flyouts = []
+for row in util.dbc('spellflyout'):
+  if row.Name_lang.startswith("Hero's Path:"):
+    flyouts.append(row.ID)
+
+flyoutSpells = []
+for row in util.dbc('spellflyoutitem'):
+  if row.SpellFlyoutID in flyouts:
+    flyoutSpells.append(row.SpellID)
+
 spellNames = {}
+for row in util.dbc('spellname'):
+  if row.ID in flyoutSpells:
+    spellNames[row.ID] = row.Name_lang
+
+spellFaction = {}
+# BUG: missing faction data for Siege of Boralus
+spellFaction[464256] = 'Horde'
+spellFaction[445418] = 'Alliance'
+
+for row in util.dbc('spellmisc'):
+  if row.SpellID in flyoutSpells:
+    if (row.Attributes_7 & 0x100) != 0:
+      spellFaction[row.SpellID] = 'Horde'
+    elif (row.Attributes_7 & 0x200) != 0:
+      spellFaction[row.SpellID] = 'Alliance'
+
 dungeonSpells = {}
-
-# the SpellCategory 1407 ("Challenger's Path") covers all challenge mode and m+ spells, but not raid ones
 for row in util.dbc('spell'):
-  if len(str(row.NameSubtext_lang)) > 0 and str(row.Description_lang).startswith('Teleport to the entrance'):
-    spellNames[row.ID] = False
-
+  if row.ID in flyoutSpells:
     dungeonName = row.NameSubtext_lang
     if row.ID == 1237215:
-      # data is broken
+      # BUG: data is broken for this dungeon
       dungeonName = "Eco-Dome Al'dani"
 
-    if not dungeonName in dungeonSpells:
-      dungeonSpells[dungeonName] = []
-    dungeonSpells[dungeonName].append(row.ID)
-
-for row in util.dbc('spellname'):
-  if row.ID in spellNames:
-    spellNames[row.ID] = row.Name_lang
+    spellID = row.ID
+    if spellID in spellFaction:
+      faction = spellFaction[spellID]
+      if not dungeonName in dungeonSpells:
+        dungeonSpells[dungeonName] = {}
+      dungeonSpells[dungeonName][faction] = spellID
+    elif dungeonName in DUPLICATES:
+      if not dungeonName in dungeonSpells:
+        dungeonSpells[dungeonName] = []
+      if spellID in DUPLICATES[dungeonName]:
+        dungeonSpells[dungeonName].append(spellID)
+      else:
+        print(f'duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}" not accounted for')
+        sys.exit(1)
+    elif not dungeonName in dungeonSpells:
+      dungeonSpells[dungeonName] = row.ID
+    else:
+      print(f'duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}"')
+      sys.exit(1)
 
 dungeons = {}
 for row in util.dbc('journalinstance'):
-  if row.Name_lang in dungeonSpells:
-
-    dungeons[row.ID] = {}
-    dungeons[row.ID]['dungeonID'] = row.ID
-    dungeons[row.ID]['dungeonName'] = row.Name_lang
-
-    spells = dungeonSpells[row.Name_lang]
-    if len(spells) > 1:
-      # this ugly mess because Blizzard gave faction-specific spells to both factions
-      factionSpells = []
-      for spellID in spells:
-        if spellID in SPELL_FACTION:
-          if SPELL_FACTION[spellID] == 'Horde':
-            factionSpells.insert(0, spellID)
-          elif SPELL_FACTION[spellID] == 'Alliance':
-            factionSpells.insert(1, spellID)
-      if len(factionSpells) > 0:
-        dungeons[row.ID]['spellID'] = f'H and {factionSpells[0]} or {factionSpells[1]}'
-      else:
-        print('ERROR: there are more than 1 spell in the data set without a faction:', file=sys.stderr)
-        print(spells, file=sys.stderr)
-        sys.exit(1)
+  dungeonName = row.Name_lang
+  if dungeonName in dungeonSpells:
+    spellID = dungeonSpells[dungeonName]
+    if isinstance(spellID, dict):
+      spellName = spellNames[spellID['Horde']]
+      spellID = f'H and {spellID["Horde"]} or {spellID["Alliance"]}'
+    elif isinstance(spellID, list):
+      spellName = spellNames[spellID[0]] # just pick the first one
+      spellID = f'{{{",".join(map(str, spellID))}}}' # turn into Lua table
     else:
-      dungeons[row.ID]['spellID'] = spells[0]
+      spellName = spellNames[spellID]
 
-    for spellID in spells:
-      if 'spellName' not in dungeons[row.ID]:
-        dungeons[row.ID]['spellName'] = spellNames[spellID]
-      elif spellNames[spellID] != dungeons[row.ID]['spellName']:
-        print(f'\033[93mERROR: dungeonID {row.ID} has multiple spells with mismatching names!\033[0m', file=sys.stderr)
-        sys.exit(1)
+    dungeons[row.ID] = {
+      'dungeonID': row.ID,
+      'dungeonName': dungeonName,
+      'spellID': spellID,
+      'spellName': spellName,
+      'mapID': row.MapID,
+    }
 
-# this logic is not great, it will be messed up for pandas picking a faction
+# ISSUE: this won't work for new pandaren after picking a faction
 prefix = '''
 local _, addon = ...
 local H = UnitFactionGroup('player') == 'Horde'

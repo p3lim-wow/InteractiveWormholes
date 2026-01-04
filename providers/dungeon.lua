@@ -52,11 +52,32 @@ function addon:MODIFIER_STATE_CHANGED(key, down)
 	end
 end
 
+local function getKnownSpellIDByInstanceID(instanceID)
+	if not instanceID then
+		return
+	end
+
+	local spellID = addon.dungeons[instanceID]
+	if not spellID then
+		return
+	end
+
+	if type(spellID) == 'table' then
+		for id in next, spellID do
+			if C_SpellBook.IsSpellKnown(id) then
+				return id
+			end
+		end
+	elseif C_SpellBook.IsSpellKnown(spellID) then
+		return spellID
+	end
+end
+
 local function onEnter(pin)
 	local inCombat = InCombatLockdown()
 
-	local spellID = addon.dungeons[pin.journalInstanceID or 0]
-	if spellID and C_SpellBook.IsSpellKnown(spellID) then
+	local spellID = getKnownSpellIDByInstanceID(pin.journalInstanceID)
+	if spellID then
 		local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
 		local cooldownRemaining = cooldownInfo and cooldownInfo.duration > 0 and (cooldownInfo.duration - (GetTime() - cooldownInfo.startTime)) or 0
 
