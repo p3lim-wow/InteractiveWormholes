@@ -167,7 +167,10 @@ function taxiProviderMixin:OnRemoved()
 end
 
 local function shouldUseInstanceMap()
-	return IsInInstance() and not INSTANCE_USE_WORLD_MAP[C_Map.GetBestMapForUnit('player') or 0]
+	local inInstance, instanceType = IsInInstance()
+	if inInstance and instanceType ~= 'neighborhood' then
+		return not INSTANCE_USE_WORLD_MAP[C_Map.GetBestMapForUnit('player') or 0]
+	end
 end
 
 function taxiProviderMixin:OnEvent(event)
