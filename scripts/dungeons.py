@@ -68,6 +68,10 @@ for row in util.dbc('spell'):
 
 dungeons = {}
 for row in util.dbc('journalinstance'):
+  if row.ID == 249:
+    # need to ignore the old Magister's Terrace
+    continue
+
   dungeonName = row.Name_lang
   if dungeonName in dungeonSpells:
     spellID = dungeonSpells[dungeonName]
