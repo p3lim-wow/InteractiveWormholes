@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import sys
 import util
 
 # BUG: blizzard forgets they already have spells for dungeons and adds new ones
@@ -58,13 +57,11 @@ for row in util.dbc('spell'):
       if spellID in DUPLICATES[dungeonName]:
         dungeonSpells[dungeonName].append(spellID)
       else:
-        print(f'duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}" not accounted for')
-        sys.exit(1)
+        util.bail(f'ERROR: duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}" not accounted for')
     elif not dungeonName in dungeonSpells:
       dungeonSpells[dungeonName] = row.ID
     else:
-      print(f'duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}"')
-      sys.exit(1)
+      util.bail(f'ERROR: duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}"')
 
 dungeons = {}
 for row in util.dbc('journalinstance'):
