@@ -1,3 +1,10 @@
+### Changes in 120000.65-Release:
+
+- Added: Support for all dungeon map teleports in Midnight
+- Added: Support for Mechagon teleport from Dazar'alor
+- Changed: Update Interface version
+- Fixed: Taxi not working in neighborhoods
+
 ### Changes in 110205.64-Release:
 
 - Added: Remaining missing BfA Campaign/Warfront support
