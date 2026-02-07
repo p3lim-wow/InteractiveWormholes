@@ -75,6 +75,6 @@ addon.dungeons = {
 	[1300] = 1254572, -- Path of Devoted Magistry (Magisters' Terrace)
 	[1302] = 1239155, -- Path of the All-Devouring (Manaforge Omega)
 	[1303] = 1237215, -- Path of the Eco-Dome (Eco-Dome Al'dani)
-	[1315] = 1254559, -- [PH] Path of Maisara Caverns (Maisara Caverns)
-	[1316] = 1254563, -- [PH] Path of Nexus-Point Xenas (Nexus-Point Xenas)
+	[1315] = 1254559, -- Path of Cavernous Depths (Maisara Caverns)
+	[1316] = 1254563, -- Path of the Fractured Core (Nexus-Point Xenas)
 }
