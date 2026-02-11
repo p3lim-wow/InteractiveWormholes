@@ -1,3 +1,7 @@
+### Changes in 120000.68-Release:
+
+- Fixed: Actually include the tooltip code
+
 ### Changes in 120000.67-Release:
 
 - Added: Custom tooltip
