@@ -1,3 +1,8 @@
+### Changes in 120000.66-Release:
+
+- Changed: Update Interface version
+- Changed: Update data
+
 ### Changes in 120000.65-Release:
 
 - Added: Support for all dungeon map teleports in Midnight
