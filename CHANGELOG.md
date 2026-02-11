@@ -1,3 +1,8 @@
+### Changes in 120000.67-Release:
+
+- Added: Custom tooltip
+- Fixed: Tooltip taints
+
 ### Changes in 120000.66-Release:
 
 - Changed: Update Interface version
