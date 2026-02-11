@@ -19,34 +19,34 @@ function taxiPinMixin:OnPinClick(button)
 end
 
 function taxiPinMixin:OnPinEnter()
-	-- ripped from FlightMap_FlightPointPinMixin.OnMouseEnter
-	GameTooltip:SetOwner(self, 'ANCHOR_PRESERVE')
-	GameTooltip:ClearAllPoints()
-	GameTooltip:SetPoint('BOTTOMLEFT', self, 'TOPRIGHT', 0, 0)
+	local tooltip = addon:GetTooltip(self, 'ANCHOR_PRESERVE')
 
-	GameTooltip_AddNormalLine(GameTooltip, self.taxiNodeData.name, true)
+	-- ripped from FlightMap_FlightPointPinMixin.OnMouseEnter
+	tooltip:ClearAllPoints()
+	tooltip:SetPoint('BOTTOMLEFT', self, 'TOPRIGHT', 0, 0)
+	tooltip:AddLine(self.taxiNodeData.name)
 
 	if self.taxiNodeData.state == Enum.FlightPathState.Current then
-		GameTooltip_AddHighlightLine(GameTooltip, TAXINODEYOUAREHERE, true)
+		tooltip:AddLine(TAXINODEYOUAREHERE, 1, 1, 1)
 	elseif self.taxiNodeData.state == Enum.FlightPathState.Reachable then
 		local cost = TaxiNodeCost(self.taxiNodeData.slotIndex)
 		if cost > 0 then
-			SetTooltipMoney(GameTooltip, cost)
+			SetTooltipMoney(tooltip, cost)
 		elseif self.taxiNodeData.specialIconCostString then
 			if self.taxiNodeData.useSpecialIcon then
-				GameTooltip_AddHighlightLine(GameTooltip, self.taxiNodeData.specialIconCostString, true)
+				tooltip:AddLine(self.taxiNodeData.specialIconCostString, 1, 1, 1)
 			else
-				GameTooltip_AddErrorLine(GameTooltip, self.taxiNodeData.specialIconCostString, true)
+				tooltip:AddLine(self.taxiNodeData.specialIconCostString, RED_FONT_COLOR:GetRGB())
 			end
 		end
 
 		self:SetNormalAtlas(self.atlasFormat:format('Taxi_Frame_Yellow'))
 		self.owner:HighlightRouteToPin(self)
 	elseif self.taxiNodeData.state == Enum.FlightPathState.Unreachable and not self.isMapLayerTransition then
-		GameTooltip_AddErrorLine(GameTooltip, TAXI_PATH_UNREACHABLE, true)
+		tooltip:AddLine(TAXI_PATH_UNREACHABLE, RED_FONT_COLOR:GetRGB())
 	end
 
-	GameTooltip:Show()
+	tooltip:Show()
 end
 
 function taxiPinMixin:OnPinLeave()
@@ -59,7 +59,8 @@ function taxiPinMixin:OnPinLeave()
 		end
 		self.owner:RemoveRouteToPin(self)
 	end
-	GameTooltip_Hide()
+
+	addon:HideTooltip()
 end
 
 function taxiPinMixin:UpdatePinSize(pinType)

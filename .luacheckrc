@@ -45,15 +45,14 @@ read_globals = {
 	-- FrameXML constants
 	'Enum',
 	'CUSTOM_GOSSIP_FRAME_EVENTS',
+	'DISABLED_FONT_COLOR',
+	'GREEN_FONT_COLOR',
+	'RED_FONT_COLOR',
 
 	-- FrameXML functions
 	'CreateFromMixins',
 	'CreateUnsecuredObjectPool',
 	'CreateVector2D',
-	'GameTooltip_AddErrorLine',
-	'GameTooltip_AddHighlightLine',
-	'GameTooltip_AddNormalLine',
-	'GameTooltip_Hide',
 	'GenerateClosure',
 	'HideUIPanel',
 	'RegisterAttributeDriver',
@@ -66,10 +65,12 @@ read_globals = {
 	'ALT_KEY',
 	'CTRL_KEY',
 	'DUNGEON_FLOOR_BLACKROCKDEPTHS2',
+	'DUNGEON_POI_TOOLTIP_INSTRUCTION_LINE',
 	'ERR_NOT_IN_COMBAT',
 	'ITEM_COOLDOWN_TIME_HOURS',
 	'ITEM_COOLDOWN_TIME_MIN',
 	'ITEM_COOLDOWN_TIME_SEC',
+	'NO',
 	'PERCENTAGE_STRING',
 	'SHIFT_KEY',
 	'SPELL_CAST_TIME_SEC',
@@ -78,7 +79,6 @@ read_globals = {
 	'TAXI_PATH_UNREACHABLE',
 	'TUTORIAL_TITLE35',
 	'YES',
-	'NO',
 
 	-- namespaces
 	'C_AddOns',

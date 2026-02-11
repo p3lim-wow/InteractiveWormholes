@@ -27,6 +27,10 @@ button:SetAttribute('_onattributechanged', [[
 
 local instanceSpellID
 button:HookScript('OnShow', function(self)
+	if GameTooltip:IsForbidden() then
+		return
+	end
+
 	local owner = GameTooltip:GetOwner()
 	if not owner then
 		return
@@ -76,43 +80,50 @@ end
 local function onEnter(pin)
 	local inCombat = InCombatLockdown()
 
+	local tooltip = addon:GetTooltip(pin, 'ANCHOR_RIGHT')
+	tooltip:AddLine(pin.name, 1, 1, 1)
+	tooltip:AddLine(pin.description)
+	tooltip:AddLine(DUNGEON_POI_TOOLTIP_INSTRUCTION_LINE, GREEN_FONT_COLOR:GetRGB())
+
 	local spellID = getKnownSpellIDByInstanceID(pin.journalInstanceID)
 	if spellID then
-		local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
-		local cooldownRemaining = cooldownInfo and cooldownInfo.duration > 0 and (cooldownInfo.duration - (GetTime() - cooldownInfo.startTime)) or 0
-
-		if inCombat or cooldownRemaining > 0 then
-			GameTooltip:AddLine(addon.L['<Shift Click to Teleport>'], 0.5, 0.5, 0.5)
+		local cooldownRemaining
+		if inCombat then
+			tooltip:AddLine(addon.L['<Shift Click to Teleport>'], DISABLED_FONT_COLOR:GetRGB())
 		else
-			GameTooltip:AddLine(addon.L['<Shift Click to Teleport>'], 0.1, 1, 0.1)
+			local cooldownInfo = C_Spell.GetSpellCooldown(spellID)
+			cooldownRemaining = cooldownInfo and cooldownInfo.duration > 0 and (cooldownInfo.duration - (GetTime() - cooldownInfo.startTime)) or 0
+			if cooldownRemaining > 0 then
+				tooltip:AddLine(addon.L['<Shift Click to Teleport>'], DISABLED_FONT_COLOR:GetRGB())
+			else
+				tooltip:AddLine(addon.L['<Shift Click to Teleport>'], GREEN_FONT_COLOR:GetRGB())
+			end
 		end
 
 		local spellInfo = C_Spell.GetSpellInfo(spellID)
-		GameTooltip:AddLine(' ') -- blank line
-		GameTooltip:AddLine(string.format('|T%s:20:20|t %s', spellInfo.iconID, spellInfo.name), 1, 1, 1)
-		GameTooltip:AddDoubleLine(SPELL_CAST_TIME_SEC:format(spellInfo.castTime / 1000), SPELL_RECAST_TIME_HOURS:format(8), 1, 1, 1, 1, 1, 1)
+		tooltip:AddLine(' ') -- blank line
+		tooltip:AddLine(string.format('|T%s:20:20|t %s', spellInfo.iconID, spellInfo.name), 1, 1, 1)
+		tooltip:AddDoubleLine(SPELL_CAST_TIME_SEC:format(spellInfo.castTime / 1000), SPELL_RECAST_TIME_HOURS:format(8), 1, 1, 1, 1, 1, 1)
 
-		if cooldownRemaining > 0 then
+		if cooldownRemaining and cooldownRemaining > 0 then
 			if cooldownRemaining > 3600 then
-				GameTooltip:AddLine(ITEM_COOLDOWN_TIME_HOURS:format(cooldownRemaining / 3600), 1, 0.125, 0.125)
+				tooltip:AddLine(ITEM_COOLDOWN_TIME_HOURS:format(cooldownRemaining / 3600), RED_FONT_COLOR:GetRGB())
 			elseif cooldownRemaining > 60 then
-				GameTooltip:AddLine(ITEM_COOLDOWN_TIME_MIN:format(cooldownRemaining / 60), 1, 0.125, 0.125)
+				tooltip:AddLine(ITEM_COOLDOWN_TIME_MIN:format(cooldownRemaining / 60), RED_FONT_COLOR:GetRGB())
 			else
-				GameTooltip:AddLine(ITEM_COOLDOWN_TIME_SEC:format(cooldownRemaining), 1, 0.125, 0.125)
+				tooltip:AddLine(ITEM_COOLDOWN_TIME_SEC:format(cooldownRemaining), RED_FONT_COLOR:GetRGB())
 			end
 		end
 
 		-- TODO: this has caching issues
-		GameTooltip:AddLine(C_Spell.GetSpellDescription(spellID))
+		tooltip:AddLine(C_Spell.GetSpellDescription(spellID))
 
 		if inCombat then
-			GameTooltip:AddLine(' ') -- blank line
-			GameTooltip:AddLine(ERR_NOT_IN_COMBAT, 1, 0.125, 0.125)
+			tooltip:AddLine(' ') -- blank line
+			tooltip:AddLine(ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGB())
 		end
 
-		GameTooltip:Show()
-
-		if not inCombat and cooldownRemaining == 0 then
+		if not inCombat and cooldownRemaining and cooldownRemaining == 0 then
 			instanceSpellID = spellID
 
 			if IsShiftKeyDown() then
@@ -120,10 +131,13 @@ local function onEnter(pin)
 			end
 		end
 	end
+
+	tooltip:Show()
 end
 
 local function onLeave()
 	instanceSpellID = nil
+	addon:HideTooltip()
 end
 
 local pins = {}
@@ -133,8 +147,8 @@ hooksecurefunc(WorldMapFrame, 'AcquirePin', function(self, pinTemplate)
 			if not pins[pin] then
 				pins[pin] = true
 
-				pin:HookScript('OnEnter', onEnter)
-				pin:HookScript('OnLeave', onLeave)
+				pin:SetScript('OnEnter', onEnter)
+				pin:SetScript('OnLeave', onLeave)
 			end
 		end
 	end

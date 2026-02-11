@@ -30,39 +30,39 @@ function gossipPinMixin:OnPinClick(button)
 end
 
 function gossipPinMixin:OnPinEnter()
-	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+	local tooltip = addon:GetTooltip(self, 'ANCHOR_RIGHT')
 
 	if self.info.tooltipQuests then
 		for _, questID in next, self.info.tooltipQuests do
 			if C_QuestLog.IsOnQuest(questID) then
 				C_QuestLog.RequestLoadQuestByID(questID) -- trigger cache
-				GameTooltip:AddLine(C_QuestLog.GetTitleForQuestID(questID))
+				tooltip:AddLine(C_QuestLog.GetTitleForQuestID(questID))
 				break
 			end
 		end
 	elseif self.info.tooltipQuest then
 		C_QuestLog.RequestLoadQuestByID(self.info.tooltipQuest) -- trigger cache
-		GameTooltip:AddLine(C_QuestLog.GetTitleForQuestID(self.info.tooltipQuest))
+		tooltip:AddLine(C_QuestLog.GetTitleForQuestID(self.info.tooltipQuest))
 	elseif self.info.tooltipArea then
-		GameTooltip:AddLine(C_Map.GetAreaInfo(self.info.tooltipArea)) -- from AreaTable.db2
+		tooltip:AddLine(C_Map.GetAreaInfo(self.info.tooltipArea)) -- from AreaTable.db2
 	elseif self.info.tooltipMap then
 		local mapInfo = C_Map.GetMapInfo(self.info.tooltipMap or self.info.mapID)
-		GameTooltip:AddLine(mapInfo.name)
+		tooltip:AddLine(mapInfo.name)
 	elseif self.info.tooltip then
 		if type(self.info.tooltip) == 'function' then
-			GameTooltip:AddLine(self.info.tooltip())
+			tooltip:AddLine(self.info.tooltip())
 		else
-			GameTooltip:AddLine(self.info.tooltip)
+			tooltip:AddLine(self.info.tooltip)
 		end
 	else
-		GameTooltip:AddLine(self.info.gossipName)
+		tooltip:AddLine(self.info.gossipName)
 	end
 
 	if not self.info.noArrow then
-		GameTooltip:AddLine('|A:NPE_LeftClick:18:18|a' .. TUTORIAL_TITLE35, 1, 1, 1)
+		tooltip:AddLine('|A:NPE_LeftClick:18:18|a' .. TUTORIAL_TITLE35, 1, 1, 1)
 	end
 
-	GameTooltip:Show()
+	tooltip:Show()
 
 	if self.info.isTaxi then
 		self.owner:HighlightRouteToPin(self)
@@ -70,7 +70,7 @@ function gossipPinMixin:OnPinEnter()
 end
 
 function gossipPinMixin:OnPinLeave()
-	GameTooltip:Hide()
+	addon:HideTooltip()
 	addon:ReleaseLines()
 end
 
