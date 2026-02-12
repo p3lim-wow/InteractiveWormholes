@@ -27,11 +27,7 @@ button:SetAttribute('_onattributechanged', [[
 
 local instanceSpellID
 button:HookScript('OnShow', function(self)
-	if GameTooltip:IsForbidden() then
-		return
-	end
-
-	local owner = GameTooltip:GetOwner()
+	local owner = addon:GetTooltip():GetOwner()
 	if not owner then
 		return
 	end
