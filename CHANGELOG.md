@@ -1,3 +1,7 @@
+### Changes in 120000.69-Release:
+
+- Fixed: Dungeon teleport not working
+
 ### Changes in 120000.68-Release:
 
 - Fixed: Actually include the tooltip code
