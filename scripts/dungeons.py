@@ -76,6 +76,7 @@ for row in util.dbc('journalinstance'):
       spellName = spellNames[spellID['Horde']]
       spellID = f'H and {spellID["Horde"]} or {spellID["Alliance"]}'
     elif isinstance(spellID, list):
+      spellID.sort() # to avoid updates when API returns random orders
       spellName = spellNames[spellID[0]] # just pick the first one
       spellID = f'{{{",".join(map(str, spellID))}}}' # turn into Lua table
     else:
