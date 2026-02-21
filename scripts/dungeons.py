@@ -2,14 +2,6 @@
 
 import util
 
-# BUG: blizzard forgets they already have spells for dungeons and adds new ones
-DUPLICATES = {
-  'Skyreach': [
-    159898, # the original spell added in WoD
-    1254557, # new spell added in Midnight
-  ]
-}
-
 flyouts = []
 for row in util.dbc('spellflyout'):
   if row.Name_lang.startswith("Hero's Path:"):
@@ -51,17 +43,16 @@ for row in util.dbc('spell'):
       if not dungeonName in dungeonSpells:
         dungeonSpells[dungeonName] = {}
       dungeonSpells[dungeonName][faction] = spellID
-    elif dungeonName in DUPLICATES:
-      if not dungeonName in dungeonSpells:
-        dungeonSpells[dungeonName] = []
-      if spellID in DUPLICATES[dungeonName]:
-        dungeonSpells[dungeonName].append(spellID)
-      else:
-        util.bail(f'ERROR: duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}" not accounted for')
+    elif dungeonName in dungeonSpells:
+      # this should happen, but it can
+      if not isinstance(dungeonSpells[dungeonName], 'list'):
+        # convert to list
+        dungeonSpells[dungeonName] = [dungeonSpells[dungeonName]]
+      dungeonSpells[dungeonName].append(spellID)
     elif not dungeonName in dungeonSpells:
       dungeonSpells[dungeonName] = row.ID
     else:
-      util.bail(f'ERROR: duplicate dungeon spell "{row.ID}" for dungeon "{dungeonName}"')
+      util.bail(f'ERROR: something went wrong for row "{row.ID}" for dungeon "{dungeonName}"')
 
 dungeons = {}
 for row in util.dbc('journalinstance'):
