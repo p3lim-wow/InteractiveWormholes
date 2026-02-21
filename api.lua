@@ -25,5 +25,5 @@ function InteractiveWormholes:IsActive()
 	return false
 end
 
--- pre-create tooltip so addons can skin it they want
+-- pre-create tooltip so addons can skin it if they want
 addon:GetTooltip()

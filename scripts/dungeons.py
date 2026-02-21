@@ -44,7 +44,7 @@ for row in util.dbc('spell'):
         dungeonSpells[dungeonName] = {}
       dungeonSpells[dungeonName][faction] = spellID
     elif dungeonName in dungeonSpells:
-      # this should happen, but it can
+      # this shouldn't happen, but it can
       if not isinstance(dungeonSpells[dungeonName], 'list'):
         # convert to list
         dungeonSpells[dungeonName] = [dungeonSpells[dungeonName]]
