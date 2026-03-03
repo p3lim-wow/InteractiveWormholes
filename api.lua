@@ -26,4 +26,4 @@ function InteractiveWormholes:IsActive()
 end
 
 -- pre-create tooltip so addons can skin it if they want
-addon:GetTooltip()
+addon:GetTooltip() -- exposed as "InteractiveWormholesTooltip", it inherits GameTooltipTemplate

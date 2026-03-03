@@ -329,7 +329,7 @@ addon.data[125461] = { -- Obsidian Rest (Zaralek Caverns)
 	requiredQuest = 80109,
 	displayExtra = {
 		{
-			-- HBD doesn't translate from ZC to Dragon Isles, so we'll have to do it manually
+			-- translate from Zaralek Caverns to Dragon Isles
 			mapID = 1978, -- Dragon Isles
 			x = 0.8796,
 			y = 0.7802,

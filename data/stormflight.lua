@@ -72,7 +72,7 @@ addon.data[44740] = { -- campaign
 	tooltipQuest = 44849, -- "Recruitment Drive"
 	displayExtra = {
 		{
-			-- translate from Helheim to Stormheim, so we'll have to do it manually
+			-- translate from Helheim to Stormheim
 			mapID = 634, -- Stormheim
 			x = 0.7298,
 			y = 0.4096,
