@@ -6,8 +6,10 @@ addon.data[125352] = {
 	x = 0.5974,
 	y = 0.5338,
 	tooltipMap = 2369,
+	forceMapID = 2248, -- Isle of Dorn
 	displayExtra = {
 		{
+			-- translate from Isle of Dorn to Siren Isle
 			mapID = 2248, -- Isle of Dorn
 			x = 0.1762,
 			y = 0.1890,
@@ -16,13 +18,12 @@ addon.data[125352] = {
 	}
 }
 addon.data[125349] = {
-	-- mapID = 2339, -- Dornogal
-	-- x = 0.7238,
-	-- y = 0.0535,
-	mapID = 2248, -- Isle of Dorn
-	x = 0.5518,
-	y = 0.3364,
+	mapID = 2339, -- Dornogal
+	x = 0.7238,
+	y = 0.0535,
 	tooltipMap = 2339,
+	-- the position of the destination in Dornogal is hard to notice, so let's zoom out
+	forceMapID = 2248, -- Isle of Dorn
 }
 addon.ignoreOption[131547] = true
 addon.ignoreOption[131550] = true
