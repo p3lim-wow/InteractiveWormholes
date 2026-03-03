@@ -277,3 +277,55 @@ addon.data[122362] = { -- "Carelessly leap into the portal, you daredevil"
 	highlightAtlas = 'lootroll-toast-icon-need-highlight',
 	forceMapID = 2274, -- Khaz Algar
 }
+
+-- Wormhole Generator: Quel'Thalas
+addon.data[134978] = { -- Voidstorm
+	mapID = 2405,
+	x = 0.4548,
+	y = 0.5549,
+	tooltipMap = 2405,
+	displayExtra = {
+		{
+			-- translate from Voidstorm to Quel'Thalas
+			mapID = 2537, -- Quel'Thalas
+			x = 0.5265,
+			y = 0.2467,
+			tooltipMap = 2405,
+		}
+	}
+}
+addon.data[134979] = { -- Harandar
+	mapID = 2413,
+	x = 0.5505,
+	y = 0.4634,
+	tooltipMap = 2413,
+	displayExtra = {
+		{
+			-- translate from Harandar to Quel'Thalas
+			mapID = 2537, -- Quel'Thalas
+			x = 0.8183,
+			y = 0.1693,
+			tooltipMap = 2413
+		}
+	}
+}
+addon.data[134980] = { -- Zul'Aman
+	mapID = 2437,
+	x = 0.3544,
+	y = 0.5638,
+	tooltipMap = 2437,
+}
+addon.data[134981] = { -- Eversong Woods
+	mapID = 2395,
+	x = 0.4895,
+	y = 0.5434,
+	tooltipMap = 2395,
+}
+addon.data[134982] = { -- "Leap first and worry about the consequences later!"
+	mapID = 2537, -- Quel'Thalas
+	x = 0.7131,
+	y = 0.5685,
+	atlas = 'lootroll-toast-icon-need-up',
+	highlightAtlas = 'lootroll-toast-icon-need-highlight',
+	forceMapID = 2537,
+}
