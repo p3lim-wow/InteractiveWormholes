@@ -1,3 +1,7 @@
+### Changes in 120000.72-Release:
+
+- Fixed: Compatibility with DialogueUI (again)
+
 ### Changes in 120000.71-Release:
 
 - Fixed: Gossip API not resetting correctly
