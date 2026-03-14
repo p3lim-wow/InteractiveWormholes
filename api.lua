@@ -27,3 +27,7 @@ end
 
 -- pre-create tooltip so addons can skin it if they want
 addon:GetTooltip() -- exposed as "InteractiveWormholesTooltip", it inherits GameTooltipTemplate
+
+function addon:IsGossipHandledExternally()
+	return addon:IsAddOnEnabled('DialogueUI')
+end

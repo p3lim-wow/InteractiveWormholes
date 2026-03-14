@@ -300,9 +300,11 @@ function addon:GOSSIP_SHOW()
 		end
 	end
 
-	-- I'd rather control the gossip OnHide, but resetting that will taint the map for some reason,
-	-- and we need to prevent it from closing the gossip interaction before we take over
-	C_GossipInfo.CloseGossip = function() end
+	if not addon:IsGossipHandledExternally() then
+		-- I'd rather control the gossip OnHide, but resetting that will taint the map for some reason,
+		-- and we need to prevent it from closing the gossip interaction before we take over
+		C_GossipInfo.CloseGossip = function() end
+	end
 
 	C_Map.OpenWorldMap(forcedMapID or addon:GetCommonMap())
 end
@@ -320,7 +322,9 @@ function addon:GOSSIP_CLOSED()
 		addon:UnregisterEvent('CINEMATIC_START', HandleCinematicSkip)
 	end
 
-	-- restore API
-	C_GossipInfo.CloseGossip = C_GossipInfo_CloseGossip
+	if not addon:IsGossipHandledExternally() then
+		-- restore API
+		C_GossipInfo.CloseGossip = C_GossipInfo_CloseGossip
+	end
 end
 
