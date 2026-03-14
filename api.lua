@@ -5,7 +5,7 @@ InteractiveWormholes = {}
 
 -- expose an API for other addons to use to check if we're active
 function InteractiveWormholes:IsActive()
-	if not addon:ShouldShowMap() or InCombatLockdown() then
+	if addon:IsPaused() or InCombatLockdown() then
 		-- we'll never be active if the user holds shift or if the player is in combat
 		return false
 	end

@@ -25,41 +25,32 @@ globals = {
 }
 
 read_globals = {
-	table = {fields = {'wipe'}},
-
 	-- FrameXML objects
-	'CustomGossipFrameManager',
 	'FlagsUtil',
 	'FlightMapFrame',
 	'FlightMapMixin',
-	'GameTooltip',
-	'GossipFrame',
-	'GossipFrameSharedMixin',
-	'MapCanvasDataProviderMixin',
-	'MapCanvasPinMixin',
 	'TaxiFrame',
 	'UIErrorsFrame',
 	'UIParent',
 	'WorldMapFrame',
 
 	-- FrameXML constants
-	'Enum',
-	'CUSTOM_GOSSIP_FRAME_EVENTS',
 	'DISABLED_FONT_COLOR',
 	'GREEN_FONT_COLOR',
 	'RED_FONT_COLOR',
+	'WHITE_FONT_COLOR',
 
 	-- FrameXML functions
-	'CreateFromMixins',
+	'CreateObjectPool',
 	'CreateUnsecuredObjectPool',
 	'CreateVector2D',
-	'GenerateClosure',
+	'GenerateFlatClosure',
 	'HideUIPanel',
+	'Lerp',
 	'RegisterAttributeDriver',
-	'SetTooltipMoney',
+	'Saturate',
 	'ShowUIPanel',
 	'StaticPopup_Show',
-	'Mixin',
 
 	-- GlobalStrings
 	'ALT_KEY',
@@ -77,7 +68,6 @@ read_globals = {
 	'SPELL_RECAST_TIME_HOURS',
 	'TAXINODEYOUAREHERE',
 	'TAXI_PATH_UNREACHABLE',
-	'TUTORIAL_TITLE35',
 	'YES',
 
 	-- namespaces
@@ -89,18 +79,22 @@ read_globals = {
 	'C_Spell',
 	'C_SpellBook',
 	'C_TaxiMap',
+	'Enum',
 
 	-- API
 	'CanCancelScene',
 	'CancelScene',
 	'CloseTaxiMap',
 	'CreateFrame',
+	'CreateFromMixins',
+	'GetMoneyString',
 	'GetNumRoutes',
+	'GetTaxiMapID',
 	'GetTime',
 	'InCombatLockdown',
 	'IsInInstance',
-	'IsPlayerSpell',
 	'IsShiftKeyDown',
+	'Mixin',
 	'TakeTaxiNode',
 	'TaxiGetNodeSlot',
 	'TaxiNodeCost',

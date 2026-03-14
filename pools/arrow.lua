@@ -56,8 +56,13 @@ function addon:AttachArrow(pin)
 	Arrow:Show()
 end
 
-function addon:ReleaseArrows()
-	arrowPool:ReleaseAll()
+function addon:ReleaseArrow(pin)
+	for Arrow in arrowPool:EnumerateActive() do
+		if Arrow:GetParent() == pin then
+			arrowPool:Release(Arrow)
+			return
+		end
+	end
 end
 
 function addon:SyncArrows()

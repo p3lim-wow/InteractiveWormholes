@@ -114,3 +114,12 @@ addon.data[50481] = {
 	y = 0.8743,
 	tooltipMap = 1165,
 }
+
+-- special node used to add source pins for taxi destinations
+addon.data[0] = {
+	atlas = 'Taxi_Frame_Green',
+	atlasSize = 28,
+	tooltip = _G.TAXINODEYOUAREHERE, -- "You are here"
+	noArrow = true,
+	isTaxiSource = true,
+}

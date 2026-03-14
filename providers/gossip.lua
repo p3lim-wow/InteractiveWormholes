@@ -1,9 +1,11 @@
 local _, addon = ...
 
-local hasTaxiPins, isActive, hasChanged
-local unknownWarned = {}
+-- upvalue API because we disable it
+local C_GossipInfo_CloseGossip = C_GossipInfo.CloseGossip
 
-local function skipCinematic()
+local stagedGossipOptionID
+
+local function HandleCinematicSkip()
 	if CanCancelScene() then
 		CancelScene()
 	end
@@ -11,382 +13,314 @@ local function skipCinematic()
 	return true
 end
 
-local gossipPinMixin = {}
-function gossipPinMixin:OnPinClick(button)
-	if button ~= 'LeftButton' then
-		return
-	end
+local provider = {}
+provider.data = addon:T()
 
-	if self.info.parent then
-		addon.stagedGossipOptionID = self:GetID()
-		C_GossipInfo.SelectOption(self.info.parent)
-	elseif self:GetID() and self:GetID() > 0 then
-		if self.info.skippableCinematic and addon:GetOption('skipCinematic') then
-			addon:RegisterEvent('CINEMATIC_START', skipCinematic)
-		end
+function provider:OnPinClick(button, down)
+	if button == 'LeftButton' and not down then
+		local gossipOptionID = self:GetID()
+		if gossipOptionID then
+			local data = addon.data[gossipOptionID]
+			if data.parent then
+				stagedGossipOptionID = gossipOptionID
+				C_GossipInfo.SelectOption(data.parent)
+			elseif gossipOptionID > 0 then
+				if data.skippableCinematic and addon:GetOption('skipCinematic') then
+					addon:RegisterEvent('CINEMATIC_START', HandleCinematicSkip)
+				end
 
-		C_GossipInfo.SelectOption(self:GetID())
-	end
-end
-
-function gossipPinMixin:OnPinEnter()
-	local tooltip = addon:GetTooltip(self, 'ANCHOR_RIGHT')
-
-	if self.info.tooltipQuests then
-		for _, questID in next, self.info.tooltipQuests do
-			if C_QuestLog.IsOnQuest(questID) then
-				C_QuestLog.RequestLoadQuestByID(questID) -- trigger cache
-				tooltip:AddLine(C_QuestLog.GetTitleForQuestID(questID))
-				break
+				C_GossipInfo.SelectOption(gossipOptionID)
 			end
 		end
-	elseif self.info.tooltipQuest then
-		C_QuestLog.RequestLoadQuestByID(self.info.tooltipQuest) -- trigger cache
-		tooltip:AddLine(C_QuestLog.GetTitleForQuestID(self.info.tooltipQuest))
-	elseif self.info.tooltipArea then
-		tooltip:AddLine(C_Map.GetAreaInfo(self.info.tooltipArea)) -- from AreaTable.db2
-	elseif self.info.tooltipMap then
-		local mapInfo = C_Map.GetMapInfo(self.info.tooltipMap or self.info.mapID)
-		tooltip:AddLine(mapInfo.name)
-	elseif self.info.tooltip then
-		if type(self.info.tooltip) == 'function' then
-			tooltip:AddLine(self.info.tooltip())
-		else
-			tooltip:AddLine(self.info.tooltip)
-		end
-	else
-		tooltip:AddLine(self.info.gossipName)
-	end
-
-	if not self.info.noArrow then
-		tooltip:AddLine('|A:NPE_LeftClick:18:18|a' .. TUTORIAL_TITLE35, 1, 1, 1)
-	end
-
-	tooltip:Show()
-
-	if self.info.isTaxi then
-		self.owner:HighlightRouteToPin(self)
 	end
 end
 
-function gossipPinMixin:OnPinLeave()
+function provider:OnPinEnter()
+	local gossipOptionID = self:GetID()
+	if gossipOptionID then
+		local data = addon.data[gossipOptionID]
+		local tooltip = addon:GetTooltip(self, 'ANCHOR_RIGHT')
+
+		if data.tooltipQuests then
+			for _, questID in next, data.tooltipQuests do
+				if C_QuestLog.IsOnQuest(questID) then
+					C_QuestLog.RequestLoadQuestByID(questID) -- trigger cache
+					tooltip:AddLine(C_QuestLog.GetTitleForQuestID(questID))
+					break
+				end
+			end
+		elseif data.tooltipQuest then
+			C_QuestLog.RequestLoadQuestByID(data.tooltipQuest) -- trigger cache
+			tooltip:AddLine(C_QuestLog.GetTitleForQuestID(data.tooltipQuest))
+		elseif data.tooltipArea then
+			tooltip:AddLine(C_Map.GetAreaInfo(data.tooltipArea)) -- from AreaTable.db2
+		elseif data.tooltipMap then
+			local mapInfo = C_Map.GetMapInfo(data.tooltipMap)
+			tooltip:AddLine(mapInfo.name)
+		elseif data.tooltip then
+			if type(data.tooltip) == 'function' then
+				tooltip:AddLine(data.tooltip())
+			else
+				tooltip:AddLine(data.tooltip)
+			end
+		else
+			tooltip:AddLine(data.name) -- from gossipInfo
+		end
+
+		tooltip:Show()
+
+		if data.isTaxi then
+			-- add lines to fake a route
+			if data.taxiSourceIndex then
+				-- enumerate all pins and sort them by their taxi index
+				-- TODO: make this logic smarter than just linear routes?
+				local taxiIndexPins = {}
+				for activePin in self.owner:EnumeratePins() do
+					local activePinData = addon.data[activePin:GetID()]
+					if activePinData.taxiIndex then
+						taxiIndexPins[activePinData.taxiIndex] = activePin
+					else
+						taxiIndexPins[data.taxiSourceIndex] = activePin
+					end
+				end
+
+				local curIndex = data.taxiIndex
+				while curIndex ~= data.taxiSourceIndex do
+					-- set line source to the current pin
+					local startPin = taxiIndexPins[curIndex]
+
+					-- update pointer to the next pin
+					if curIndex > data.taxiSourceIndex then
+						curIndex = curIndex - 1
+					else
+						curIndex = curIndex + 1
+					end
+
+					-- set line destination to the next pin
+					local endPin = taxiIndexPins[curIndex]
+					addon:AttachLine(startPin, endPin)
+				end
+			else
+				-- just pin it to the source pin
+				for activePin in self.owner:EnumeratePins() do
+					local activePinData = addon.data[activePin:GetID()]
+					if activePinData.isTaxiSource then
+						addon:AttachLine(activePin, self)
+						break
+					end
+				end
+			end
+		end
+	end
+end
+
+function provider:OnPinLeave()
 	addon:HideTooltip()
 	addon:ReleaseLines()
 end
 
-local gossipProviderMixin = {}
-function gossipProviderMixin:OnAdded()
-	self:RegisterEvent('GOSSIP_SHOW')
-	self:RegisterEvent('GOSSIP_CLOSED')
-end
+function provider:OnPinCreate(gossipInfo)
+	local data = gossipInfo.data
 
-function gossipProviderMixin:OnRemoved()
-	self:UnregisterEvent('GOSSIP_SHOW')
-	self:UnregisterEvent('GOSSIP_CLOSED')
+	-- inject name, used as a fallback for tooltips
+	data.name = gossipInfo.name
 
-	if addon:IsEventRegistered('CINEMATIC_START', skipCinematic) then
-		addon:UnregisterEvent('CINEMATIC_START', skipCinematic)
+	local mapID, x, y
+	if data.isTaxiSource then
+		mapID = C_Map.GetBestMapForUnit('player') or -1
+		x, y = C_Map.GetPlayerMapPosition(mapID, 'player'):GetXY()
+	else
+		mapID = data.mapID
+		x = data.x
+		y = data.y
+	end
+
+	if mapID and x and y then
+		self:SetID(gossipInfo.gossipOptionID or 0)
+
+		if data.isTaxi then
+			self:SetSize(20, 20)
+			self:SetNormalAtlas('Taxi_Frame_Gray')
+			self:SetHighlightAtlas('Taxi_Frame_Yellow', 'BLEND')
+		elseif data.isQuest or (gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) then
+			self:SetSize(32, 32)
+			self:SetNormalAtlas('quest-campaign-available')
+			self:SetHighlightAtlas('quest-campaign-available', 'BLEND')
+		else
+			self:SetWidth(data.atlasWidth or data.atlasSize or 24)
+			self:SetHeight(data.atlasHeight or data.atlasSize or 24)
+			self:SetNormalAtlas(data.atlas or 'MagePortalAlliance')
+			self:SetHighlightAtlas(data.highlightAtlas or data.atlas or 'MagePortalHorde', data.highlightAdd and 'ADD' or 'BLEND')
+		end
+
+		if not data.noArrow then
+			addon:AttachArrow(self)
+		end
+
+		return mapID, x, y
 	end
 end
 
-function gossipProviderMixin:OnEvent(event)
-	if event == 'GOSSIP_SHOW' then
-		if C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
-			return
-		end
-
-		if addon.stagedGossipOptionID then
-			if not InCombatLockdown() then
-				HideUIPanel(WorldMapFrame) -- hide the map early for smoothness
-			end
-
-			C_GossipInfo.SelectOption(addon.stagedGossipOptionID)
-			addon.stagedGossipOptionID = nil
-		elseif addon:ShouldShowMap() then
-			self:RefreshAllData()
-		end
-	elseif event == 'GOSSIP_CLOSED' then
-		if not isActive then
-			return
-		end
-		isActive = false
-		hasChanged = false
-
-		self:RestoreBlizzard()
-		self:RemoveAllData()
-
-		if WorldMapFrame:IsShown() then
-			HideUIPanel(WorldMapFrame)
-		end
-
-		if addon:IsEventRegistered('CINEMATIC_START', skipCinematic) then
-			addon:UnregisterEvent('CINEMATIC_START', skipCinematic)
-		end
-	end
+function provider:OnMapHide()
+	C_GossipInfo_CloseGossip()
 end
 
-local destinations, extras = addon.T{}, addon.T{}
-function gossipProviderMixin:OnRefresh()
-	destinations:wipe()
-	extras:wipe()
+addon:AddProvider(provider)
 
-	for _, gossipInfo in next, C_GossipInfo.GetOptions() do
-		local optionID = gossipInfo.gossipOptionID
-		if optionID then
-			if addon.data[optionID] then
-				destinations:insert(gossipInfo)
-			elseif not addon.ignoreOption[optionID] and not unknownWarned[optionID] then
-				extras:insert(gossipInfo)
+-- event handling
+
+local function InjectData(gossipInfo, data)
+	local hasTaxiData = false
+	if data.children then
+		for _, gossipOptionID in next, data.children do
+			local childData = addon.data[gossipOptionID]
+			if childData then
+				gossipInfo.gossipOptionID = gossipOptionID
+				if InjectData(gossipInfo, childData) then
+					hasTaxiData = true
+				end
 			end
 		end
+	else
+		if data.displayExtra then
+			for _, extraData in next, data.displayExtra do
+				if InjectData(gossipInfo, extraData) then
+					hasTaxiData = true
+				end
+			end
+		end
+
+		local shouldShow = true
+		if data.disabledOnQuests then
+			for _, questID in next, data.disabledOnQuests do
+				if C_QuestLog.IsOnQuest(questID) then
+					shouldShow = false
+					break
+				end
+			end
+		end
+
+		if shouldShow then
+			provider.data:insert(Mixin({
+				data = data,
+			}, gossipInfo))
+
+			addon:SetActiveMap(data.mapID)
+
+			if data.isTaxi then
+				hasTaxiData = true
+			end
+		end
 	end
 
-	if #destinations == 0 then
+	return hasTaxiData
+end
+
+local unknown = addon:T()
+local unknownWarned = {}
+
+function addon:GOSSIP_SHOW()
+	if stagedGossipOptionID then
+		C_GossipInfo.SelectOption(stagedGossipOptionID)
+		stagedGossipOptionID = nil
 		return
-	elseif #destinations == 1 and addon:GetOption('selectSingle') then
-		local optionID = destinations[1].gossipOptionID
-		local data = addon.data[optionID]
+	end
+
+	if addon:IsPaused() then
+		return
+	end
+
+	if C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.TaxiNode) then
+		return
+	end
+
+	if InCombatLockdown() then
+		-- UIErrorsFrame:AddExternalErrorMessage(ERR_NOT_IN_COMBAT)
+		return
+	end
+
+	local options = C_GossipInfo.GetOptions()
+	if not options or #options == 0 then
+		return
+	end
+
+	unknown:wipe()
+
+	local hasTaxiData
+	for _, gossipInfo in next, options do
+		local gossipOptionID = gossipInfo.gossipOptionID
+		if gossipOptionID then
+			local data = addon.data[gossipOptionID]
+			if data then
+				hasTaxiData = InjectData(gossipInfo, data)
+			elseif not addon.ignoreOption[gossipOptionID] and not unknownWarned[gossipOptionID] then
+				unknown:insert(gossipInfo)
+			end
+		end
+	end
+
+	if #provider.data == 0 then
+		addon:ResetActiveMaps()
+		return
+	elseif #provider.data == 1 and addon:GetOption('selectSingle') then
+		local gossipOptionID = provider.data[1].gossipOptionID
+		local data = addon.data[gossipOptionID]
 
 		if data.skippableCinematic and addon:GetOption('skipCinematic') then
-			addon:RegisterEvent('CINEMATIC_START', skipCinematic)
+			addon:RegisterEvent('CINEMATIC_START', HandleCinematicSkip)
 		end
 
-		C_GossipInfo.SelectOption(optionID)
-		return
-	else
-		for _, gossipInfo in next, destinations do
-			local data = addon.data[gossipInfo.gossipOptionID]
-			if data.children then
-				for _, childGossipOptionID in next, data.children do
-					local childData = addon.data[childGossipOptionID]
-					if childData then
-						local shouldShow = true
-						if childData.disabledOnQuests then
-							for _, questID in next, childData.disabledOnQuests do
-								if C_QuestLog.IsOnQuest(questID) then
-									shouldShow = false
-									break
-								end
-							end
-						end
-						if shouldShow then
-							self:AddPin(childData, {
-								gossipOptionID = childGossipOptionID,
-							})
-
-							if childData.displayExtra then
-								for _, extraData in next, childData.displayExtra do
-									local shouldShowExtra = true
-									if extraData.disabledOnQuests then
-										for _, questID in next, extraData.disabledOnQuests do
-											if C_QuestLog.IsOnQuest(questID) then
-												shouldShowExtra = false
-												break
-											end
-										end
-									end
-									if shouldShowExtra then
-										self:AddPin(extraData, {
-											gossipOptionID = childGossipOptionID,
-										})
-									end
-								end
-							end
-						end
-					end
-				end
-			else
-				local shouldShow = true
-				if data.disabledOnQuests then
-					for _, questID in next, data.disabledOnQuests do
-						if C_QuestLog.IsOnQuest(questID) then
-							shouldShow = false
-							break
-						end
-					end
-				end
-				if shouldShow then
-					self:AddPin(data, gossipInfo)
-				end
-			end
-
-			if data.displayExtra then
-				for _, extraData in next, data.displayExtra do
-					self:AddPin(extraData, gossipInfo)
-				end
-			end
-		end
-	end
-
-	if isActive then
-		if InCombatLockdown() then
-			UIErrorsFrame:AddExternalErrorMessage(ERR_NOT_IN_COMBAT)
-			return
-		end
-
-		self:DisableBlizzard()
-		addon:SyncArrows()
-		self:AddSourcePin()
-
-		if #extras > 0 then
-			addon:Print('There are more options not shown on the map:')
-			for _, gossipInfo in next, extras do
-				unknownWarned[gossipInfo.gossipOptionID] = true
-				addon:Printf('- %d, "%s"', gossipInfo.gossipOptionID, gossipInfo.name)
-			end
-			addon:Print('Please report this at |cff71d5ffhttps://p3l.im/wormhole|r')
-			addon:Printf('Hold SHIFT while interacting to this %s to see them.', UnitIsGameObject('npc') and 'object' or 'npc')
-		end
-
-		if not WorldMapFrame:IsShown() then
-			C_Map.OpenWorldMap()
-		end
-
-		local commonMapID = addon:GetCommonMap()
-		if commonMapID and not hasChanged then
-			C_Map.OpenWorldMap(commonMapID)
-			hasChanged = true
-		end
-	end
-end
-
-function gossipProviderMixin:AddPin(info, gossipInfo)
-	if info.requiredQuest and not C_QuestLog.IsQuestFlaggedCompleted(info.requiredQuest) then
+		C_GossipInfo.SelectOption(gossipOptionID)
 		return
 	end
 
-	local pin = self:AcquirePin()
-	pin:SetID(gossipInfo.gossipOptionID)
-	pin.owner = self
-	pin.info = info
-	pin.info.gossipName = gossipInfo.name -- used as tooltip fallback
-
-	isActive = true
-
-	-- flag the map for ancestry
-	addon:FlagMap(info.forceMapID or info.mapID)
-
-	if not pin:SetPosition(info.mapID, info.x, info.y) then
-		pin:Hide()
-		return
+	if hasTaxiData then
+		-- add a fake pin used to show the taxi source (i.e. where the player is standing)
+		provider.data:insert({
+			data = addon.data[0]
+		})
 	end
 
-	if info.isTaxi then
-		pin:SetSize(20, 20)
-		pin:SetNormalAtlas('Taxi_Frame_Gray')
-		pin:SetHighlightAtlas('Taxi_Frame_Yellow')
-
-		hasTaxiPins = true
-	elseif (gossipInfo and gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) or info.isQuest then
-		pin:SetSize(32, 32)
-		pin:SetNormalAtlas('quest-campaign-available')
-		pin:SetHighlightAtlas('quest-campaign-available')
-	else
-		pin:SetSize(info.atlasWidth or info.atlasSize or 24, info.atlasHeight or info.atlasSize or 24)
-		pin:SetNormalAtlas(info.atlas or 'MagePortalAlliance')
-		pin:SetHighlightAtlas(info.highlightAtlas or info.atlas or 'MagePortalHorde', info.highlightAdd and 'ADD' or 'BLEND')
-	end
-
-	if not info.noArrow then
-		pin:AttachArrow()
-	end
-end
-
-function gossipProviderMixin:AddSourcePin()
-	if not hasTaxiPins then
-		return
-	end
-
-	local data = {}
-	data.atlas = 'Taxi_Frame_Green'
-	data.atlasSize = 28
-	data.tooltip = _G.TAXINODEYOUAREHERE -- "You are here"
-	data.mapID = C_Map.GetBestMapForUnit('player')
-	data.x, data.y = C_Map.GetPlayerMapPosition(data.mapID, 'player'):GetXY()
-	data.noArrow = true
-	self:AddPin(data, {
-		gossipOptionID = 0,
-	})
-end
-
-function gossipProviderMixin:HighlightRouteToPin(pin)
-	local thickness = 1 / self:GetMap():GetCanvasScale() * 35
-	if pin.info.taxiSourceIndex then
-		-- enumerate all pins and sort them by their taxi index
-		-- TODO: make this logic smarter than just linear routes?
-		local taxiIndexPins = {}
-
-		for activePin in self:EnumeratePins() do
-			if activePin.info.taxiIndex then
-				taxiIndexPins[activePin.info.taxiIndex] = activePin
-			else
-				taxiIndexPins[pin.info.taxiSourceIndex] = activePin
-			end
+	if #unknown > 0 then
+		addon:Print('There are more options not shown on the map:')
+		for _, gossipInfo in next, unknown do
+			unknownWarned[gossipInfo.gossipOptionID] = true
+			addon:Printf('- %d, "%s"', gossipInfo.gossipOptionID, gossipInfo.name)
 		end
+		addon:Print('Please report this at |cff71d5ffhttps://p3l.im/wormhole|r')
+		addon:Printf('Hold SHIFT while interacting to this %s to see them.', UnitIsGameObject('npc') and 'object' or 'npc')
+	end
 
-		local curIndex = pin.info.taxiIndex
-		while curIndex ~= pin.info.taxiSourceIndex do
-			-- set line source to the current pin
-			local startPin = taxiIndexPins[curIndex]
-
-			-- update pointer to the next pin
-			if curIndex > pin.info.taxiSourceIndex then
-				curIndex = curIndex - 1
-			else
-				curIndex = curIndex + 1
-			end
-
-			-- set line destination to the next pin
-			local endPin = taxiIndexPins[curIndex]
-			addon:AttachLine(startPin, endPin, thickness)
-		end
-	else
-		-- just pin it to the source pin
-		for activePin in self:EnumeratePins() do
-			if activePin.info.noArrow then
-				addon:AttachLine(activePin, pin, thickness)
-				break
-			end
+	-- check if we have a forced map
+	local forcedMapID
+	for _, gossipInfo in next, provider.data do
+		if gossipInfo.data.forceMapID then
+			forcedMapID = gossipInfo.data.forceMapID
+			break
 		end
 	end
+
+	-- I'd rather control the gossip OnHide, but resetting that will taint the map for some reason,
+	-- and we need to prevent it from closing the gossip interaction before we take over
+	C_GossipInfo.CloseGossip = function() end
+
+	C_Map.OpenWorldMap(forcedMapID or addon:GetCommonMap())
 end
 
-function gossipProviderMixin:OnRelease(hadPins)
-	if hadPins then
-		addon:ReleaseArrows()
-		addon:ReleaseLines()
-		hasTaxiPins = false
-	end
-end
-
-function gossipProviderMixin:OnHide()
-	if isActive and not addon.stagedGossipOptionID then
-		C_GossipInfo.CloseGossip()
-	end
-end
-
-local function isHandledExternally()
-	return addon:IsAddOnEnabled('DialogueUI')
-end
-
-function gossipProviderMixin:DisableBlizzard()
-	if isHandledExternally() then
-		return
+function addon:GOSSIP_CLOSED()
+	if WorldMapFrame:IsShown() then
+		HideUIPanel(WorldMapFrame)
 	end
 
-	GossipFrame:SetScript('OnHide', nil)
-	CustomGossipFrameManager:UnregisterAllEvents()
-end
+	stagedGossipOptionID = nil
 
-function gossipProviderMixin:RestoreBlizzard()
-	if isHandledExternally() then
-		return
+	provider.data:wipe()
+
+	if addon:IsEventRegistered('CINEMATIC_START', HandleCinematicSkip) then
+		addon:UnregisterEvent('CINEMATIC_START', HandleCinematicSkip)
 	end
 
-	GossipFrame:SetScript('OnHide', GossipFrameSharedMixin.OnHide)
-	for _, event in next, CUSTOM_GOSSIP_FRAME_EVENTS do
-		CustomGossipFrameManager:RegisterEvent(event)
-	end
+	-- restore API
+	C_GossipInfo_CloseGossip = C_GossipInfo.CloseGossip
 end
 
-addon:CreateProvider('gossip', gossipProviderMixin, gossipPinMixin)
