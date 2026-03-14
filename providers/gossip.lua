@@ -321,6 +321,6 @@ function addon:GOSSIP_CLOSED()
 	end
 
 	-- restore API
-	C_GossipInfo_CloseGossip = C_GossipInfo.CloseGossip
+	C_GossipInfo.CloseGossip = C_GossipInfo_CloseGossip
 end
 
