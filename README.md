@@ -20,6 +20,7 @@ Instead of that, *Interactive Wormholes* displays these destinations as clickabl
 
 Supported wormholes:
 
+- [Wormhole Generator: Quel'Thalas](https://www.wowhead.com/item=248485)
 - [Wormhole Generator: Khaz Algar](https://www.wowhead.com/item=221966)
 - [Wyrmhole Generator: Dragon Isles](https://www.wowhead.com/item=198156)
 - [Wormhole Generator: Shadowlands](https://www.wowhead.com/item=172924)
