@@ -1,3 +1,7 @@
+### Changes in 120000.71-Release:
+
+- Fixed: Gossip API not resetting correctly
+
 ### Changes in 120000.70-Release:
 
 - Added: Support for Midnight wormhole
