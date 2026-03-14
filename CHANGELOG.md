@@ -1,3 +1,11 @@
+### Changes in 120000.70-Release:
+
+- Added: Support for Midnight wormhole
+- Changed: Teleport from Siren Isle will now prefer Isle of Dorn instead of Dornogal
+- Fixed: A bunch of taint
+- Fixed: Tooltips for Azshara Rocketway
+- Removed: Reference to removed dungeon teleport spell for Skyreach
+
 ### Changes in 120000.69-Release:
 
 - Fixed: Dungeon teleport not working
