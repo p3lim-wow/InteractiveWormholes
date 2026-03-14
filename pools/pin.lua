@@ -167,7 +167,6 @@ local function updatePinSize()
 		return
 	end
 
-	-- check if there are pins first
 	local canvasZoom = WorldMapFrame:GetCanvasZoomPercent()
 	local canvasScaleFactor = 1 / WorldMapFrame:GetCanvasScale()
 	local scale = canvasScaleFactor * Lerp(pinScale, pinScale + zoomFactor, Saturate(1 * canvasZoom))
