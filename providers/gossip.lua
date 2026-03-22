@@ -1,8 +1,5 @@
 local _, addon = ...
 
--- upvalue API because we disable it
-local C_GossipInfo_CloseGossip = C_GossipInfo.CloseGossip
-
 local stagedGossipOptionID
 
 local function HandleCinematicSkip()
@@ -162,7 +159,7 @@ function provider:OnPinCreate(gossipInfo)
 end
 
 function provider:OnMapHide()
-	C_GossipInfo_CloseGossip()
+	C_GossipInfo.CloseGossip()
 end
 
 addon:AddProvider(provider)
@@ -300,11 +297,8 @@ function addon:GOSSIP_SHOW()
 		end
 	end
 
-	if not addon:IsGossipHandledExternally() then
-		-- I'd rather control the gossip OnHide, but resetting that will taint the map for some reason,
-		-- and we need to prevent it from closing the gossip interaction before we take over
-		C_GossipInfo.CloseGossip = function() end
-	end
+	-- hack to prevent gossip interaction from ending
+	addon:SafeSetTrue(GossipFrame, 'interactionIsContinuing')
 
 	C_Map.OpenWorldMap(forcedMapID or addon:GetCommonMap())
 end
@@ -322,9 +316,7 @@ function addon:GOSSIP_CLOSED()
 		addon:UnregisterEvent('CINEMATIC_START', HandleCinematicSkip)
 	end
 
-	if not addon:IsGossipHandledExternally() then
-		-- restore API
-		C_GossipInfo.CloseGossip = C_GossipInfo_CloseGossip
-	end
+	-- revert hack to restore normal behavior
+	addon:SafeSetNil(GossipFrame, 'interactionIsContinuing')
 end
 

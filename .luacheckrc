@@ -29,6 +29,7 @@ read_globals = {
 	'FlagsUtil',
 	'FlightMapFrame',
 	'FlightMapMixin',
+	'GossipFrame',
 	'TaxiFrame',
 	'UIErrorsFrame',
 	'UIParent',
