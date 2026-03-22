@@ -1,3 +1,7 @@
+### Changes in 120000.73-Release:
+
+- Fixed: Remaining taint issues (hopefully)
+
 ### Changes in 120000.72-Release:
 
 - Fixed: Compatibility with DialogueUI (again)
