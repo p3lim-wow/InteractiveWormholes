@@ -1,7 +1,7 @@
 local addonName, addon = ...
 
 -- upvalue API because we disable it
-local C_TaxiMap_ShouldMapShowTaxiNodes = C_TaxiMap.ShouldMapShowTaxiNodes
+-- local C_TaxiMap_ShouldMapShowTaxiNodes = C_TaxiMap.ShouldMapShowTaxiNodes
 
 local ShouldUseInstanceMap; do
 	-- most instances should use the default map UI, but there are some where it doesn't matter
@@ -224,7 +224,7 @@ local function OnTaxiOpened()
 
 	-- I'd rather control the POI template, but it refreshes by itself, so we have to do this
 	-- to hide POI pins that would otherwise overlap (and nudge) the taxi pins
-	C_TaxiMap.ShouldMapShowTaxiNodes = function() end
+	-- C_TaxiMap.ShouldMapShowTaxiNodes = function() end
 
 	-- compare the taxi map ID with the player's current map ID
 	local mapID = C_Map.GetBestMapForUnit('player') or 0
@@ -253,7 +253,7 @@ local function OnTaxiClosed()
 	provider.data:wipe()
 
 	-- restore API
-	C_TaxiMap.ShouldMapShowTaxiNodes = C_TaxiMap_ShouldMapShowTaxiNodes
+	-- C_TaxiMap.ShouldMapShowTaxiNodes = C_TaxiMap_ShouldMapShowTaxiNodes
 end
 
 local function Enable()
