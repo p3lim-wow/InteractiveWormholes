@@ -1,3 +1,7 @@
+### Changes in 120000.74-Release:
+
+- Added: Support for Voidspire Teleport Pads
+
 ### Changes in 120000.73-Release:
 
 - Fixed: Remaining taint issues (hopefully)
