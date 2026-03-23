@@ -88,6 +88,7 @@ read_globals = {
 	'CloseTaxiMap',
 	'CreateFrame',
 	'CreateFromMixins',
+	'EJ_GetEncounterInfo',
 	'GetMoneyString',
 	'GetNumRoutes',
 	'GetTaxiMapID',

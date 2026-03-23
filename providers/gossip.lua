@@ -54,6 +54,9 @@ function provider:OnPinEnter()
 		elseif data.tooltipMap then
 			local mapInfo = C_Map.GetMapInfo(data.tooltipMap)
 			tooltip:AddLine(mapInfo.name)
+		elseif data.tooltipEncounter then
+			local name = EJ_GetEncounterInfo(data.tooltipEncounter)
+			tooltip:AddLine(name)
 		elseif data.tooltip then
 			if type(data.tooltip) == 'function' then
 				tooltip:AddLine(data.tooltip())

@@ -35,6 +35,7 @@ Other spells and transportation methods:
 - [Hero's Path](https://www.wowhead.com/spells/uncategorized/name:path+of?filter=28;3;10)
 	- Shift-click dungeon entrances on the map to teleport
 - [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
+- [Voidspire](https://www.wowhead.com/zone=16340) Teleport Pads
 - [Phase Diving](https://www.wowhead.com/guide/the-war-within/phase-diving-unlock-rewards) (K'aresh)
     - Requires enabling Taxi option
 - [Undermine](https://www.wowhead.com/guide/the-war-within/patch-11-1-undermine-zone-guide) Rocketway

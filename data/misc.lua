@@ -115,6 +115,74 @@ addon.data[50481] = {
 	tooltipMap = 1165,
 }
 
+-- Voidstorm Teleport Pad
+addon.data[136703] = { -- The Approach
+	mapID = 2529, -- The Voidspire
+	x = 0.2840,
+	y = 0.8454,
+	tooltipArea = 16829,
+	atlas = 'FlightMaster_Argus-Taxi_Frame_Gray',
+	atlasWidth = 40,
+	atlasHeight = 35,
+	highlightAtlas = 'FlightMaster_Argus-Taxi_Frame_Yellow',
+	forceMapID = 2529,
+}
+addon.data[136702] = { -- Devouring Stronghold
+	mapID = 2529, -- The Voidspire
+	x = 0.4269,
+	y = 0.6375,
+	tooltipArea = 16825,
+	atlas = 'FlightMaster_Argus-Taxi_Frame_Gray',
+	atlasWidth = 40,
+	atlasHeight = 35,
+	highlightAtlas = 'FlightMaster_Argus-Taxi_Frame_Yellow',
+	forceMapID = 2529,
+}
+addon.data[136701] = { -- Base of the Voidspire
+	mapID = 2529, -- The Voidspire
+	x = 0.5781,
+	y = 0.4216,
+	tooltipArea = 16340,
+	atlas = 'FlightMaster_Argus-Taxi_Frame_Gray',
+	atlasWidth = 40,
+	atlasHeight = 35,
+	highlightAtlas = 'FlightMaster_Argus-Taxi_Frame_Yellow',
+	forceMapID = 2529,
+}
+addon.data[136706] = { -- Lightblinded Vanguard
+	mapID = 2529, -- The Voidspire
+	x = 0.7330,
+	y = 0.2075,
+	tooltipEncounter = 2737,
+	atlas = 'FlightMaster_Argus-Taxi_Frame_Gray',
+	atlasWidth = 40,
+	atlasHeight = 35,
+	highlightAtlas = 'FlightMaster_Argus-Taxi_Frame_Yellow',
+	forceMapID = 2529,
+}
+addon.data[136705] = { -- Crown of the Cosmos
+	mapID = 2530,
+	x = 0.2649,
+	y = 0.6497,
+	tooltipArea = 16828,
+	atlas = 'FlightMaster_Argus-Taxi_Frame_Gray',
+	atlasWidth = 40,
+	atlasHeight = 35,
+	highlightAtlas = 'FlightMaster_Argus-Taxi_Frame_Yellow',
+	forceMapID = 2529,
+	displayExtra = {
+		{
+			mapID = 2529, -- The Voidspire
+			x = 0.6692,
+			y = 0.2972,
+			atlas = 'FlightMaster_Argus-Taxi_Frame_Gray',
+			atlasWidth = 40,
+			atlasHeight = 35,
+			highlightAtlas = 'FlightMaster_Argus-Taxi_Frame_Yellow',
+		}
+	}
+}
+
 -- special node used to add source pins for taxi destinations
 addon.data[0] = {
 	atlas = 'Taxi_Frame_Green',
