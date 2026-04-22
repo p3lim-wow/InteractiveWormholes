@@ -1,3 +1,8 @@
+### Changes in 120000.75-Release:
+
+- Changed: Update Interface version
+- Fixed: Gossip-based taxi lines errors
+
 ### Changes in 120000.74-Release:
 
 - Added: Support for Voidspire Teleport Pads
