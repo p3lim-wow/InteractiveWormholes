@@ -1,3 +1,9 @@
+### Changes in 120000.76-Release:
+
+- Added: Support for Lightforged Beacon in Naigtal
+- Changed: Update Interface version
+- Fixed: Mole Machine not working
+
 ### Changes in 120000.75-Release:
 
 - Changed: Update Interface version
