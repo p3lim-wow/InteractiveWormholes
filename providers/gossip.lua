@@ -162,7 +162,9 @@ function provider:OnPinCreate(gossipInfo)
 end
 
 function provider:OnMapHide()
-	C_GossipInfo.CloseGossip()
+	if not stagedGossipOptionID then
+		C_GossipInfo.CloseGossip()
+	end
 end
 
 addon:AddProvider(provider)
