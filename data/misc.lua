@@ -183,6 +183,27 @@ addon.data[136705] = { -- Crown of the Cosmos
 	}
 }
 
+-- Naigtal Lightforged Beacon
+addon.data[140132] = { -- Teleport to Silvermoon.
+	mapID = 2393, -- Silvermoon City
+	x = 0.4793,
+	y = 0.4808,
+	tooltipMap = 2393,
+}
+addon.data[140133] = { -- Teleport to the Voidstorm.
+	mapID = 2405, -- Voidstorm
+	x = 0.5155,
+	y = 0.7107,
+	tooltipMap = 2405,
+	displayExtra = {
+		{
+			mapID = 2537, -- Quel'Thalas
+			x = 0.5385,
+			y = 0.2582,
+		}
+	},
+}
+
 -- special node used to add source pins for taxi destinations
 addon.data[0] = {
 	atlas = 'Taxi_Frame_Green',
