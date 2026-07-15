@@ -12,6 +12,9 @@ for row in util.dbc('spellflyoutitem'):
   if row.SpellFlyoutID in flyouts:
     flyoutSpells.append(row.SpellID)
 
+# BUG: missing flyout for Pit of Saron
+flyoutSpells.append(1254555)
+
 spellNames = {}
 for row in util.dbc('spellname'):
   if row.ID in flyoutSpells:
