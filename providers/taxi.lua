@@ -258,7 +258,11 @@ end
 
 local function Enable()
 	-- disable default taxi maps
-	UIParent:UnregisterEvent('TAXIMAP_OPENED')
+	if GameEvent then -- 12.1
+		GameEvent.UnregisterInternalEvent('TAXIMAP_OPENED')
+	else
+		UIParent:UnregisterEvent('TAXIMAP_OPENED')
+	end
 	if TaxiFrame then
 		TaxiFrame:UnregisterAllEvents()
 	end
@@ -275,7 +279,11 @@ end
 
 local function Disable()
 	-- re-register default events
-	UIParent:RegisterEvent('TAXIMAP_OPENED')
+	if GameEvent then -- 12.1
+		GameEvent.RegisterInternalEvent('TAXIMAP_OPENED', GenerateClosure(GameEvent.HandleTaxiMapOpened)) -- potential taint?
+	else
+		UIParent:RegisterEvent('TAXIMAP_OPENED')
+	end
 	if TaxiFrame then
 		TaxiFrame:RegisterEvent('TAXIMAP_CLOSED')
 	end
