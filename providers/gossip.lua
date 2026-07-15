@@ -1,6 +1,6 @@
 local _, addon = ...
 
-local stagedGossipOptionID
+local stagedGossipOptionID, initialized
 
 local function HandleCinematicSkip()
 	if CanCancelScene() then
@@ -162,7 +162,7 @@ function provider:OnPinCreate(gossipInfo)
 end
 
 function provider:OnMapHide()
-	if not stagedGossipOptionID then
+	if initialized and not stagedGossipOptionID then
 		C_GossipInfo.CloseGossip()
 	end
 end
@@ -302,9 +302,13 @@ function addon:GOSSIP_SHOW()
 		end
 	end
 
+	-- close the map first, otherwise it's easy to break the logic
+	HideUIPanel(WorldMapFrame)
+
 	-- hack to prevent gossip interaction from ending
 	addon:SafeSetTrue(GossipFrame, 'interactionIsContinuing')
 
+	initialized = true
 	C_Map.OpenWorldMap(forcedMapID or addon:GetCommonMap())
 end
 
@@ -313,6 +317,7 @@ function addon:GOSSIP_CLOSED()
 		HideUIPanel(WorldMapFrame)
 	end
 
+	initialized = false
 	stagedGossipOptionID = nil
 
 	provider.data:wipe()
