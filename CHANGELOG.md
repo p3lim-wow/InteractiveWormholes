@@ -1,3 +1,10 @@
+### Changes in 120100.77-Release:
+
+- Added: Support for 12.1 dungeon pool and raid teleports
+- Fixed: Pins not showing if map was already open
+- Fixed: Non-functioning gossip window showing up if clicking too many times
+- Fixed: Taxi not working in 12.1
+
 ### Changes in 120000.76-Release:
 
 - Added: Support for Lightforged Beacon in Naigtal
