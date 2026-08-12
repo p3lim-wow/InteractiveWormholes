@@ -323,8 +323,8 @@ addon.data[134981] = { -- Eversong Woods
 }
 addon.data[134982] = { -- "Leap first and worry about the consequences later!"
 	mapID = 2537, -- Quel'Thalas
-	x = 0.7131,
-	y = 0.5685,
+	x = 0.0854,
+	y = 0.3910,
 	atlas = 'lootroll-toast-icon-need-up',
 	highlightAtlas = 'lootroll-toast-icon-need-highlight',
 	forceMapID = 2537,
