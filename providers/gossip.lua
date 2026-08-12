@@ -257,7 +257,9 @@ function addon:GOSSIP_SHOW()
 		if gossipOptionID then
 			local data = addon.data[gossipOptionID]
 			if data then
-				hasTaxiData = InjectData(gossipInfo, data)
+				if InjectData(gossipInfo, data) then
+					hasTaxiData = true
+				end
 			elseif not addon.ignoreOption[gossipOptionID] and not unknownWarned[gossipOptionID] then
 				unknown:insert(gossipInfo)
 			end
