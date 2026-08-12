@@ -127,8 +127,11 @@ function provider:OnPinCreate(gossipInfo)
 
 	local mapID, x, y
 	if data.isTaxiSource then
-		mapID = C_Map.GetBestMapForUnit('player') or -1
-		x, y = C_Map.GetPlayerMapPosition(mapID, 'player'):GetXY()
+		mapID = addon:GetPlayerMapID()
+		local position = addon:GetPlayerPosition(mapID)
+		if position then
+			x, y = position:GetXY()
+		end
 	else
 		mapID = data.mapID
 		x = data.x
