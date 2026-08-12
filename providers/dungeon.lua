@@ -1,29 +1,10 @@
 local addonName, addon = ...
 
-local button = addon:CreateButton('Button', addonName .. 'Dungeon', UIParent, 'SecureActionButtonTemplate,SecureHandlerAttributeTemplate,SecureHandlerEnterLeaveTemplate')
+local button = addon:CreateButton('Button', addonName .. 'Dungeon', UIParent, 'InsecureActionButtonTemplate')
 button:Hide()
 button:SetFrameStrata('TOOLTIP')
 button:SetPropagateMouseMotion(true)
 button:SetAttribute('shift-type1', 'spell')
-
--- set attribute to trigger EnterLeave driver
-button:HookScript('OnShow', function(self)
-	self:SetAttribute('_entered', true)
-end)
-button:HookScript('OnHide', function(self)
-	addon:DeferMethod(self, 'SetAttribute', '_entered', false)
-end)
-
--- use EnterLeave to securely deactivate when the mouse leaves the item
-button:SetAttribute('_onleave', 'self:ClearAllPoints();self:Hide()')
-
--- use attribute driver to securely deactivate when the modifier key is released
-button:SetAttribute('_onattributechanged', [[
-	if name == 'visibility' and value == 'hide' and self:IsShown() then
-		self:ClearAllPoints()
-		self:Hide()
-	end
-]])
 
 local instanceSpellID
 button:HookScript('OnShow', function(self)
@@ -41,8 +22,6 @@ button:HookScript('OnShow', function(self)
 
 	self:SetAttribute('spell', instanceSpellID)
 end)
-
-RegisterAttributeDriver(button, 'visibility', '[mod:shift] show; hide')
 
 function addon:MODIFIER_STATE_CHANGED(key, down)
 	if key == 'LSHIFT' or key == 'RSHIFT' then
@@ -134,6 +113,7 @@ end
 local function onLeave()
 	instanceSpellID = nil
 	addon:HideTooltip()
+	button:Hide()
 end
 
 local pins = {}
