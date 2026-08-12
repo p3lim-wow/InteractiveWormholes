@@ -1,3 +1,10 @@
+### Changes in 120100.78-Release:
+
+- Added: Support for Amani Windcaller (taxi) in Vaults of Atal'Utek
+- Changed: Moved Quel'Thalas' random wormhole destination
+- Changed: Simplified combat check for dungeon teleport
+- Changed: Taxi pins sometimes not working
+
 ### Changes in 120100.77-Release:
 
 - Added: Support for 12.1 dungeon pool and raid teleports
