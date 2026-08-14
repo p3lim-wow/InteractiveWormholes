@@ -1,3 +1,7 @@
+### Changes in 120100.79-Release:
+
+- Fixed: Taxi node for Amani Foothold in Vaults of Atal'Utek not showing up
+
 ### Changes in 120100.78-Release:
 
 - Added: Support for Amani Windcaller (taxi) in Vaults of Atal'Utek
