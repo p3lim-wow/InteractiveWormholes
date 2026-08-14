@@ -196,7 +196,28 @@ end
 function provider:OnRefresh()
 	provider.data:wipe()
 
-	for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(WorldMapFrame:GetMapID()) do
+	local mapID = WorldMapFrame:GetMapID()
+	local taxiNodes = C_TaxiMap.GetAllTaxiNodes(mapID)
+
+	-- we have to manually inject the nodes for Vaults of Atal'Utek
+	for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(2509) do
+		-- since this is a different map we need to translate the positions
+		local x, y = taxiNodeInfo.position:GetXY()
+		local pos = addon:TranslatePosition(2509, x, y, mapID)
+		if not pos then
+			-- can't translate it, try to fetch from manual data and translate that
+			local data = addon.taxi[taxiNodeInfo.nodeID]
+			if data then
+				x, y = CreateVector2D(data.x, data.y):GetXY()
+				pos = addon:TranslatePosition(data.mapID, x, y, mapID)
+			end
+		end
+
+		taxiNodeInfo.position = pos
+		provider.data[taxiNodeInfo.slotIndex] = taxiNodeInfo
+	end
+
+	for _, taxiNodeInfo in next, taxiNodes do
 		provider.data[taxiNodeInfo.slotIndex] = taxiNodeInfo
 	end
 end

@@ -51,8 +51,7 @@ function pinMixin:SetPosition(mapID, x, y)
 	local currentMapID = WorldMapFrame:GetMapID()
 	if currentMapID ~= mapID then
 		-- current map does not match the data, try to translate positions
-		local continentID, continentPos = C_Map.GetWorldPosFromMapPos(mapID, CreateVector2D(x, y))
-		local _, pos = C_Map.GetMapPosFromWorldPos(continentID, continentPos, currentMapID)
+		local pos = addon:TranslatePosition(mapID, x, y, currentMapID)
 		if pos then
 			x, y = pos:GetXY()
 		else

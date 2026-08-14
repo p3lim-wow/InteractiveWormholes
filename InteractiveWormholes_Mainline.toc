@@ -35,9 +35,11 @@ data\underbelly.lua
 data\vethir.lua
 data\warfront.lua
 data\wormholes.lua
+data\taxi.lua
 
 utils\ancestry.lua
 utils\state.lua
+utils\map.lua
 
 pools\line.lua
 pools\arrow.lua
