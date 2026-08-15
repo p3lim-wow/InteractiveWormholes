@@ -46,6 +46,8 @@ addon.data[141703] = { -- stealth option @ Amani Foothold
 	highlightAdd = true,
 	noArrow = true,
 }
+
+-- the gossip options are not re-used
 addon.data[141711] = addon.data[141706] -- Eastern Amani Outpost -> Venomous Abyss
 addon.data[141710] = addon.data[141705] -- Eastern Amani Outpost -> Northern Amani Bulwark
 addon.data[141709] = addon.data[141704] -- Eastern Amani Outpost -> Underbelly
@@ -65,20 +67,23 @@ addon.data[141708] = addon.data[141703] -- stealth option @ Eastern Amani Outpos
 addon.data[141718] = addon.data[141703] -- stealth option @ Northern Amani Bulwark
 addon.data[141713] = addon.data[141703] -- stealth option @ Venomous Abyss
 addon.data[141723] = addon.data[141703] -- stealth option @ Underbelly
+
+-- special destination handling during the quest "Into the Vaults of Atal'Utek",
+-- which have their own unique gossip IDs
 addon.data[141753] = CreateFromMixins(addon.data[141707], {
-	-- Amani Foothold -> Eastern Amani Outpost during the quest "Into the Vaults of Atal'Utek"
+	-- Amani Foothold -> Eastern Amani Outpost
 	isQuest = true,
 })
 addon.data[141737] = CreateFromMixins(addon.data[141705], {
-	-- Eastern Amani Outpost -> Northern Amani Bulwark during the quest "Into the Vaults of Atal'Utek"
+	-- Eastern Amani Outpost -> Northern Amani Bulwark
 	isQuest = true,
 })
 addon.data[141760] = CreateFromMixins(addon.data[141712], {
-	-- Northern Amani Bulwark -> Amani Foothold during the quest "Into the Vaults of Atal'Utek"
+	-- Northern Amani Bulwark -> Amani Foothold
 	isQuest = true,
 })
 addon.data[141935] = CreateFromMixins(addon.data[141703], {
-	-- stealth option @ Eastern Amani Outpost during the quest "Into the Vaults of Atal'Utek"
+	-- stealth option @ Eastern Amani Outpost
 	isQuest = true,
 	noArrow = false,
 	size = 50,
