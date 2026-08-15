@@ -43,6 +43,7 @@ addon.data[141703] = { -- stealth option @ Amani Foothold
 	atlas = 'BfAMission-Icon-Stealth',
 	atlasWidth = 80,
 	atlasHeight = 80,
+	highlightAdd = true,
 	noArrow = true,
 }
 addon.data[141711] = addon.data[141706] -- Eastern Amani Outpost -> Venomous Abyss
