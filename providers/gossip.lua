@@ -295,7 +295,7 @@ function addon:GOSSIP_SHOW()
 			addon:Printf('- %d, "%s"', gossipInfo.gossipOptionID, gossipInfo.name)
 		end
 		addon:Print('Please report this at |cff71d5ffhttps://p3l.im/wormhole|r')
-		addon:Printf('Hold SHIFT while interacting to this %s to see them.', UnitIsGameObject('npc') and 'object' or 'npc')
+		addon:Printf('Hold %s while interacting with this %s to see them.', addon:GetOption('modifier'), UnitIsGameObject('npc') and 'object' or 'npc')
 	end
 
 	-- check if we have a forced map
