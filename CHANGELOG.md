@@ -1,3 +1,10 @@
+### Changes in 120100.80-Release:
+
+- Added: Amani Windcaller destinations during the quest "Into the Vaults of Atal'Utek"
+- Fixed: Amani Windcaller stealth option highlight
+- Fixed: Quest icon highlight not working
+- Fixed: Missing destination warning message not respecting modifier setting
+
 ### Changes in 120100.79-Release:
 
 - Fixed: Taxi node for Amani Foothold in Vaults of Atal'Utek not showing up
