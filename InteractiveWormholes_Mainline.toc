@@ -34,6 +34,7 @@ data\stormflight.lua
 data\underbelly.lua
 data\vethir.lua
 data\warfront.lua
+data\windcaller.lua
 data\wormholes.lua
 data\taxi.lua
 
