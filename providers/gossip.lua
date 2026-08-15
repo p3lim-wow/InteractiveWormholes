@@ -141,14 +141,14 @@ function provider:OnPinCreate(gossipInfo)
 	if mapID and x and y then
 		self:SetID(gossipInfo.gossipOptionID or 0)
 
-		if data.isTaxi then
-			self:SetSize(20, 20)
-			self:SetNormalAtlas('Taxi_Frame_Gray')
-			self:SetHighlightAtlas('Taxi_Frame_Yellow', 'BLEND')
-		elseif data.isQuest or (gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) then
+		if data.isQuest or (gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) then
 			self:SetSize(32, 32)
 			self:SetNormalAtlas('quest-campaign-available')
 			self:SetHighlightAtlas('quest-campaign-available', 'BLEND')
+		elseif data.isTaxi then
+			self:SetSize(20, 20)
+			self:SetNormalAtlas('Taxi_Frame_Gray')
+			self:SetHighlightAtlas('Taxi_Frame_Yellow', 'BLEND')
 		else
 			self:SetWidth(data.atlasWidth or data.atlasSize or 24)
 			self:SetHeight(data.atlasHeight or data.atlasSize or 24)
