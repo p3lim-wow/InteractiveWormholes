@@ -142,7 +142,7 @@ function provider:OnPinCreate(gossipInfo)
 		self:SetID(gossipInfo.gossipOptionID or 0)
 
 		if data.isQuest or (gossipInfo.flags and FlagsUtil.IsSet(gossipInfo.flags, Enum.GossipOptionRecFlags.QuestLabelPrepend)) then
-			self:SetSize(32, 32)
+			self:SetSize(data.size or 32, data.size or 32)
 			self:SetNormalAtlas('quest-campaign-available')
 			self:SetHighlightAtlas('quest-campaign-available', 'ADD')
 		elseif data.isTaxi then

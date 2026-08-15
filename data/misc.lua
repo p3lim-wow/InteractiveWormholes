@@ -283,6 +283,8 @@ addon.data[141760] = CreateFromMixins(addon.data[141712], {
 addon.data[141935] = CreateFromMixins(addon.data[141703], {
 	-- stealth option @ Eastern Amani Outpost during the quest "Into the Vaults of Atal'Utek"
 	isQuest = true,
+	noArrow = false,
+	size = 50,
 })
 
 -- special node used to add source pins for taxi destinations
