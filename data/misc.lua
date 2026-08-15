@@ -268,6 +268,22 @@ addon.data[141708] = addon.data[141703] -- stealth option @ Eastern Amani Outpos
 addon.data[141718] = addon.data[141703] -- stealth option @ Northern Amani Bulwark
 addon.data[141713] = addon.data[141703] -- stealth option @ Venomous Abyss
 addon.data[141723] = addon.data[141703] -- stealth option @ Underbelly
+addon.data[141753] = CreateFromMixins(addon.data[141707], {
+	-- Amani Foothold -> Eastern Amani Outpost during the quest "Into the Vaults of Atal'Utek"
+	isQuest = true,
+})
+addon.data[141737] = CreateFromMixins(addon.data[141705], {
+	-- Eastern Amani Outpost -> Northern Amani Bulwark during the quest "Into the Vaults of Atal'Utek"
+	isQuest = true,
+})
+addon.data[141760] = CreateFromMixins(addon.data[141712], {
+	-- Northern Amani Bulwark -> Amani Foothold during the quest "Into the Vaults of Atal'Utek"
+	isQuest = true,
+})
+addon.data[141935] = CreateFromMixins(addon.data[141703], {
+	-- stealth option @ Eastern Amani Outpost during the quest "Into the Vaults of Atal'Utek"
+	isQuest = true,
+})
 
 -- special node used to add source pins for taxi destinations
 addon.data[0] = {
