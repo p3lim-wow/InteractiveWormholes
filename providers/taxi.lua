@@ -64,11 +64,13 @@ function provider:OnPinEnter(pin)
 				local sourcePin = self:GetPinByID(sourceNodeInfo.slotIndex)
 				local destinationPin = self:GetPinByID(destinationNodeInfo.slotIndex)
 
-				addon:AttachLine(sourcePin, destinationPin)
+				if sourcePin then
+					-- force show all pins in the route, even if they're undiscovered
+					sourcePin:Show()
+					destinationPin:Show()
 
-				-- force show all pins in the route, even if they're undiscovered
-				sourcePin:Show()
-				destinationPin:Show()
+					addon:AttachLine(sourcePin, destinationPin)
+				end
 			end
 		end
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Unreachable and not taxiNodeInfo.isMapLayerTransition then
