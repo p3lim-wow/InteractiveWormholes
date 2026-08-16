@@ -112,7 +112,7 @@ function provider:OnPinEnter(pin)
 			tooltip:AddLine(' ')
 			tooltip:AddLine('|A:activities-clock-standard:0:0:0:0|a ' .. time, 1, 1, 1)
 		end
-	elseif source and TaxiTimerAPI then
+	elseif TaxiTimerAPI then
 		local flightInfo = TaxiTimerAPI.GetFlightInfo(taxiNodeInfo.slotIndex)
 		if flightInfo then
 			local time = addon:FormatTime(flightInfo.distance / flightInfo.speed)
