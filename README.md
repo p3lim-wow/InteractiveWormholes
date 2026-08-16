@@ -37,18 +37,18 @@ Other spells and transportation methods:
 - [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
 - [Amani Windcaller](https://www.wowhead.com/npc=272197) taxi system in [Vaults of Atal'Utek](https://www.wowhead.com/zone=16535)
 - [Voidspire](https://www.wowhead.com/zone=16340) Teleport Pads
-- [Phase Diving](https://www.wowhead.com/guide/the-war-within/phase-diving-unlock-rewards) (K'aresh)
+- [Phase Diving](https://www.wowhead.com/guide/the-war-within/phase-diving-unlock-rewards) in [K'aresh](https://www.wowhead.com/zone=15336)
     - Requires enabling Taxi option
 - [Undermine](https://www.wowhead.com/guide/the-war-within/patch-11-1-undermine-zone-guide) Rocketway
 - [Siren Isle](https://www.wowhead.com/zone=10416)
-- [Animaflow Teleporter](https://www.wowhead.com/npc=172925) (The Maw)
+- [Animaflow Teleporter](https://www.wowhead.com/npc=172925) in [The Maw](https://www.wowhead.com/zone=11400)
 - [War Campaign](https://warcraft.wiki.gg/wiki/War_Campaign) footholds (Battle for Azeroth)
-- [Warfront](https://www.wowhead.com/guide/warfronts-in-battle-for-azeroth-5982) Flightmasters (Arathi + Darkshore)
+- [Warfront](https://www.wowhead.com/guide/warfronts-in-battle-for-azeroth-5982) Flightmasters
 - [Silas' Stone of Transportation](https://www.wowhead.com/item=156632) (Battle for Azeroth)
 - [Stormflight](https://www.wowhead.com/npc=96679) (Warrior order hall)
 - [Manapoof](https://www.wowhead.com/npc=121602) (Pet Battle Dungeon teleporter in Dalaran)
-- [Vethir](https://www.wowhead.com/npc=108685) (Stormheim)
-- [Underbelly portal network](https://www.wowhead.com/item=138028) in Dalaran (Legion)
+- [Vethir](https://www.wowhead.com/npc=108685) in [Stormheim](https://www.wowhead.com/zone=7541)
+- [Underbelly portal network](https://www.wowhead.com/item=138028) in [Dalaran (Legion)](https://www.wowhead.com/zone=7502)
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
 
 Integrates with [InFlight](https://www.curseforge.com/wow/addons/inflight-taxi-timer) or [TaxiTimer](https://www.curseforge.com/wow/addons/taxitimer) to display taxi flight durations/estimations.
