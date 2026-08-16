@@ -1,3 +1,7 @@
+### Changes in 120100.82-Release:
+
+- Fixed: Error when taking fake taxi points (like the one in Vaults)
+
 ### Changes in 120100.81-Release:
 
 - Added: Option to (not) zoom taxi out to continent map
