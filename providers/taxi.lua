@@ -38,6 +38,7 @@ function provider:OnPinEnter(pin)
 	local tooltip = addon:GetTooltip(pin, 'ANCHOR_RIGHT')
 	tooltip:AddLine(taxiNodeInfo.name)
 
+	local vias
 	if taxiNodeInfo.state == Enum.FlightPathState.Current then
 		tooltip:AddLine(TAXINODEYOUAREHERE, 1, 1, 1)
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Reachable then
@@ -55,14 +56,24 @@ function provider:OnPinEnter(pin)
 		-- highlight
 		pin:SetNormalAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Yellow'))
 
+		-- track vias
+		local numRoutes = GetNumRoutes(taxiNodeSlotIndex)
+		if numRoutes > 1 then
+			vias = {}
+		end
+
 		-- route lines, ripped (mostly) from FlightMap_FlightPathDataProviderMixin.HighlightRouteToPin
-		for routeIndex = 1, GetNumRoutes(taxiNodeSlotIndex) do
+		for routeIndex = 1, numRoutes do
 			local sourceNodeInfo = taxiData[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, true)]
 			local destinationNodeInfo = taxiData[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, false)]
 
 			if sourceNodeInfo ~= nil and destinationNodeInfo ~= nil then
 				local sourcePin = self:GetPinByID(sourceNodeInfo.slotIndex)
 				local destinationPin = self:GetPinByID(destinationNodeInfo.slotIndex)
+
+				if vias and routeIndex > 1 then
+					table.insert(vias, sourceNodeInfo.name)
+				end
 
 				if sourcePin then
 					-- force show all pins in the route, even if they're undiscovered
@@ -75,6 +86,17 @@ function provider:OnPinEnter(pin)
 		end
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Unreachable and not taxiNodeInfo.isMapLayerTransition then
 		tooltip:AddLine(TAXI_PATH_UNREACHABLE, RED_FONT_COLOR:GetRGB())
+	end
+
+	if vias then
+		tooltip:AddLine(' ')
+		for i, name in next, vias do
+			tooltip:AddLine(i .. '. ' .. name, 2/3, 2/3, 2/3, false)
+		end
+	end
+
+	if IsShiftKeyDown() then
+		tooltip:AddLine(taxiNodeInfo.nodeID)
 	end
 
 	tooltip:Show()
