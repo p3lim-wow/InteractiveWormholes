@@ -105,4 +105,8 @@ read_globals = {
 	'UnitFactionGroup',
 	'UnitIsGameObject',
 	'hooksecurefunc',
+
+	-- AddOns
+	'InFlight', -- InFlight Taxi Timer
+	'TaxiTimerAPI', -- TaxiTimer
 }

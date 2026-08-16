@@ -38,7 +38,7 @@ function provider:OnPinEnter(pin)
 	local tooltip = addon:GetTooltip(pin, 'ANCHOR_RIGHT')
 	tooltip:AddLine(taxiNodeInfo.name)
 
-	local vias
+	local vias, source
 	if taxiNodeInfo.state == Enum.FlightPathState.Current then
 		tooltip:AddLine(TAXINODEYOUAREHERE, 1, 1, 1)
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Reachable then
@@ -67,6 +67,10 @@ function provider:OnPinEnter(pin)
 			local sourceNodeInfo = taxiData[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, true)]
 			local destinationNodeInfo = taxiData[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, false)]
 
+			if not source then
+				source = sourceNodeInfo
+			end
+
 			if sourceNodeInfo ~= nil and destinationNodeInfo ~= nil then
 				local sourcePin = self:GetPinByID(sourceNodeInfo.slotIndex)
 				local destinationPin = self:GetPinByID(destinationNodeInfo.slotIndex)
@@ -92,6 +96,28 @@ function provider:OnPinEnter(pin)
 		tooltip:AddLine(' ')
 		for i, name in next, vias do
 			tooltip:AddLine(i .. '. ' .. name, 2/3, 2/3, 2/3, false)
+		end
+	end
+
+	if source and InFlight then
+		local sourceDestinations
+		if InFlight.noFactionsZoneNodes[taxiNodeInfo.nodeID] then
+			sourceDestinations = InFlight.db.global.FactionlessZones[source.nodeID]
+		else
+			sourceDestinations = InFlight.db.global[(UnitFactionGroup('player'))][source.nodeID]
+		end
+
+		if sourceDestinations and sourceDestinations[taxiNodeInfo.nodeID] then
+			local time = addon:FormatTime(sourceDestinations[taxiNodeInfo.nodeID])
+			tooltip:AddLine(' ')
+			tooltip:AddLine('|A:activities-clock-standard:0:0:0:0|a ' .. time, 1, 1, 1)
+		end
+	elseif source and TaxiTimerAPI then
+		local flightInfo = TaxiTimerAPI.GetFlightInfo(taxiNodeInfo.slotIndex)
+		if flightInfo then
+			local time = addon:FormatTime(flightInfo.distance / flightInfo.speed)
+			tooltip:AddLine(' ')
+			tooltip:AddLine('|A:activities-clock-standard:0:0:0:0|a ' .. time, 1, 1, 1)
 		end
 	end
 
