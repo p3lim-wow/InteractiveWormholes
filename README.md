@@ -35,6 +35,7 @@ Other spells and transportation methods:
 - [Hero's Path](https://www.wowhead.com/spells/uncategorized/name:path+of?filter=28;3;10)
 	- Shift-click dungeon entrances on the map to teleport
 - [Mole Machine](http://www.wowhead.com/spell=265225) (Dark Iron Dwarf racial)
+- [Amani Windcaller](https://www.wowhead.com/npc=272197) taxi system in [Vaults of Atal'Utek](https://www.wowhead.com/zone=16535)
 - [Voidspire](https://www.wowhead.com/zone=16340) Teleport Pads
 - [Phase Diving](https://www.wowhead.com/guide/the-war-within/phase-diving-unlock-rewards) (K'aresh)
     - Requires enabling Taxi option
@@ -49,6 +50,8 @@ Other spells and transportation methods:
 - [Vethir](https://www.wowhead.com/npc=108685) (Stormheim)
 - [Underbelly portal network](https://www.wowhead.com/item=138028) in Dalaran (Legion)
 - [Azshara Rocketway](https://www.wowhead.com/npc=43217)
+
+Integrates with [InFlight](https://www.curseforge.com/wow/addons/inflight-taxi-timer) or [TaxiTimer](https://www.curseforge.com/wow/addons/taxitimer) to display taxi flight durations/estimations.
 
 ## Translations
 
