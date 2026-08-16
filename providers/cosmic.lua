@@ -9,27 +9,17 @@ local COSMIC_ARROW_COORDINATES = {
 	[1550] = CreateVector2D(0.1796, 0.0837), -- Shadowlands
 }
 
-local provider = {}
-provider.data = addon:T()
-
-function provider:OnPinCreate(cosmicWorldMapID)
-	self:SetSize(0.0001, 0.0001) -- make it so small it's invisible
-	addon:AttachArrow(self)
-
-	return COSMIC_MAP_ID, COSMIC_ARROW_COORDINATES[cosmicWorldMapID]:GetXY()
-end
-
+local provider = addon:CreatePinProvider()
 function provider:OnRefresh()
-	provider.data:wipe()
 
 	if WorldMapFrame:GetMapID() == COSMIC_MAP_ID then
 		local cosmicWorldMapIDs = addon:GetCosmicWorldsActive()
 		if cosmicWorldMapIDs then
 			for _, mapID in next, cosmicWorldMapIDs do
-				provider.data:insert(mapID)
+				local pin = self:AddPin(mapID, COSMIC_ARROW_COORDINATES[mapID]:GetXY())
+				pin:SetSize(0.0001, 0.0001)
+				addon:AttachArrow(pin)
 			end
 		end
 	end
 end
-
-addon:AddProvider(provider)

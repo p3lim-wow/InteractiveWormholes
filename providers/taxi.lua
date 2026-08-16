@@ -22,20 +22,20 @@ local ShouldUseInstanceMap; do
 	end
 end
 
-local provider = {}
-provider.data = addon:T()
+local provider = addon:CreatePinProvider()
+local taxiData = addon:T()
 
-function provider:OnPinClick(button, down)
-	if button == 'LeftButton' and not down then
-		TakeTaxiNode(self:GetID())
+function provider:OnPinClick(pin, button, down)
+	if button == 'LeftButton' and not down and not taxiData[pin:GetID()].isMapLayerTransition then
+		TakeTaxiNode(pin:GetID())
 	end
 end
 
-function provider:OnPinEnter()
-	local taxiNodeSlotIndex = self:GetID()
-	local taxiNodeInfo = provider.data[taxiNodeSlotIndex]
+function provider:OnPinEnter(pin)
+	local taxiNodeSlotIndex = pin:GetID()
+	local taxiNodeInfo = taxiData[taxiNodeSlotIndex]
 
-	local tooltip = addon:GetTooltip(self, 'ANCHOR_RIGHT')
+	local tooltip = addon:GetTooltip(pin, 'ANCHOR_RIGHT')
 	tooltip:AddLine(taxiNodeInfo.name)
 
 	if taxiNodeInfo.state == Enum.FlightPathState.Current then
@@ -53,15 +53,16 @@ function provider:OnPinEnter()
 		end
 
 		-- highlight
-		self.Texture:SetAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Yellow'))
+		pin:SetNormalAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Yellow'))
 
 		-- route lines, ripped (mostly) from FlightMap_FlightPathDataProviderMixin.HighlightRouteToPin
 		for routeIndex = 1, GetNumRoutes(taxiNodeSlotIndex) do
-			local sourceNodeInfo = provider.data[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, true)]
-			local destinationNodeInfo = provider.data[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, false)]
-			if sourceNodeInfo and destinationNodeInfo and not sourceNodeInfo.isMapLayerTransition then
-				local sourcePin = self.provider:GetPinByID(sourceNodeInfo.slotIndex)
-				local destinationPin = self.provider:GetPinByID(destinationNodeInfo.slotIndex)
+			local sourceNodeInfo = taxiData[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, true)]
+			local destinationNodeInfo = taxiData[TaxiGetNodeSlot(taxiNodeSlotIndex, routeIndex, false)]
+
+			if sourceNodeInfo ~= nil and destinationNodeInfo ~= nil then
+				local sourcePin = self:GetPinByID(sourceNodeInfo.slotIndex)
+				local destinationPin = self:GetPinByID(destinationNodeInfo.slotIndex)
 
 				addon:AttachLine(sourcePin, destinationPin)
 
@@ -77,61 +78,61 @@ function provider:OnPinEnter()
 	tooltip:Show()
 end
 
-function provider:OnPinLeave()
+function provider:OnPinLeave(pin)
 	addon:HideTooltip()
 	addon:ReleaseLines()
 
 	-- ripped from FlightMap_FlightPointPinMixin.OnMouseLeave
-	local taxiNodeInfo = provider.data[self:GetID()]
+	local taxiNodeInfo = taxiData[pin:GetID()]
 	if taxiNodeInfo.state == Enum.FlightPathState.Reachable and taxiNodeInfo.atlasFormat then
 		if taxiNodeInfo.useSpecialIcon then
-			self.Texture:SetAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Special'))
+			pin:SetNormalAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Special'))
 		else
-			self.Texture:SetAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Gray'))
+			pin:SetNormalAtlas(taxiNodeInfo.atlasFormat:format('Taxi_Frame_Gray'))
 		end
 	end
 
 	-- reset pin visibility
-	for pin in self.provider:EnumeratePins() do
-		local info = provider.data[pin:GetID()]
-		pin:SetShown(info.state ~= Enum.FlightPathState.Unreachable or info.isMapLayerTransition)
+	for enumeratedPin in provider:EnumeratePins() do
+		local info = taxiData[enumeratedPin:GetID()]
+		enumeratedPin:SetShown(info.state ~= Enum.FlightPathState.Unreachable or info.isMapLayerTransition)
 	end
 end
 
-function provider:OnPinCreate(taxiNodeInfo)
-	if taxiNodeInfo.state == Enum.FlightPathState.Unreachable then
-		-- ignore unreachable pins
-		return
+function provider:GetPinByID(id)
+	for pin in self:EnumeratePins() do
+		if pin:GetID() == id then
+			return pin
+		end
 	end
+end
 
-	self:SetID(taxiNodeInfo.slotIndex)
+local function updatePin(pin)
+	local taxiNodeInfo = taxiData[pin:GetID()]
 
 	-- only show pins if part of a route or a layer transition point
-	self:SetShown(taxiNodeInfo.state ~= Enum.FlightPathState.Unreachable or taxiNodeInfo.isMapLayerTransition)
+	pin:SetShown(taxiNodeInfo.state ~= Enum.FlightPathState.Unreachable or taxiNodeInfo.isMapLayerTransition)
 
 	-- size logic ripped (mostly) from FlightMap_FlightPointPinMixin.UpdatePinSize
-	if taxiNodeInfo.textureKit == 'FlightMaster_Cave' then
-		-- Zereth Mortis cave flight system,
-		-- they are just in the way, and there are existing POIs for them
-		self:SetSize(1, 1)
+	if taxiNodeInfo.isMapLayerTransition then
+		pin:Lower() -- don't render transitions above real destinations
+		pin:SetSize(20, 20)
 	elseif taxiNodeInfo.textureKit == 'FlightMaster_VindicaarArgus' or taxiNodeInfo.textureKit == 'FlightMaster_VindicaarStygianWake' or taxiNodeInfo.textureKit == 'FlightMaster_VindicaarMacAree' then
-		self:SetSize(39, 42)
+		pin:SetSize(39, 42)
 	elseif taxiNodeInfo.textureKit == 'FlightMaster_Argus' then
-		self:SetSize(34, 28)
+		pin:SetSize(34, 28)
 	elseif taxiNodeInfo.textureKit == 'FlightMaster_Bastion' then
 		if taxiNodeInfo.state == Enum.FlightPathState.Current then
-			self:SetSize(26, 26)
+			pin:SetSize(26, 26)
 		elseif taxiNodeInfo.state == Enum.FlightPathState.Reachable or taxiNodeInfo.state == Enum.FlightPathState.Unreachable then
-			self:SetSize(24, 24)
+			pin:SetSize(24, 24)
 		end
 	elseif taxiNodeInfo.textureKit == 'FlightMaster_Ferry' then
 		if taxiNodeInfo.state == Enum.FlightPathState.Current then
-			self:SetSize(36, 24)
+			pin:SetSize(36, 24)
 		elseif taxiNodeInfo.state == Enum.FlightPathState.Reachable or taxiNodeInfo.state == Enum.FlightPathState.Unreachable then
-			self:SetSize(28, 19)
+			pin:SetSize(28, 19)
 		end
-	elseif taxiNodeInfo.isMapLayerTransition then
-		self:SetSize(20, 20)
 	else
 		-- extra handling for obelisk system in Zereth Mortis so we can use atlas
 		local widthMultiplier = 1
@@ -140,11 +141,11 @@ function provider:OnPinCreate(taxiNodeInfo)
 		end
 
 		if taxiNodeInfo.state == Enum.FlightPathState.Current then
-			self:SetSize(28 * widthMultiplier, 28)
+			pin:SetSize(28 * widthMultiplier, 28)
 		elseif taxiNodeInfo.state == Enum.FlightPathState.Reachable then
-			self:SetSize(20 * widthMultiplier, 20)
+			pin:SetSize(20 * widthMultiplier, 20)
 		elseif taxiNodeInfo.state == Enum.FlightPathState.Unreachable then
-			self:SetSize(14 * widthMultiplier, 14)
+			pin:SetSize(14 * widthMultiplier, 14)
 		end
 	end
 
@@ -155,26 +156,22 @@ function provider:OnPinCreate(taxiNodeInfo)
 	end
 
 	if taxiNodeInfo.isMapLayerTransition then
-		self.Texture:SetAtlas(atlasFormat:format('Taxi_Frame_Gray'))
-		self.Highlight:SetAtlas(atlasFormat:format('Taxi_Frame_Gray'))
-		self.Highlight:SetBlendMode('ADD')
+		pin:SetNormalAtlas(atlasFormat:format('Taxi_Frame_Gray'))
+		pin:SetHighlightAtlas(atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Current then
-		self.Texture:SetAtlas(atlasFormat:format('Taxi_Frame_Green'))
-		self.Highlight:SetAtlas(atlasFormat:format('Taxi_Frame_Gray'))
-		self.Highlight:SetBlendMode('ADD')
+		pin:SetNormalAtlas(atlasFormat:format('Taxi_Frame_Green'))
+		pin:SetHighlightAtlas(atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Unreachable then
-		self.Texture:SetAtlas(atlasFormat:format('UI-Taxi-Icon-Nub'))
-		self.Highlight:SetAtlas(atlasFormat:format('UI-Taxi-Icon-Nub'))
-		self.Highlight:SetBlendMode('ADD')
+		pin:SetNormalAtlas(atlasFormat:format('UI-Taxi-Icon-Nub'))
+		pin:SetHighlightAtlas(atlasFormat:format('UI-Taxi-Icon-Nub'), 'ADD')
 	elseif taxiNodeInfo.state == Enum.FlightPathState.Reachable then
 		if taxiNodeInfo.useSpecialIcon then
-			self.Texture:SetAtlas(atlasFormat:format('Taxi_Frame_Special'))
+			pin:SetNormalAtlas(atlasFormat:format('Taxi_Frame_Special'))
 		else
-			self.Texture:SetAtlas(atlasFormat:format('Taxi_Frame_Gray'))
+			pin:SetNormalAtlas(atlasFormat:format('Taxi_Frame_Gray'))
 		end
 
-		self.Highlight:SetAtlas(atlasFormat:format('Taxi_Frame_Gray'))
-		self.Highlight:SetBlendMode('ADD')
+		pin:SetHighlightAtlas(atlasFormat:format('Taxi_Frame_Gray'), 'ADD')
 	end
 
 	-- inject the format so we don't have to keep re-defining it
@@ -182,43 +179,31 @@ function provider:OnPinCreate(taxiNodeInfo)
 
 	-- render current path lower so we can more easily click others close to it
 	if taxiNodeInfo.state == Enum.FlightPathState.Current then
-		self:Lower()
+		pin:Lower()
 	end
 
 	-- attach arrows to reachable nodes
 	if taxiNodeInfo.state ~= Enum.FlightPathState.Unreachable and taxiNodeInfo.textureKit ~= 'FlightMaster_ProgenitorObelisk' then
-		addon:AttachArrow(self)
+		addon:AttachArrow(pin)
 	end
-
-	return WorldMapFrame:GetMapID(), taxiNodeInfo.position:GetXY()
 end
 
 function provider:OnRefresh()
-	provider.data:wipe()
-
-	local mapID = WorldMapFrame:GetMapID()
-	local taxiNodes = C_TaxiMap.GetAllTaxiNodes(mapID)
-
-	-- we have to manually inject the nodes for Vaults of Atal'Utek
-	for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(2509) do
-		-- since this is a different map we need to translate the positions
-		local x, y = taxiNodeInfo.position:GetXY()
-		local pos = addon:TranslatePosition(2509, x, y, mapID)
-		if not pos then
-			-- can't translate it, try to fetch from manual data and translate that
-			local data = addon.taxi[taxiNodeInfo.nodeID]
-			if data then
-				x, y = CreateVector2D(data.x, data.y):GetXY()
-				pos = addon:TranslatePosition(data.mapID, x, y, mapID)
-			end
+	for slotIndex, taxiNodeInfo in next, taxiData do
+		local pin = self:AddPin(taxiNodeInfo.mapID, taxiNodeInfo.position:GetXY())
+		if pin then
+			pin:SetID(slotIndex)
+			updatePin(pin)
 		end
 
-		taxiNodeInfo.position = pos
-		provider.data[taxiNodeInfo.slotIndex] = taxiNodeInfo
-	end
-
-	for _, taxiNodeInfo in next, taxiNodes do
-		provider.data[taxiNodeInfo.slotIndex] = taxiNodeInfo
+		local displayExtra = taxiNodeInfo.displayExtra
+		if displayExtra then
+			pin = self:AddPin(displayExtra.mapID, displayExtra.x, displayExtra.y)
+			if pin then
+				pin:SetID(slotIndex)
+				updatePin(pin)
+			end
+		end
 	end
 end
 
@@ -247,23 +232,26 @@ local function OnTaxiOpened()
 	-- to hide POI pins that would otherwise overlap (and nudge) the taxi pins
 	-- C_TaxiMap.ShouldMapShowTaxiNodes = function() end
 
-	-- compare the taxi map ID with the player's current map ID
-	local mapID = C_Map.GetBestMapForUnit('player') or 0
+	-- use the nearest continent as the source for taxi nodes
+	local mapID = addon:GetPlayerMapID()
 	local mapInfo = C_Map.GetMapInfo(mapID)
-	local taxiMapInfo = C_Map.GetMapInfo(GetTaxiMapID())
-	if mapInfo.name ~= taxiMapInfo.name then
-		-- the taxi system expects a different map, let's zoom out until we find it
-		while mapInfo.name ~= taxiMapInfo.name and mapInfo.parentMapID ~= 0 do
-			mapInfo = C_Map.GetMapInfo(mapInfo.parentMapID)
-		end
+	while mapInfo.mapType > Enum.UIMapType.Continent do
+		mapID = mapInfo.parentMapID
+		mapInfo = C_Map.GetMapInfo(mapID)
+	end
 
-		if mapInfo.name == taxiMapInfo.name then
-			-- we found the equivalent to the taxi map, lets use it
-			mapID = mapInfo.mapID
+	-- gather taxi nodes from that map
+	for _, zoneInfo in next, C_Map.GetMapChildrenInfo(mapID, Enum.UIMapType.Zone, true) do
+		for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(zoneInfo.mapID) do
+			if not taxiData[taxiNodeInfo.slotIndex] then
+				taxiNodeInfo.mapID = zoneInfo.mapID
+				taxiNodeInfo.displayExtra = addon.taxi[taxiNodeInfo.nodeID]
+				taxiData[taxiNodeInfo.slotIndex] = taxiNodeInfo
+			end
 		end
 	end
 
-	C_Map.OpenWorldMap(mapID)
+	C_Map.OpenWorldMap()
 end
 
 local function OnTaxiClosed()
@@ -271,7 +259,7 @@ local function OnTaxiClosed()
 		HideUIPanel(WorldMapFrame)
 	end
 
-	provider.data:wipe()
+	taxiData:wipe()
 
 	-- restore API
 	-- C_TaxiMap.ShouldMapShowTaxiNodes = C_TaxiMap_ShouldMapShowTaxiNodes
@@ -293,9 +281,6 @@ local function Enable()
 		addon:RegisterEvent('TAXIMAP_OPENED', OnTaxiOpened)
 		addon:RegisterEvent('TAXIMAP_CLOSED', OnTaxiClosed)
 	end
-
-	-- enable pin provider
-	addon:AddProvider(provider)
 end
 
 local function Disable()
@@ -312,9 +297,6 @@ local function Disable()
 	-- unregister our events
 	addon:UnregisterEvent('TAXIMAP_OPENED', OnTaxiOpened)
 	addon:UnregisterEvent('TAXIMAP_CLOSED', OnTaxiClosed)
-
-	-- disable pin provider
-	addon:RemoveProvider(provider)
 end
 
 -- onboarding
