@@ -75,7 +75,7 @@ function provider:OnPinEnter(pin)
 				-- enumerate all pins and sort them by their taxi index
 				-- TODO: make this logic smarter than just linear routes?
 				local taxiIndexPins = {}
-				for activePin in pin.provider:EnumeratePins() do
+				for activePin in self:EnumeratePins() do
 					local activePinData = addon.data[activePin:GetID()]
 					if activePinData.taxiIndex then
 						taxiIndexPins[activePinData.taxiIndex] = activePin
@@ -102,7 +102,7 @@ function provider:OnPinEnter(pin)
 				end
 			else
 				-- just pin it to the source pin
-				for activePin in pin.provider:EnumeratePins() do
+				for activePin in self:EnumeratePins() do
 					local activePinData = addon.data[activePin:GetID()]
 					if activePinData.isTaxiSource then
 						addon:AttachLine(activePin, pin)
