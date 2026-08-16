@@ -253,7 +253,11 @@ local function OnTaxiOpened()
 		end
 	end
 
-	C_Map.OpenWorldMap()
+	if addon:GetOption('taxiContinent') then
+		C_Map.OpenWorldMap(mapID)
+	else
+		C_Map.OpenWorldMap()
+	end
 end
 
 local function OnTaxiClosed()

@@ -56,6 +56,14 @@ local settings = {
 		default = false,
 	},
 	{
+		key = 'taxiContinent',
+		type = 'toggle',
+		title = L['Zoom out to continent'],
+		tooltip = L['When using the world map for taxi,\nzoom out to the closest continent.'],
+		default = true,
+		requires = 'taxi',
+	},
+	{
 		key = 'selectSingle',
 		type = 'toggle',
 		title = L['Single destination'],
