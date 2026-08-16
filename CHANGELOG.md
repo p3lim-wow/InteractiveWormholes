@@ -1,3 +1,10 @@
+### Changes in 120100.81-Release:
+
+- Added: Option to (not) zoom taxi out to continent map
+- Added: Support for taxi transition pins (like cave entrances)
+- Added: Taxi vias to the destination tooltip
+- Fixed: Sub-zone taxi destinations not working (like Zaralek Caverns)
+
 ### Changes in 120100.80-Release:
 
 - Added: Amani Windcaller destinations during the quest "Into the Vaults of Atal'Utek"
