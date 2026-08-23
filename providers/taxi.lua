@@ -282,19 +282,30 @@ local function OnTaxiOpened()
 	-- to hide POI pins that would otherwise overlap (and nudge) the taxi pins
 	-- C_TaxiMap.ShouldMapShowTaxiNodes = function() end
 
-	-- use the nearest continent as the source for taxi nodes
 	local mapID = addon:GetPlayerMapID()
-	local mapInfo = C_Map.GetMapInfo(mapID)
-	while mapInfo.mapType > Enum.UIMapType.Continent do
-		mapID = mapInfo.parentMapID
-		mapInfo = C_Map.GetMapInfo(mapID)
-	end
+	local taxiMapInfo = C_Map.GetMapInfo(GetTaxiMapID())
+	if taxiMapInfo.mapType == Enum.UIMapType.Continent then
+		-- use the nearest continent as the source for taxi nodes
+		local mapInfo = C_Map.GetMapInfo(mapID)
+		while mapInfo.mapType > Enum.UIMapType.Continent do
+			mapID = mapInfo.parentMapID
+			mapInfo = C_Map.GetMapInfo(mapID)
+		end
 
-	-- gather taxi nodes from that map
-	for _, zoneInfo in next, C_Map.GetMapChildrenInfo(mapID, Enum.UIMapType.Zone, true) do
-		for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(zoneInfo.mapID) do
+		-- gather taxi nodes from that map
+		for _, zoneInfo in next, C_Map.GetMapChildrenInfo(mapID, Enum.UIMapType.Zone, true) do
+			for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(zoneInfo.mapID) do
+				if not taxiData[taxiNodeInfo.slotIndex] then
+					taxiNodeInfo.mapID = zoneInfo.mapID
+					taxiNodeInfo.displayExtra = addon.taxi[taxiNodeInfo.nodeID]
+					taxiData[taxiNodeInfo.slotIndex] = taxiNodeInfo
+				end
+			end
+		end
+	else
+		for _, taxiNodeInfo in next, C_TaxiMap.GetAllTaxiNodes(mapID) do
 			if not taxiData[taxiNodeInfo.slotIndex] then
-				taxiNodeInfo.mapID = zoneInfo.mapID
+				taxiNodeInfo.mapID = mapID
 				taxiNodeInfo.displayExtra = addon.taxi[taxiNodeInfo.nodeID]
 				taxiData[taxiNodeInfo.slotIndex] = taxiNodeInfo
 			end
