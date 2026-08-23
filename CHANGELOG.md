@@ -1,3 +1,9 @@
+### Changes in 120100.83-Release:
+
+- Added: Integration with InFlight to display taxi durations
+- Added: Integration with TaxiTimer to display taxi durations
+- Fixed: Map zooming out to continent when it shouldn't
+
 ### Changes in 120100.82-Release:
 
 - Fixed: Error when taking fake taxi points (like the one in Vaults)
