@@ -1,3 +1,7 @@
+### Changes in 120100.84-Release:
+
+- Fixed: Error with cosmic map
+
 ### Changes in 120100.83-Release:
 
 - Added: Integration with InFlight to display taxi durations
