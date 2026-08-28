@@ -16,9 +16,14 @@ function provider:OnRefresh()
 		local cosmicWorldMapIDs = addon:GetCosmicWorldsActive()
 		if cosmicWorldMapIDs then
 			for _, mapID in next, cosmicWorldMapIDs do
-				local pin = self:AddPin(mapID, COSMIC_ARROW_COORDINATES[mapID]:GetXY())
-				pin:SetSize(0.0001, 0.0001)
-				addon:AttachArrow(pin)
+				local pos = COSMIC_ARROW_COORDINATES[mapID]
+				if pos then
+					local pin = self:AddPin(COSMIC_MAP_ID, pos:GetXY())
+					if pin then
+						pin:SetSize(0.0001, 0.0001)
+						addon:AttachArrow(pin)
+					end
+				end
 			end
 		end
 	end
