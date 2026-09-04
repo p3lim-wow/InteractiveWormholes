@@ -25,6 +25,9 @@ globals = {
 }
 
 read_globals = {
+	-- library
+	table = {fields = {'count'}},
+
 	-- FrameXML objects
 	'FlagsUtil',
 	'FlightMapFrame',

@@ -63,7 +63,7 @@ function addon:GetCommonMap()
 	local parentAncestry = ancestry
 	repeat
 		commonParentMapID, parentAncestry = next(parentAncestry)
-	until addon:tsize(parentAncestry) ~= 1
+	until table.count(parentAncestry) ~= 1
 
 	return commonParentMapID
 end

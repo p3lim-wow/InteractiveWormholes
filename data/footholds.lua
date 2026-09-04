@@ -42,17 +42,17 @@ local hordeFootholdDrustvar = Mixin({
 }, hordeLanding)
 
 addon.data[48350] = Mixin({
-	disabledOnQuests = addon.T{}
+	disabledOnQuests = addon:T()
 }, hordeFootholdTiragarde)
 addon.data[48794] = hordeBase -- Tiragarde Sound -> Zuldazar
 
 addon.data[48349] = Mixin({
-	disabledOnQuests = addon.T{}
+	disabledOnQuests = addon:T()
 }, hordeFootholdStormsong)
 addon.data[49160] = hordeBase -- Stormsong Valley -> Zuldazar
 
 addon.data[48348] = Mixin({
-	disabledOnQuests = addon.T{}
+	disabledOnQuests = addon:T()
 }, hordeFootholdDrustvar)
 addon.data[48793] = hordeBase -- Drustvar -> Zuldazar
 
@@ -159,17 +159,17 @@ local allianceFootholdVoldun = Mixin({
 }, allianceLanding)
 
 addon.data[48171] = Mixin({
-	disabledOnQuests = addon.T{}
+	disabledOnQuests = addon:T()
 }, allianceFootholdZuldazar)
 addon.data[49161] = allianceBase -- Zuldazar -> Boralus
 
 addon.data[48170] = Mixin({
-	disabledOnQuests = addon.T{}
+	disabledOnQuests = addon:T()
 }, allianceFootholdNazmir)
 addon.data[48827] = allianceBase -- Nazmir -> Boralus
 
 addon.data[48169] = Mixin({
-	disabledOnQuests = addon.T{}
+	disabledOnQuests = addon:T()
 }, allianceFootholdVoldun)
 addon.data[48172] = allianceBase -- Vol'dun -> Boralus
 

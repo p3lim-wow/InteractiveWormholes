@@ -186,8 +186,7 @@ function addon:CreatePinProvider(frameStrata, frameLevel, ...)
 	overlay:SetFrameStrata(frameStrata or 'HIGH')
 	overlay:SetFrameLevel(frameLevel or 1)
 
-	if addon:tsize(providerPools) == 0 then
-
+	if table.count(providerPools) == 0 then
 		-- these two hook are sufficient for acquire/release logic
 		hooksecurefunc(WorldMapFrame, 'RefreshAll', refreshProviders)
 		hooksecurefunc(WorldMapFrame, 'OnMapChanged', refreshProviders)
