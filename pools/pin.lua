@@ -1,9 +1,6 @@
 local _, addon = ...
 
-local providerPools = {}
-local providerOverlays = {}
-local providerPinPosition = {}
-local providerPinScale = {}
+local providers = {}
 local pinProviders = {}
 
 local pinMixin = {}
@@ -35,7 +32,7 @@ end
 
 function pinMixin:Release()
 	local provider = pinProviders[self]
-	providerPools[provider]:Release(self)
+	provider.pins:Release(self)
 end
 
 function pinMixin:OnEnter(...)
@@ -90,9 +87,30 @@ local function resetPin(_, pin)
 	pin:SetFrameLevel(5) -- this is the default
 	pin:SetScale(1)
 
-	providerPinPosition[pinProviders[pin]][pin] = nil
+	providers[pinProviders[pin]].positions[pin] = nil
 
 	addon:ReleaseArrow(pin)
+end
+
+local function updatePinSizes()
+	local canvasZoom = WorldMapFrame:GetCanvasZoomPercent()
+	local canvasScaleFactor = 1 / WorldMapFrame:GetCanvasScale()
+
+	for _, data in next, providers do
+		if data.pins:GetNumActive() > 0 then
+			local overlayWidth, overlayHeight = data.overlay:GetSize()
+			local scale = canvasScaleFactor * Lerp(data.pinScale, data.pinScale + data.zoomMultiplier, Saturate(canvasZoom))
+
+			for pin in data.pins:EnumerateActive() do
+				local x, y = unpack(data.positions[pin])
+				local posX = (overlayWidth * x) / scale
+				local posY = (overlayHeight * y) / scale
+
+				pin:SetScale(scale)
+				pin:SetPoint('CENTER', data.overlay, 'TOPLEFT', posX, -posY)
+			end
+		end
+	end
 end
 
 local providerMixin = {}
@@ -111,52 +129,31 @@ function providerMixin:AddPin(mapID, x, y)
 		return
 	end
 
-	local pin = providerPools[self]:Acquire()
+	local provider = providers[self]
+	local pin = provider.pins:Acquire()
 	pin:Show()
 
-	providerPinPosition[self][pin] = {x, y}
+	provider.positions[pin] = {x, y}
 
 	return pin
 end
 
 function providerMixin:SetPinScale(pinScale, zoomMultiplier)
-	providerPinScale[self] = {pinScale or 1, zoomMultiplier or 0.2}
+	providers[self].pinScale = pinScale or 1
+	providers[self].zoomMultiplier = zoomMultiplier or 0.2
 end
 
 function providerMixin:EnumeratePins()
-	return providerPools[self]:EnumerateActive()
+	return providers[self].pins:EnumerateActive()
 end
 
 local function refreshProviders()
-	for provider, pool in next, providerPools do
+	for provider, data in next, providers do
+		local pool = data.pins
 		pool:ReleaseAll()
 
 		if provider.OnRefresh then
 			provider:OnRefresh()
-		end
-	end
-end
-
-local function updatePinSizes()
-	local canvasZoom = WorldMapFrame:GetCanvasZoomPercent()
-	local canvasScaleFactor = 1 / WorldMapFrame:GetCanvasScale()
-
-	for provider, pool in next, providerPools do
-		if pool:GetNumActive() > 0 then
-			local overlay = providerOverlays[provider]
-			local overlayWidth, overlayHeight = overlay:GetSize()
-
-			local pinScale, zoomMultiplier = unpack(providerPinScale[provider])
-			local scale = canvasScaleFactor * Lerp(pinScale, pinScale + zoomMultiplier, Saturate(canvasZoom))
-
-			for pin in pool:EnumerateActive() do
-				local x, y = unpack(providerPinPosition[provider][pin])
-				local posX = (overlayWidth * x) / scale
-				local posY = (overlayHeight * y) / scale
-
-				pin:SetScale(scale)
-				pin:SetPoint('CENTER', overlay, 'TOPLEFT', posX, -posY)
-			end
 		end
 	end
 end
@@ -167,8 +164,8 @@ local function updateMapShow()
 end
 
 local function updateMapHide()
-	for provider, pool in next, providerPools do
-		pool:ReleaseAll()
+	for provider, data in next, providers do
+		data.pins:ReleaseAll()
 
 		if provider.OnMapHide then
 			provider:OnMapHide()
@@ -178,7 +175,6 @@ end
 
 function addon:CreatePinProvider(frameStrata, frameLevel, ...)
 	local provider = CreateFromMixins(providerMixin, ...)
-	provider:SetPinScale() -- set defaults
 
 	local overlay = CreateFrame('Frame', nil, WorldMapFrame:GetCanvas())
 	overlay:SetAllPoints()
@@ -186,7 +182,7 @@ function addon:CreatePinProvider(frameStrata, frameLevel, ...)
 	overlay:SetFrameStrata(frameStrata or 'HIGH')
 	overlay:SetFrameLevel(frameLevel or 1)
 
-	if table.count(providerPools) == 0 then
+	if table.count(providers) == 0 then
 		-- these two hook are sufficient for acquire/release logic
 		hooksecurefunc(WorldMapFrame, 'RefreshAll', refreshProviders)
 		hooksecurefunc(WorldMapFrame, 'OnMapChanged', refreshProviders)
@@ -203,17 +199,18 @@ function addon:CreatePinProvider(frameStrata, frameLevel, ...)
 		WorldMapFrame:HookScript('OnHide', updateMapHide)
 	end
 
-	providerPools[provider] = CreateObjectPool(GenerateClosure(createPin, provider, overlay), resetPin)
-	providerOverlays[provider] = overlay
-	providerPinPosition[provider] = {}
+	providers[provider] = {
+		pins = CreateObjectPool(GenerateClosure(createPin, provider, overlay), resetPin),
+		overlay = overlay,
+		positions = {},
+		pinScale = 1,
+		zoomMultiplier = 0.2,
+	}
 
 	return provider
 end
 
 function addon:RemovePinProvider(provider)
-	providerPools[provider]:ReleaseAll()
-	providerPools[provider] = nil
-	providerOverlays[provider] = nil
-	providerPinPosition[provider] = nil
-	providerPinScale[provider] = nil
+	providers[provider].pins:ReleaseAll()
+	providers[provider] = nil
 end
