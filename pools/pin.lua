@@ -196,10 +196,9 @@ function addon:CreatePinProvider(frameStrata, frameLevel, ...)
 		-- this hook is needed to correctly set pin position and scale
 		hooksecurefunc(WorldMapFrame, 'OnCanvasScaleChanged', updatePins)
 
-		-- OnMapChanged doesn't trigger if the map was already open on the map,
-		-- we'll need to force an update of the active providers, and since the
-		-- canvas stays the same OnCanvasScaleChanged doesn't change so we'll need
-		-- to update pin sizes too
+		-- OnMapChanged doesn't trigger if the map was already open on WorldMapFrame, so we'll need
+		-- to force an update of the active providers, and since the canvas stays the same
+		-- OnCanvasScaleChanged doesn't trigger so we'll need to update pin sizes too
 		addon:RegisterEvent('WORLD_MAP_OPEN', updateMapShow)
 
 		WorldMapFrame:HookScript('OnHide', updateMapHide)
