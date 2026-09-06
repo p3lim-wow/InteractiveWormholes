@@ -341,3 +341,9 @@ function addon:GOSSIP_CLOSED()
 	addon:SafeSetNil(GossipFrame, 'interactionIsContinuing')
 end
 
+addon:RegisterOptionCallback('mapScale', function()
+	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
+end)
+addon:RegisterOptionCallback('zoomFactor', function()
+	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
+end)

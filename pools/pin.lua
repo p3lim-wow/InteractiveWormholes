@@ -141,6 +141,8 @@ end
 function providerMixin:SetPinScale(pinScale, zoomMultiplier)
 	providers[self].pinScale = pinScale or 1
 	providers[self].zoomMultiplier = zoomMultiplier or 0.2
+
+	updatePinSizes()
 end
 
 function providerMixin:EnumeratePins()

@@ -408,3 +408,10 @@ addon:HookAddOn('Blizzard_FlightMap', function()
 		end
 	end)
 end)
+
+addon:RegisterOptionCallback('mapScale', function()
+	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
+end)
+addon:RegisterOptionCallback('zoomFactor', function()
+	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
+end)
