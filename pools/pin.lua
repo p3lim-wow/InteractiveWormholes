@@ -92,7 +92,7 @@ local function resetPin(_, pin)
 	addon:ReleaseArrow(pin)
 end
 
-local function updatePinSizes()
+local function updatePins()
 	if not WorldMapFrame or not WorldMapFrame:IsShown() then
 		return
 	end
@@ -146,7 +146,7 @@ function providerMixin:SetPinScale(pinScale, zoomMultiplier)
 	providers[self].pinScale = pinScale or 1
 	providers[self].zoomMultiplier = zoomMultiplier or 0.2
 
-	updatePinSizes()
+	updatePins()
 end
 
 function providerMixin:EnumeratePins()
@@ -166,7 +166,7 @@ end
 
 local function updateMapShow()
 	refreshProviders()
-	updatePinSizes()
+	updatePins()
 end
 
 local function updateMapHide()
@@ -194,7 +194,7 @@ function addon:CreatePinProvider(frameStrata, frameLevel, ...)
 		hooksecurefunc(WorldMapFrame, 'OnMapChanged', refreshProviders)
 
 		-- this hook is needed to correctly set pin position and scale
-		hooksecurefunc(WorldMapFrame, 'OnCanvasScaleChanged', updatePinSizes)
+		hooksecurefunc(WorldMapFrame, 'OnCanvasScaleChanged', updatePins)
 
 		-- OnMapChanged doesn't trigger if the map was already open on the map,
 		-- we'll need to force an update of the active providers, and since the
