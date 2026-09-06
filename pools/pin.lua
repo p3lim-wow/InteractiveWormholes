@@ -93,6 +93,10 @@ local function resetPin(_, pin)
 end
 
 local function updatePinSizes()
+	if not WorldMapFrame or not WorldMapFrame:IsShown() then
+		return
+	end
+
 	local canvasZoom = WorldMapFrame:GetCanvasZoomPercent()
 	local canvasScaleFactor = 1 / WorldMapFrame:GetCanvasScale()
 
