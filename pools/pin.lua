@@ -38,28 +38,28 @@ end
 function pinMixin:OnEnter(...)
 	local provider = pinProviders[self]
 	if provider.OnPinEnter then
-		provider:OnPinEnter(self, ...)
+		xpcall(provider.OnPinEnter, geterrorhandler(), provider, self, ...)
 	end
 end
 
 function pinMixin:OnLeave(...)
 	local provider = pinProviders[self]
 	if provider.OnPinLeave then
-		provider:OnPinLeave(self, ...)
+		xpcall(provider.OnPinLeave, geterrorhandler(), provider, self, ...)
 	end
 end
 
 function pinMixin:OnMouseDown(button)
 	local provider = pinProviders[self]
 	if provider.OnPinClick then
-		provider:OnPinClick(self, button, true)
+		xpcall(provider.OnPinClick, geterrorhandler(), provider, self, button, true)
 	end
 end
 
 function pinMixin:OnMouseUp(button)
 	local provider = pinProviders[self]
 	if provider.OnPinClick then
-		provider:OnPinClick(self, button, false)
+		xpcall(provider.OnPinClick, geterrorhandler(), provider, self, button, false)
 	end
 end
 
@@ -153,7 +153,7 @@ local function refreshProviders()
 		pool:ReleaseAll()
 
 		if provider.OnRefresh then
-			provider:OnRefresh()
+			xpcall(provider.OnRefresh, geterrorhandler(), provider)
 		end
 	end
 end
@@ -168,7 +168,7 @@ local function updateMapHide()
 		data.pins:ReleaseAll()
 
 		if provider.OnMapHide then
-			provider:OnMapHide()
+			xpcall(provider.OnMapHide, geterrorhandler(), provider)
 		end
 	end
 end

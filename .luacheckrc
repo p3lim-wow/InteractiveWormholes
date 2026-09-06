@@ -107,6 +107,7 @@ read_globals = {
 	'TaxiNodeCost',
 	'UnitFactionGroup',
 	'UnitIsGameObject',
+	'geterrorhandler',
 	'hooksecurefunc',
 
 	-- AddOns
