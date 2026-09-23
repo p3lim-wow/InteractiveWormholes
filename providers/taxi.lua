@@ -419,6 +419,15 @@ end)
 
 if addon:IsForever() then
 	TaxiFrame:HookScript('OnShow', prompt)
+
+	-- skip flight gossip too if it's the only option, and the best way to check it
+	-- is through the icon, as it's unique for the gossip type
+	function addon:GOSSIP_SHOW()
+		local options = C_GossipInfo.GetOptions()
+		if options and #options == 1 and options[1].icon == 132057 then
+			C_GossipInfo.SelectOption(options[1].gossipOptionID)
+		end
+	end
 end
 
 addon:RegisterOptionCallback('mapScale', function()
