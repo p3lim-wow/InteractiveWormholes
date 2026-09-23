@@ -373,41 +373,53 @@ addon:RegisterOptionCallback('taxi', function(value)
 	end
 end)
 
+local function prompt()
+	if not InteractiveWormholesDB.taxiPrompted and not ShouldUseInstanceMap() then
+		-- don't prompt again
+		InteractiveWormholesDB.taxiPrompted = true
+
+		-- on-demand prompt
+		StaticPopupDialogs[addonName] = {
+			text = addon.L['Would you like to use the World Map instead for Taxi services?'],
+			button1 = YES,
+			button2 = NO,
+			OnAccept = function()
+				addon:SetOption('taxi', true)
+
+				-- prevent the taxi interaction from ending until we've rendered our data
+				if FlightMapFrame then
+					FlightMapFrame:SetScript('OnHide', nil)
+				elseif TaxiFrame then
+					TaxiFrame:SetScript('OnHide', nil)
+				end
+
+				-- force refresh
+				OnTaxiOpened()
+
+				-- once we've rendered we re-enable the script handler
+				if FlightMapFrame then
+					FlightMapFrame:SetScript('OnHide', FlightMapMixin.OnHide)
+				end
+			end,
+			hideOnEscape = true,
+			timeout = 0,
+		}
+
+		StaticPopup_Show(addonName)
+	end
+end
+
 addon:HookAddOn('Blizzard_FlightMap', function()
 	if InteractiveWormholesDB.taxiPrompted then
 		return
 	end
 
-	FlightMapFrame:HookScript('OnShow', function()
-		if not InteractiveWormholesDB.taxiPrompted and not ShouldUseInstanceMap() then
-			-- don't prompt again
-			InteractiveWormholesDB.taxiPrompted = true
-
-			-- on-demand prompt
-			StaticPopupDialogs[addonName] = {
-				text = addon.L['Would you like to use the World Map instead for Taxi services?'],
-				button1 = YES,
-				button2 = NO,
-				OnAccept = function()
-					addon:SetOption('taxi', true)
-
-					-- prevent the taxi interaction from ending until we've rendered our data
-					FlightMapFrame:SetScript('OnHide', nil)
-
-					-- force refresh
-					OnTaxiOpened()
-
-					-- once we've rendered we re-enable the script handler
-					FlightMapFrame:SetScript('OnHide', FlightMapMixin.OnHide)
-				end,
-				hideOnEscape = true,
-				timeout = 0,
-			}
-
-			StaticPopup_Show(addonName)
-		end
-	end)
+	FlightMapFrame:HookScript('OnShow', prompt)
 end)
+
+if addon:IsForever() then
+	TaxiFrame:HookScript('OnShow', prompt)
+end
 
 addon:RegisterOptionCallback('mapScale', function()
 	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
