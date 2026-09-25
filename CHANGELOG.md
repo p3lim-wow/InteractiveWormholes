@@ -1,3 +1,10 @@
+### Changes in 120100.85-Release:
+
+- Added: Support for Forever (taxi)
+- Changed: Skip to taxi if only option in Forever
+- Changed: Only update pin sizes when map is visible
+- Fixed: Pins not updating size when scale changes
+
 ### Changes in 120100.84-Release:
 
 - Fixed: Error with cosmic map
