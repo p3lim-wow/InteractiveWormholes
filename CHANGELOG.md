@@ -1,3 +1,7 @@
+### Changes in 120105.86-Release:
+
+- Added: Support for taxi map in The Labyrinth of Kindo'jan
+
 ### Changes in 120100.85-Release:
 
 - Added: Support for Forever (taxi)
