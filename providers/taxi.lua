@@ -7,6 +7,7 @@ local ShouldUseInstanceMap; do
 	-- most instances should use the default map UI, but there are some where it doesn't matter
 	local INSTANCE_USE_WORLD_MAP = {
 		[2093] = true, -- The Nokhud Offensive
+		[2647] = true, -- The Labyrinth of Kindo'jan
 	}
 
 	function ShouldUseInstanceMap()
