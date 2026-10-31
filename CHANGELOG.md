@@ -1,3 +1,7 @@
+### Changes in 120105.87-Release:
+
+- Changed: Update Interface version
+
 ### Changes in 120105.86-Release:
 
 - Added: Support for taxi map in The Labyrinth of Kindo'jan
