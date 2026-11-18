@@ -2,6 +2,10 @@ local _, addon = ...
 
 local paused = false
 function addon:MODIFIER_STATE_CHANGED(key, isPressed)
+	if not addon:AreOptionsLoaded() then
+		return
+	end
+
 	if key:sub(2) == addon:GetOption('modifier') then
 		if addon:GetOption('modifierReverse') then
 			paused = isPressed ~= 1

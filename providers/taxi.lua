@@ -263,6 +263,10 @@ function provider:OnMapHide()
 end
 
 local function OnTaxiOpened()
+	if not addon:AreOptionsLoaded() then
+		return
+	end
+
 	if InCombatLockdown() then
 		-- player can't take a flight in combat anyways, so we bail here
 		CloseTaxiMap()
@@ -441,8 +445,16 @@ if addon:IsForever() then
 end
 
 addon:RegisterOptionCallback('mapScale', function()
+	if not addon:AreOptionsLoaded() then
+		return
+	end
+
 	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
 end)
 addon:RegisterOptionCallback('zoomFactor', function()
+	if not addon:AreOptionsLoaded() then
+		return
+	end
+
 	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
 end)

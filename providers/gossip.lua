@@ -342,8 +342,16 @@ function addon:GOSSIP_CLOSED()
 end
 
 addon:RegisterOptionCallback('mapScale', function()
+	if not addon:AreOptionsLoaded() then
+		return
+	end
+
 	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
 end)
 addon:RegisterOptionCallback('zoomFactor', function()
+	if not addon:AreOptionsLoaded() then
+		return
+	end
+
 	provider:SetPinScale(addon:GetOption('mapScale'), addon:GetOption('zoomFactor'))
 end)
