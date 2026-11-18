@@ -283,8 +283,13 @@ local function OnTaxiOpened()
 	-- to hide POI pins that would otherwise overlap (and nudge) the taxi pins
 	-- C_TaxiMap.ShouldMapShowTaxiNodes = function() end
 
+	local taxiMapID = GetTaxiMapID()
+	if not taxiMapID then
+		return
+	end
+
 	local mapID = addon:GetPlayerMapID()
-	local taxiMapInfo = C_Map.GetMapInfo(GetTaxiMapID())
+	local taxiMapInfo = C_Map.GetMapInfo(taxiMapID)
 	if taxiMapInfo.mapType == Enum.UIMapType.Continent then
 		-- use the nearest continent as the source for taxi nodes
 		local mapInfo = C_Map.GetMapInfo(mapID)
