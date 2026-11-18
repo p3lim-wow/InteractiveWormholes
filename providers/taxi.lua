@@ -429,6 +429,10 @@ if addon:IsForever() then
 	-- skip flight gossip too if it's the only option, and the best way to check it
 	-- is through the icon, as it's unique for the gossip type
 	function addon:GOSSIP_SHOW()
+		if C_GossipInfo.GetNumActiveQuests() > 0 or C_GossipInfo.GetNumAvailableQuests() > 0 then
+			return
+		end
+
 		local options = C_GossipInfo.GetOptions()
 		if options and #options == 1 and options[1].icon == 132057 then
 			C_GossipInfo.SelectOption(options[1].gossipOptionID)
