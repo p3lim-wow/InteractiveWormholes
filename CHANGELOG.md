@@ -1,3 +1,9 @@
+### Changes in 120105.88-Release:
+
+- Changed: Don't skip gossip when there are quests
+- Fixed: Error when interacting with flight master and running away quickly
+- Fixed: Errors on first install
+
 ### Changes in 120105.87-Release:
 
 - Changed: Update Interface version
